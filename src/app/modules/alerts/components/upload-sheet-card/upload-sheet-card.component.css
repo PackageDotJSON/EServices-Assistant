@@ -1,0 +1,24 @@
+.card {
+  box-shadow: 5px 5px 5px gray;
+  width: 80%;
+  margin: auto;
+}
+label {
+  align-self: center;
+}
+.form-group {
+  width: 50%;
+  margin: auto;
+}
+textarea,
+select {
+  margin-left: 1.1em;
+}
+.custom-error-message {
+  color: red;
+}
+.template-button {
+  display: flex;
+  justify-content: end;
+  margin-right: 10%;
+}

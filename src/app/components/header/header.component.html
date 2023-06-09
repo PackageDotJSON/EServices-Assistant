@@ -1,0 +1,117 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-light">
+  <img src="assets/eservices.png" class="img-fluid" style="height: 45px" />
+  <button
+    class="navbar-toggler ml-auto"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="homeUrl"
+        >
+          <i class="bi bi-house" style="font-size: 1.3rem"></i>&nbsp; Home
+          <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item dropdown" *ngIf="userA">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdownMenuLink01"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="bi bi-people" style="font-size: 1.3rem"></i>&nbsp; Admin
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink01">
+          <a
+            class="dropdown-item"
+            routerLinkActive="active"
+            [routerLink]="applicationManagementUrl"
+            >Application Role Management</a
+          >
+          <a
+            class="dropdown-item"
+            routerLinkActive="active"
+            [routerLink]="eservicesManagementUrl"
+            >EServices Role Management</a
+          >
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="userA">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLink]="requestLogUrl"
+          ><i class="bi bi-file-earmark-check" style="font-size: 1.3rem"></i
+          >&nbsp; Request Log</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="userA">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLink]="ioscoAlertsUrl"
+          ><i class="bi bi-file-earmark-bar-graph" style="font-size: 1.3rem"></i
+          >&nbsp; IOSCO Alerts</a
+        >
+      </li>
+      <li class="nav-item dropdown" *ngIf="!userC">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdownMenuLink02"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="bi bi-folder2-open" style="font-size: 1.3rem"></i>&nbsp;
+          Self Service
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink02">
+          <div *ngFor="let route of routes; let i = index">
+            <a
+              class="dropdown-item"
+              routerLinkActive="active"
+              routerLink="{{ route.routes }}"
+              >{{ routes[i].roles }}</a
+            >
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="helpUrl"
+          ><i class="bi bi-info-circle" style="font-size: 1.3rem"></i>&nbsp;
+          Help</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLink]="userprofileUrl"
+          ><i class="bi bi-person-circle" style="font-size: 1.3rem"></i>&nbsp;
+          Profile</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="logoutUrl"
+          ><i class="bi bi-box-arrow-in-left" style="font-size: 1.3rem"></i
+          >&nbsp; Log Out</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

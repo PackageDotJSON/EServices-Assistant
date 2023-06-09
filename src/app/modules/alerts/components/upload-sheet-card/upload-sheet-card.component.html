@@ -1,0 +1,106 @@
+<div class="card text-center">
+  <div class="card-body">
+    <h5 class="card-title">Upload your sheet</h5>
+    <br />
+
+    <form
+      [formGroup]="sheetForm"
+      (ngSubmit)="uploadSheet()"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <div class="input-group">
+          <label for="sheet-type">Sheet Type: </label> &nbsp; &nbsp;
+          <select
+            id="sheet-type"
+            class="form-control"
+            formControlName="sheetType"
+          >
+            <option selected disabled value="">Select Sheet Type</option>
+            <option value="IOSCO Alert">IOSCO Alert</option>
+            <option value="IPO - Copyright">IPO - Copyright</option>
+            <option value="IPO - Trademark">IPO - Trademark</option>
+          </select>
+        </div>
+        <small
+          class="custom-error-message"
+          *ngIf="
+            (sheetForm.get('sheetType').dirty ||
+              sheetForm.get('sheetType').touched) &&
+            sheetForm.get('sheetType').invalid
+          "
+          >Sheet Type is required</small
+        >
+
+        <br />
+        <div class="input-group">
+          <label for="sheet-upload">Upload Sheet: </label> &nbsp; &nbsp;
+          <input
+            id="sheet-upload"
+            type="file"
+            (change)="handleFileInput($event.target.files[0])"
+            formControlName="sheetUpload"
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          />
+          <small
+            class="custom-error-message"
+            *ngIf="
+              (sheetForm.get('sheetUpload').dirty ||
+                sheetForm.get('sheetUpload').touched) &&
+              sheetForm.get('sheetUpload').invalid
+            "
+          >
+            The file name is too long or, it's empty. Please
+            upload a <b>.xlsx</b> file of less than 1 MB.
+          </small>
+        </div>
+
+        <br />
+
+        <div class="input-group">
+          <label for="sheet-description">Description: </label> &nbsp; &nbsp;
+          <textarea
+            id="sheet-description"
+            type="textfield"
+            class="form-control"
+            rows="3"
+            formControlName="sheetDescription"
+          ></textarea>
+        </div>
+        <small
+          class="custom-error-message"
+          *ngIf="
+            (sheetForm.get('sheetDescription').dirty ||
+              sheetForm.get('sheetDescription').touched) &&
+            sheetForm.get('sheetDescription').invalid
+          "
+        >
+          The description should not be less than 20 and more than 150
+          characters.
+        </small>
+      </div>
+      <br />
+      <button class="btn btn-primary" [disabled]="sheetForm.invalid">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+<br />
+<div class="template-button">
+  <button class="btn btn-primary" (click)="downloadExcelTemplate()">
+    Download Excel Template
+  </button>
+</div>
+
+<ng-container *ngIf="isRequestSent">
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
+
+<ng-container *ngIf="alertResponse$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === 200 ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === 200 ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>

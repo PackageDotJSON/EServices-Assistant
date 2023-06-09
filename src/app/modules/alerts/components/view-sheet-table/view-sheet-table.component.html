@@ -1,0 +1,52 @@
+<div class="table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Sr.</th>
+        <th scope="col">Sheet Name</th>
+        <th scope="col">Sheet Type</th>
+        <th scope="col">Uploaded By</th>
+        <th scope="col">Total Records</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="sheetData$ | async as sheetData; else isLoadingData">
+      <ng-container *ngIf="sheetData?.length; else noDataExists">
+        <tr *ngFor="let sData of sheetData; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ sData.alertName }}</td>
+          <td>{{ sData.alertType }}</td>
+          <td>{{ sData.uploadedBy }}</td>
+          <td>{{ sData.totalRecords }}</td>
+          <td>
+            <button class="btn btn-success">
+              <i
+                class="bi bi-download"
+                (click)="downloadSheet(sData.alertName)"
+              ></i></button
+            >&nbsp; &nbsp;
+            <button
+              class="btn btn-danger"
+              (click)="deleteSheet(sData.alertName)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noDataExists> No data found at the moment. </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #isLoadingData>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+
+<ng-container *ngIf="serverResponse$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === 200 ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === 200 ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>

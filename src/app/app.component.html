@@ -1,0 +1,20 @@
+<div *ngIf="!timeOut" style="text-align: center">
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <img class="img-fluid" src="assets/testalign.png" />
+  <br /><br />
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<ng-container *ngIf="showHeaderFooter$ | async">
+  <app-header></app-header>
+</ng-container>
+
+<ng-container *ngIf="timeOut">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-container *ngIf="showHeaderFooter$ | async">
+  <app-footer></app-footer>
+</ng-container>

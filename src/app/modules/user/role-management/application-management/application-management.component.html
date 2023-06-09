@@ -1,0 +1,1108 @@
+<div class="container-fluid" style="width: 80%">
+  <div class="ribbon">
+    <div class="ribbon-content"><p>Application Role Management</p></div>
+  </div>
+  <br /><br />
+  <div class="jumbotron-fluid">
+    <br />
+  </div>
+  <br />
+
+  <div
+    class="col-xs-14 col-sm-12 col-md-10 col-lg-8 col-xl-6"
+    style="margin: auto"
+  >
+    <div style="text-align: right">
+      <div class="input-group" style="width: 60%; margin: auto">
+        <div class="input-group-addon" style="font-size: 1.3rem; color: white">
+          &nbsp; <i class="bi bi-search"></i> &nbsp;
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="searchDataKey"
+          placeholder="Search..."
+        />
+        &nbsp;
+        <button
+          class="btn btn-outline-success"
+          type="button"
+          name="button"
+          [disabled]="authFailedError"
+          (click)="searchDataApi()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+
+  <div class="row">
+    <div class="column ml-auto">
+      <ng-container *ngIf="!searchingData">
+        <button
+          class="btn btn-outline-success"
+          type="button"
+          data-toggle="modal"
+          data-target="#exampleModal2"
+          name="button"
+          [disabled]="authFailedError"
+        >
+          Add new user &nbsp;<i class="bi bi-plus-circle"></i>
+        </button>
+      </ng-container>
+    </div>
+
+    <div class="column mx-auto">
+      <ng-container *ngIf="!searchingData">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          name="button"
+          [disabled]="!backwardButton"
+          (click)="decrementData(); fetchAdminDataApi()"
+        >
+          <i class="bi bi-chevron-left"></i></button
+        >&nbsp;
+        <button
+          class="btn btn-secondary"
+          type="button"
+          name="button"
+          [disabled]="!forwardButton"
+          (click)="incrementData(); fetchAdminDataApi()"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </ng-container>
+    </div>
+
+    <div class="column mr-auto">
+      <ng-container *ngIf="!searchingData">
+        <small class="text-muted"
+          >Showing {{ +paginationNumber + 1 }} - {{ paginationLimitDisplay }} of
+          {{ totalUsers }}</small
+        >
+      </ng-container>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered fixed-table">
+      <thead>
+        <tr style="font-size: 15px">
+          <th scope="col">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Designation</th>
+          <th scope="col">Status</th>
+          <th scope="col">Employee ID</th>
+          <th scope="col">Location</th>
+          <th scope="col">Department</th>
+          <th scope="col">AD Account</th>
+          <th scope="col">Rights</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <br />
+      <tbody *ngIf="!searchingData">
+        <tr style="font-size: 13px" *ngFor="let admin of adminData">
+          <td>{{ admin.id }}</td>
+          <td>{{ admin.name }}</td>
+          <td>{{ admin.email }}</td>
+          <td>{{ admin.userdesignation }}</td>
+          <td>{{ admin.userstatus }}</td>
+          <td>{{ admin.employeeid }}</td>
+          <td>{{ admin.location }}</td>
+          <td>{{ admin.department }}</td>
+          <td>{{ admin.samaccount }}</td>
+          <td>{{ admin.userrights }}</td>
+          <td>
+            <button
+              class="btn btn-success"
+              type="button"
+              name="button"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              [disabled]="authFailedError"
+              (click)="
+                rightToUpdate(admin.email);
+                fetchSubAdminDataApi(admin.email, admin.userrights)
+              "
+            >
+              <i class="bi bi-pencil" style="font-size: 0.9rem"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="searchingData">
+        <tr style="font-size: 13px" *ngFor="let search of searchData">
+          <td>{{ search.id }}</td>
+          <td>{{ search.name }}</td>
+          <td>{{ search.email }}</td>
+          <td>{{ search.userdesignation }}</td>
+          <td>{{ search.userstatus }}</td>
+          <td>{{ search.employeeid }}</td>
+          <td>{{ search.location }}</td>
+          <td>{{ search.department }}</td>
+          <td>{{ search.samaccount }}</td>
+          <td>{{ search.userrights }}</td>
+          <td>
+            <button
+              class="btn btn-success"
+              type="button"
+              name="button"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              [disabled]="authFailedError"
+              (click)="
+                rightToUpdate(search.email);
+                fetchSubAdminDataApi(search.email, search.userrights)
+              "
+            >
+              <i class="bi bi-pencil" style="font-size: 0.9rem"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="noDataFound">
+        <p>No Result found</p>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br /><br />
+
+<!-- Modal -->
+<div
+  class="modal fade bd-example-modal-lg"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel01"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="margin: auto">
+        <h5 class="modal-title" id="exampleModalLabel01">
+          Change Administrative Rights
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="text-align: center; margin: auto">
+        <div class="input-group" style="margin: auto">
+          <div
+            class="input-group-addon"
+            style="font-size: 1.3rem; color: white"
+          >
+            <i class="bi bi-lock"></i>
+            <select
+              class="custom-select"
+              size="4"
+              name="adminrights"
+              [(ngModel)]="adminRights"
+              (ngModelChange)="userRightsSelected = false"
+              required
+              style="width: 100%"
+            >
+              <option
+                selected
+                disabled
+                value="Select admin rights"
+                style="font-weight: bold"
+              >
+                Select administrative rights:
+              </option>
+              <option value="full">Full</option>
+              <option value="partial">Partial</option>
+              <option value="minimum">Minimum</option>
+            </select>
+          </div>
+        </div>
+        <br />
+        <div
+          class="input-group"
+          style="margin: auto"
+          *ngIf="adminRights != 'minimum'"
+        >
+          <div
+            class="input-group-addon"
+            style="font-size: 1.3rem; color: white"
+          >
+            <i class="bi bi-person-lines-fill"></i>
+            <select
+              class="custom-select"
+              multiple
+              size="5"
+              name="subadminrightstodelete"
+              [(ngModel)]="userRightsToDelete"
+              (ngModelChange)="isDeleted = true"
+              style="width: 100%"
+            >
+              <option
+                selected
+                disabled
+                value="Select admin rights"
+                style="font-weight: bold"
+              >
+                User's sub administrative rights:
+              </option>
+              <option
+                *ngFor="let sData of subAdminData"
+                value="{{ sData.roles }}"
+              >
+                {{ sData.roles }}
+              </option>
+            </select>
+          </div>
+          &nbsp;
+          <button
+            style="height: 40px; margin: auto"
+            class="btn btn-outline-danger"
+            (click)="deleteUserSubRights()"
+            [disabled]="!isDeleted"
+            type="button"
+            name="button"
+          >
+            <i class="bi bi-x"></i>
+          </button>
+          &nbsp; &nbsp;
+          <small style="margin: auto" class="text-muted"
+            >Select one at a time</small
+          >
+        </div>
+        <br />
+        <div
+          class="input-group"
+          style="margin: auto"
+          *ngIf="adminRights != 'minimum'"
+        >
+          <div
+            class="input-group-addon"
+            style="font-size: 1.3rem; color: white"
+          >
+            <i class="bi bi-key"></i>
+            <select
+              class="custom-select"
+              multiple
+              size="5"
+              name="subadminrights"
+              [(ngModel)]="updatedUserRights"
+              (ngModelChange)="isChanged = true"
+              style="width: 100%"
+            >
+              <option
+                selected
+                disabled
+                value="Select admin rights"
+                style="font-weight: bold"
+              >
+                Other sub administrative rights:
+              </option>
+              <option
+                *ngFor="let saData of subAdminAllData"
+                value="{{ saData.roles }}"
+              >
+                {{ saData.roles }}
+              </option>
+            </select>
+          </div>
+          &nbsp;
+          <button
+            style="height: 40px; margin: auto"
+            class="btn btn-outline-primary"
+            type="button"
+            name="button"
+            [disabled]="toggleButton || !isChanged"
+            (click)="updateUserSubRights()"
+          >
+            <i class="bi bi-arrow-up"></i>
+          </button>
+        </div>
+        <br />
+      </div>
+      <div
+        class="alert alert-warning alert-dismissible"
+        id="myuserRightsAlert"
+        role="alert"
+        *ngIf="userRightsSelected"
+        style="margin: auto"
+      >
+        <button
+          type="button"
+          aria-hidden="true"
+          (click)="hideMyuserRightsAlert()"
+          class="close"
+          aria-label="Close"
+        >
+          <i class="bi bi-x"></i>
+        </button>
+        <span>
+          <b> Failure - </b> Please select some rights from the given list.
+        </span>
+      </div>
+      <div
+        class="alert alert-warning alert-dismissible"
+        id="myDeleteAlert"
+        role="alert"
+        *ngIf="deleteEmptyAlert"
+        style="margin: auto"
+      >
+        <button
+          type="button"
+          aria-hidden="true"
+          (click)="hideMyDeleteAlert()"
+          class="close"
+          aria-label="Close"
+        >
+          <i class="bi bi-x"></i>
+        </button>
+        <span>
+          <b> Failure - </b> There are no rights to delete or, you may have
+          selected more than one at a time.
+        </span>
+      </div>
+      <br /><br />
+      <div class="modal-footer" style="margin: auto">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="modifyAdminDataApi(); modifySubAdminDataApi()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade bd-example-modal-lg"
+  id="exampleModal2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel02"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel02">Enter User Details</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <form (ngSubmit)="postDataApi(f)" #f="ngForm">
+        <div style="margin-left: 12%; text-align: left">
+          <small class="text-muted">All fields are required</small>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-person"></i> &nbsp;
+              </div>
+              <input
+                class="form-control"
+                type="text"
+                ngModel
+                name="fullPersonName"
+                placeholder="Full Name"
+                autocomplete="off"
+              />
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-envelope"></i> &nbsp;
+              </div>
+              <input
+                type="email"
+                class="form-control"
+                ngModel
+                name="mailPerson"
+                placeholder="Email"
+                autocomplete="off"
+              />
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-key"></i> &nbsp;
+              </div>
+              <input
+                type="password"
+                class="form-control"
+                ngModel
+                name="codePerson"
+                placeholder="Password"
+                autocomplete="new-password"
+              />
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-person-badge"></i> &nbsp;
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                ngModel
+                name="employeeidPerson"
+                placeholder="Employee ID"
+              />
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-person-bounding-box"></i> &nbsp;
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                ngModel
+                name="samaccountPerson"
+                placeholder="SAM Account Name"
+              />
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-folder2-open"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                size="4"
+                ngModel
+                name="activeDirectoryPerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select Active Directory Account"
+                  style="font-weight: bold"
+                >
+                  Select Active Directory Account:
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-person-lines-fill"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                size="5"
+                ngModel
+                name="jobRolePerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select user designation"
+                  style="font-weight: bold"
+                >
+                  Select User Designation:
+                </option>
+                <option value="ACCA Trainee">ACCA Trainee</option>
+                <option value="Additional Director">Additional Director</option>
+                <option value="Additional Joint Director">
+                  Additional Joint Director
+                </option>
+                <option value="Additional Joint Registrar">
+                  Additional Joint Registrar
+                </option>
+                <option value="Additional Registrar">
+                  Additional Registrar
+                </option>
+                <option value="Additional Registrar/Adjudication Officer">
+                  Additional Registrar/Adjudication Officer
+                </option>
+                <option value="Advisor">Advisor</option>
+                <option value="Application Administrator">
+                  Application Administrator
+                </option>
+                <option value="Assistant Director">Assistant Director</option>
+                <option value="Assistant Registrar">Assistant Registrar</option>
+                <option value="Assistant Support Executive">
+                  Assistant Support Executive
+                </option>
+                <option value="Audit Officer">Audit Officer</option>
+                <option value="Audit Supervisor">Audit Supervisor</option>
+                <option value="Chairman SECP">Chairman SECP</option>
+                <option value="Chief Medical Officer">
+                  Chief Medical Officer
+                </option>
+                <option value="Commissioner">Commissioner</option>
+                <option value="Court Clerk">Court Clerk</option>
+                <option value="Database Administrator">
+                  Database Administrator
+                </option>
+                <option value="Deputy Director">Deputy Director</option>
+                <option value="Deputy Registrar">Deputy Registrar</option>
+                <option value="Developer">Developer</option>
+                <option value="Director">Director</option>
+                <option value="Director/HOD">Director/HOD</option>
+                <option value="Executive Director">Executive Director</option>
+                <option value="Executive Officer">Executive Officer</option>
+                <option value="Graduate Trainee">Graduate Trainee</option>
+                <option value="ICAP Trainee">ICAP Trainee</option>
+                <option value="Intern">Intern</option>
+                <option value="Joint Director">Joint Director</option>
+                <option value="Joint Registrar">Joint Registrar</option>
+                <option value="Joint Registrar/Adjudication Officer">
+                  Joint Registrar/Adjudication Officer
+                </option>
+                <option value="Management Support">Management Support</option>
+                <option value="Management Executive">
+                  Management Executive
+                </option>
+                <option value="Medical Officer">Medical Officer</option>
+                <option value="Office Attendant">Office Attendant</option>
+                <option value="Office Support">Office Support</option>
+                <option value="Principal System Engineer">
+                  Principal System Engineer
+                </option>
+                <option value="Private Secretary">Private Secretary</option>
+                <option value="Registrar of Companies/HOD">
+                  Registrar of Companies/HOD
+                </option>
+                <option value="Secretarial Support">Secretarial Support</option>
+                <option value="Secretary to the Commission">
+                  Secretary to the Commission
+                </option>
+                <option value="Senior Executive Officer">
+                  Senior Executive Officer
+                </option>
+                <option value="Senior Executive Officer (Special Grade)">
+                  Senior Executive Officer (Special Grade)
+                </option>
+                <option value="Senior Executive Secretary">
+                  Senior Executive Secretary
+                </option>
+                <option value="Senior Office Attendant">
+                  Senior Office Attendant
+                </option>
+                <option value="Senior Office Attendant (Special Grade)">
+                  Senior Office Attendant (Special Grade)
+                </option>
+                <option value="Senior Private Secretary">
+                  Senior Private Secretary
+                </option>
+                <option value="Senior Support Executive">
+                  Senior Support Executive
+                </option>
+                <option value="Staff Officer">Staff Officer</option>
+                <option value="Support Executive">Support Executive</option>
+                <option value="Support Services">Support Services</option>
+                <option value="System Administrator">
+                  System Administrator
+                </option>
+                <option value="Technical Support (Security Officer)">
+                  Technical Support (Security Officer)
+                </option>
+              </select>
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-lightbulb"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                size="4"
+                ngModel
+                name="jobStatusPerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select user status"
+                  style="font-weight: bold"
+                >
+                  Select User Status:
+                </option>
+                <option value="Active">Active</option>
+                <option value="InActive">InActive</option>
+              </select>
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-building"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                size="4"
+                ngModel
+                name="locationPerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select Location"
+                  style="font-weight: bold"
+                >
+                  Select Location:
+                </option>
+                <option value="CRO Faisalabad">CRO Faisalabad</option>
+                <option value="CRO Gilgit Baltistan">
+                  CRO Gilgit Baltistan
+                </option>
+                <option value="CRO Islamabad">CRO Islamabad</option>
+                <option value="CRO Karachi">CRO Karachi</option>
+                <option value="CRO Lahore">CRO Lahore</option>
+                <option value="CRO Multan">CRO Multan</option>
+                <option value="CRO Peshawar">CRO Peshawar</option>
+                <option value="CRO Quetta">CRO Quetta</option>
+                <option value="CRO Sukkur">CRO Sukkur</option>
+                <option value="Facilitation Desk Sialkot">
+                  Facilitation Desk Sialkot
+                </option>
+                <option value="Head Office">Head Office</option>
+              </select>
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-building"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                size="5"
+                ngModel
+                name="departmentPerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select Department"
+                  style="font-weight: bold"
+                >
+                  Select Department:
+                </option>
+                <option value="Adjudication Advisory & Litigation Department">
+                  Adjudication Advisory & Litigation Department
+                </option>
+                <option value="Adjudication Department - I">
+                  Adjudication Department - I
+                </option>
+                <option value="Adjudication Department - II">
+                  Adjudication Department - II
+                </option>
+                <option value="Adjudication Department-I">
+                  Adjudication Department-I
+                </option>
+                <option value="Adjudication Department-II">
+                  Adjudication Department-II
+                </option>
+                <option value="Administration Department">
+                  Administration Department
+                </option>
+                <option value="Advisory Department">Advisory Department</option>
+                <option value="Anti Money Laundering Department">
+                  Anti Money Laundering Department
+                </option>
+                <option value="Anti-Money Laundering Department">
+                  Anti-Money Laundering Department
+                </option>
+                <option value="Appellate Bench">Appellate Bench</option>
+                <option value="Brokers Compliance Department">
+                  Brokers Compliance Department
+                </option>
+                <option value="Brokers' Compliance Department">
+                  Brokers' Compliance Department
+                </option>
+                <option value="CRO, Faisalabad">CRO, Faisalabad</option>
+                <option value="CRO, Gilgit">CRO, Gilgit</option>
+                <option value="CRO, Islamabad">CRO, Islamabad</option>
+                <option value="CRO, Karachi">CRO, Karachi</option>
+                <option value="CRO, Lahore">CRO, Lahore</option>
+                <option value="CRO, Multan">CRO, Multan</option>
+                <option value="CRO, Peshawar">CRO, Peshawar</option>
+                <option value="CRO, Quetta">CRO, Quetta</option>
+                <option value="CRO, Sukkur">CRO, Sukkur</option>
+                <option value="Chairman Office">Chairman Office</option>
+                <option value="Chairman and Commission Secretariat">
+                  Chairman and Commission Secretariat
+                </option>
+                <option value="Chairman's Secretariat">
+                  Chairman's Secretariat
+                </option>
+                <option value="Commission Secretariat">
+                  Commission Secretariat
+                </option>
+                <option value="Company Law Division">
+                  Company Law Division
+                </option>
+                <option value="Corporate Supervision Department">
+                  Corporate Supervision Department
+                </option>
+                <option value="Corporatization and Compliance Department">
+                  Corporatization and Compliance Department
+                </option>
+                <option value="Corporatization and Compliance Department-CROs">
+                  Corporatization and Compliance Department-CROs
+                </option>
+                <option
+                  value="Corporatization and Compliance Department-Regulation"
+                >
+                  Corporatization and Compliance Department-Regulation
+                </option>
+                <option value="Finance Department">Finance Department</option>
+                <option value="Human Resource Department">
+                  Human Resource Department
+                </option>
+                <option value="Human Resources and Training Department">
+                  Human Resources and Training Department
+                </option>
+                <option value="Information Security Department">
+                  Information Security Department
+                </option>
+                <option value="Information System & Technology">
+                  Information System & Technology
+                </option>
+                <option value="Information System & Technology Department">
+                  Information System & Technology Department
+                </option>
+                <option value="Information Systems and Technology Department">
+                  Information Systems and Technology Department
+                </option>
+                <option value="Internal Audit and Compliance Department">
+                  Internal Audit and Compliance Department
+                </option>
+                <option value="International Relations Department">
+                  International Relations Department
+                </option>
+                <option value="Investor Education Department">
+                  Investor Education Department
+                </option>
+                <option value="Islamic Finance Department">
+                  Islamic Finance Department
+                </option>
+                <option value="Legislative Review & Research Department">
+                  Legislative Review & Research Department
+                </option>
+                <option
+                  value="Market Development, Policy & Regulation Department (Insurance)"
+                >
+                  Market Development, Policy & Regulation Department (Insurance)
+                </option>
+                <option value="Market Supervision Department">
+                  Market Supervision Department
+                </option>
+                <option value="Market Supervision Department KHI">
+                  Market Supervision Department KHI
+                </option>
+                <option value="Media and Translation Department">
+                  Media and Translation Department
+                </option>
+                <option value="PRDD-Modaraba">PRDD-Modaraba</option>
+                <option
+                  value="Policy Regulation and Development Department (SCD)"
+                >
+                  Policy Regulation and Development Department (SCD)
+                </option>
+                <option
+                  value="Policy Regulation and Development Department (SCD.)"
+                >
+                  Policy Regulation and Development Department (SCD.)
+                </option>
+                <option
+                  value="Policy, Regulation and Development Department (SMD)"
+                >
+                  Policy, Regulation and Development Department (SMD)
+                </option>
+                <option
+                  value="Policy, Regulation and Development Department SCD"
+                >
+                  Policy, Regulation and Development Department SCD
+                </option>
+                <option
+                  value="Policy, Regulation and Development Department SMD"
+                >
+                  Policy, Regulation and Development Department SMD
+                </option>
+                <option
+                  value="Primary Market Approvals and Development Department (SMD)"
+                >
+                  Primary Market Approvals and Development Department (SMD)
+                </option>
+                <option value="SMD">SMD</option>
+                <option value="Specialized Companies Division">
+                  Specialized Companies Division
+                </option>
+                <option value="Supervision & Enforcement Department">
+                  Supervision & Enforcement Department
+                </option>
+                <option value="Supervision Department (Insurance)">
+                  Supervision Department (Insurance)
+                </option>
+              </select>
+            </div>
+
+            <br />
+
+            <div class="input-group" style="width: 80%; margin: auto">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-unlock"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                size="4"
+                ngModel
+                name="adminRightsPerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select administrative rights"
+                  style="font-weight: bold"
+                >
+                  Select Administrative Rights:
+                </option>
+                <option value="full" (click)="showAdditionalRights()">
+                  Full
+                </option>
+                <option value="partial" (click)="showAdditionalRights()">
+                  Partial
+                </option>
+                <option value="minimum" (click)="hideAdditionalRights()">
+                  Minimum
+                </option>
+              </select>
+            </div>
+
+            <br />
+
+            <div
+              class="input-group"
+              style="width: 80%; margin: auto"
+              *ngIf="additionalRights"
+            >
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                <br />&nbsp; <i class="bi bi-unlock"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                multiple
+                size="5"
+                ngModel
+                name="additionalRightsPerson"
+              >
+                <option
+                  selected
+                  disabled
+                  value="Select additional roles"
+                  style="font-weight: bold"
+                >
+                  Select Additional Roles:
+                </option>
+                <option
+                  value="Search Bank Transaction Log,/searchbanktransactionlog"
+                >
+                  Search Bank Transaction Log
+                </option>
+                <option value="CTC Filing Status Report,/ctcfilingstatusreport">
+                  CTC Filing Status Report
+                </option>
+                <option value="Applied CTC Report,/appliedctcreport">
+                  Applied CTC Report
+                </option>
+                <option
+                  value="Process Report By Status,/processreportbystatus"
+                >
+                  Process Report - Status Wise
+                </option>
+                <option value="View Company Records,/viewcompanyrecords">
+                  View Company Records
+                </option>
+                <option
+                  value="View Company Submission Mode,/viewcompanysubmissionmode"
+                >
+                  View Company Submission Mode
+                </option>
+                <option value="CTC Revenue Report,/ctcrevenuereport">
+                  CTC Revenue Report
+                </option>
+                <option value="Bank Usage Report,/bankusagereport">
+                  Bank Usage Report
+                </option>
+                <option
+                  value="Data Sharing Monitoring Report,/datasharingmonitoringreport"
+                >
+                  Data Sharing Monitoring Report
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="fieldsEmptyAlert">
+          <p style="text-align: center; color: red">All fields are required.</p>
+        </ng-container>
+
+        <ng-container *ngIf="passwordLengthAlert">
+          <p style="text-align: center; color: red">
+            Please enter a password containing atleast 8 characters.
+          </p>
+        </ng-container>
+
+        <div class="modal-footer" style="margin: auto">
+          <button
+            type="submit"
+            class="btn btn-outline-danger"
+            data-dismiss="modal"
+          >
+            &nbsp; Close &nbsp;
+          </button>
+          <button
+            type="submit"
+            class="btn btn-outline-success"
+            (click)="hideModal()"
+          >
+            &nbsp; Save &nbsp;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="dataUpdated">
+  <app-toast
+    [toastColor]="'bg-success'"
+    [toastOperation]="'Success'"
+    [toastMessage]="'User Rights have been modified successfully.'"
+  ></app-toast>
+</ng-container>
+
+<ng-container *ngIf="dataAdded">
+  <app-toast
+    [toastColor]="'bg-success'"
+    [toastOperation]="'Success'"
+    [toastMessage]="'New user data has been added successfully.'"
+  ></app-toast>
+</ng-container>
+
+<ng-container *ngIf="emailExists">
+  <app-toast
+    [toastColor]="'bg-danger'"
+    [toastOperation]="'Failure'"
+    [toastMessage]="'This email already exists! Please try another email.'"
+  ></app-toast>
+</ng-container>
+
+<ng-container *ngIf="noTokenError">
+  <app-toast
+    [toastColor]="'bg-warning'"
+    [toastOperation]="'Warning'"
+    [toastMessage]="
+      'You are trying to access this website without any token. This is an unusual error. Please contact the administrator.'
+    "
+  ></app-toast>
+</ng-container>
+
+<ng-container *ngIf="authFailedError">
+  <app-toast
+    [toastColor]="'bg-danger'"
+    [toastOperation]="'Failure'"
+    [toastMessage]="
+      'The token has expired. In order to renew the token, please log in again.'
+    "
+  ></app-toast>
+</ng-container>
+
+<ng-container *ngIf="serverError">
+  <app-toast
+    [toastColor]="'bg-danger'"
+    [toastOperation]="'Failure'"
+    [toastMessage]="
+      'An unknown server error has occurred. Please try again later.'
+    "
+  ></app-toast>
+</ng-container>
+
+<br /><br />

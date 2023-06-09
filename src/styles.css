@@ -1,0 +1,145 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+}
+
+tbody {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.ribbon {
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+  text-align: center;
+  font-size: 20px !important;
+  background: #4ca2cd;
+  background: linear-gradient(to bottom, #4ca2cd, #67b26f);
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 1px;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.ribbon p {
+  font-size: 18px !important;
+  color: #ffffff;
+  text-shadow: #67b26f 0 1px 0;
+  margin: 0px;
+  padding: 8px 10px;
+}
+
+.ribbon:before,
+.ribbon:after {
+  content: "";
+  position: absolute;
+  display: block;
+  bottom: -1em;
+  border: 1.5em solid #4ca2cd;
+  z-index: -1;
+}
+
+.ribbon:before {
+  left: -2em;
+  border-right-width: 1.5em;
+  border-left-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px;
+}
+
+.ribbon:after {
+  right: -2em;
+  border-left-width: 1.5em;
+  border-right-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.4) -1px 1px 1px;
+}
+
+.ribbon .ribbon-content:before,
+.ribbon .ribbon-content:after {
+  border-color: #67b26f transparent transparent transparent;
+  position: absolute;
+  display: block;
+  border-style: solid;
+  bottom: -1em;
+  content: "";
+}
+
+.ribbon .ribbon-content:before {
+  left: 0;
+  border-width: 1em 0 0 1em;
+}
+
+.ribbon .ribbon-content:after {
+  right: 0;
+  border-width: 1em 1em 0 0;
+}
+
+.table-responsive {
+  box-shadow: 10px 10px 10px 10px grey;
+  max-height: 650px;
+  overflow: auto;
+  display: inline-block;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: #4c956c;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #67b26f;
+  background: -webkit-linear-gradient(top, #67b26f 0%, #4ca2cd 100%);
+  background: linear-gradient(to bottom, #67b26f 0%, #4ca2cd 100%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #45a247;
+  background: -webkit-linear-gradient(top, #45a247 0%, #283c86 100%);
+  background: linear-gradient(to bottom, #45a247 0%, #283c86 100%);
+}
+
+thead {
+  color: white;
+}
+
+th {
+  background: #67b26f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-attachment: fixed;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.input-group-addon {
+  background: #67b26f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

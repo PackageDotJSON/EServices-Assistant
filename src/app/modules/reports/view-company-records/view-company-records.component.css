@@ -1,0 +1,62 @@
+.ribbon {
+  width: 364px !important;
+  margin-left: -182px !important;
+}
+
+.card {
+  box-shadow: 10px 10px 10px 10px grey;
+}
+
+.card-header {
+  background: #67b26f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
+
+#cardinner {
+  box-shadow: 5px 5px 5px 5px grey;
+}
+
+.multi-collapse {
+  margin-top: 0px;
+}
+
+.table-responsive {
+  box-shadow: 15px 15px 15px 15px grey !important;
+  max-height: 700px !important;
+}
+
+#searchingcard {
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+#searchingcardheader {
+  background-attachment: fixed;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+::-webkit-scrollbar {
+  width: 12px !important;
+}
+
+.custom-input-span {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.custom-input-border {
+  border: 1px solid gainsboro;
+}

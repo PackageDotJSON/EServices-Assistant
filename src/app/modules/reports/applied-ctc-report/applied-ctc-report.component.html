@@ -1,0 +1,102 @@
+<div class="container-fluid" style="width: 80%">
+  <div class="ribbon">
+    <div class="ribbon-content"><p>Applied CTC Report</p></div>
+  </div>
+  <div class="jumbotron-fluid" style="margin: auto; text-align: center">
+    <br /><br /><br /><br />
+    <br />
+    <div style="float: left">
+      <button
+        class="btn btn-outline-success"
+        type="submit"
+        name="button"
+        (click)="exportData()"
+      >
+        Export to Excel <i class="bi bi-file-excel"></i>
+      </button>
+    </div>
+
+    <br /><br />
+    <div class="table-responsive">
+      <table
+        style="text-align: left"
+        class="table table-striped table-hover table-bordered"
+      >
+        <thead style="font-size: 15px">
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Form Name</th>
+            <th scope="col">Form Fee</th>
+            <th scope="col">Date</th>
+            <th scope="col">User ID</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="!dataNotAvailable">
+          <tr
+            style="font-size: 13px"
+            *ngFor="let cList of ctcTableData; let i = index"
+          >
+            <td>{{ +i + 1 }}</td>
+            <td>{{ cList.FORM_NAME }}</td>
+            <td>{{ cList.FORM_FEE }}</td>
+            <td>{{ cList.DATE }}</td>
+            <td>{{ cList.USER_ID }}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="dataNotAvailable">
+          <tr style="font-size: 13px">
+            <td></td>
+            <td></td>
+            <td>No record found</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-container *ngIf="writeToExcelAlert">
+      <app-toast
+        [toastColor]="'bg-success'"
+        [toastOperation]="'Success'"
+        [toastMessage]="'Data has been exported to excel successfully.'"
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="noTokenError">
+      <app-toast
+        [toastColor]="'bg-warning'"
+        [toastOperation]="'Warning'"
+        [toastMessage]="
+          'You are trying to access this website without any token. This is an unusual error. Please contact the administrator.'
+        "
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="authFailedError">
+      <app-toast
+        [toastColor]="'bg-danger'"
+        [toastOperation]="'Failure'"
+        [toastMessage]="
+          'The token has expired. In order to renew the token, please log in again.'
+        "
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="serverError">
+      <app-toast
+        [toastColor]="'bg-danger'"
+        [toastOperation]="'Failure'"
+        [toastMessage]="
+          'An unknown server error has occurred. Please try again later.'
+        "
+      ></app-toast>
+    </ng-container>
+  </div>
+</div>
+
+<br /><br /><br />
+
+<ng-container *ngIf="isWaiting">
+  <app-loader></app-loader>
+</ng-container>

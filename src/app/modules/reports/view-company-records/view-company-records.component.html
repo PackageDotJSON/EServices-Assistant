@@ -1,0 +1,975 @@
+<div class="container-fluid" (click)="closeCompanyDropDown()">
+  <div class="ribbon">
+    <div class="ribbon-content"><p>View Company Records</p></div>
+  </div>
+  <div class="jumbotron-fluid" style="text-align: center">
+    <br /><br /><br /><br /><br /><br />
+    <div class="card" style="width: 45%; margin: auto" *ngIf="!dataAvailable">
+      <div class="card-header">
+        <h6 style="font-size: 18px">
+          Search and View Company Documents in Archive Data or in eServices
+        </h6>
+      </div>
+      <div class="card-body">
+        <span><b>Search by</b></span
+        >&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input
+          class="form-check-input"
+          type="radio"
+          id="flexRadioDefault3"
+          name="flexRadioDefault"
+          [checked]="enabledByDefault"
+          (click)="companySelect()"
+          required
+        />
+        <label class="form-check-label" for="flexRadioDefault3">
+          Company Name
+        </label>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input
+          class="form-check-input"
+          type="radio"
+          id="flexRadioDefault4"
+          name="flexRadioDefault"
+          (click)="incorporationSelect()"
+          required
+        />
+        <label class="form-check-label" for="flexRadioDefault4">
+          Incorporation Number
+        </label>
+        <br /><br />
+        <span><b>Search in</b></span
+        >&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input
+          class="form-check-input"
+          type="radio"
+          name="flexRadioDefault1"
+          id="flexRadioDefault5"
+          [checked]="enabledByDefault"
+          (click)="eServicesSelect()"
+          required
+        />
+        <label class="form-check-label" for="flexRadioDefault5">
+          eServices
+        </label>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input
+          class="form-check-input"
+          type="radio"
+          name="flexRadioDefault1"
+          id="flexRadioDefault6"
+          (click)="archiveSelect()"
+          required
+        />
+        <label class="form-check-label" for="flexRadioDefault6">
+          Archive Data
+        </label>
+        <br /><br />
+
+        <div *ngIf="(checkCompany || enabledByDefault) && !checkIncorporation">
+          <div class="custom-input-span">
+            <b>Company Name: </b>&nbsp; &nbsp;
+            <input
+              style="width: 60%; margin-left: 2.8rem"
+              type="text"
+              class="form-control"
+              [(ngModel)]="companyName"
+              (ngModelChange)="processListByCompany(); isTyping = true"
+              placeholder="Enter Company Name"
+            />
+          </div>
+          <div
+            style="
+              max-height: 200px;
+              overflow-y: auto;
+              cursor: pointer;
+              margin-left: 11.1rem;
+              width: 58%;
+              position: absolute;
+              z-index: 10;
+              background-color: white;
+            "
+            [ngClass]="{'custom-input-border': isTyping === true}"
+          >
+            <card style="line-height: 1.1;">
+              <p
+                *ngFor="let company of companiesName"
+                style="
+                  font-size: small;
+                  text-align: left;
+                  margin-left: 1rem;
+                  margin-top: 1rem;
+                "
+                (click)="companyName = company; companiesName = ['']; isTyping = false;"
+              >
+                {{ company }}
+              </p>
+              <span style="line-height: 2.0;" *ngIf="companiesName.length === 0">Loading...</span>
+            </card>
+          </div>
+        </div>
+
+        <div *ngIf="checkIncorporation && (!checkCompany || !enabledByDefault)">
+          <div class="custom-input-span">
+            <b>Incorporation Number: </b>&nbsp; &nbsp;
+            <input
+              style="width: 45%"
+              type="text"
+              class="form-control"
+              [(ngModel)]="incorporationNumber"
+              placeholder="Enter Incorporation Number"
+            />
+          </div>
+        </div>
+
+        <br />
+
+        <div *ngIf="checkArchive && !checkEServices">
+          <div class="row" style="align-items: center; margin-left: 1%">
+            <b>Archive Documents: </b>
+            <div
+              class="input-group mb-3"
+              style="width: 55%; margin-left: 1.5rem"
+            >
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white; text-align: center"
+              >
+                &nbsp; <i class="bi bi-files"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                id="inputGroupSelect01"
+                [(ngModel)]="archiveDocumentType"
+                required
+              >
+                <option selected disabled>Select Document Type</option>
+                <option value="ACKOFFILINGAR">
+                  Acknowledgement of Filing Archive
+                </option>
+                <option value="ARTICLEOFASSOAR">
+                  Article of Association Archive
+                </option>
+                <option value="CRREGMORTGAGEAR">
+                  Certifiate of Registration of Mortgage, etc. Archive
+                </option>
+                <option value="CROFCHGENMSTSAR">
+                  Certificate of Change of Name / Status Archive
+                </option>
+                <option value="CRTFCTEOFINCAR">
+                  Certificate of Incorporation Archive
+                </option>
+                <option value="CRCULRUS863AR">
+                  Circular U/S 86(3) Archive
+                </option>
+                <option value="FRMAARCHIVE">FORM A Archive</option>
+                <option value="FRM1ARCHIVE">FORM 1 Archive</option>
+                <option value="FRM3ARCHIVE">FORM 3 Archive</option>
+                <option value="FRM10ARCHIVE">FORM 10 Archive</option>
+                <option value="FRM13ARCHIVE">FORM 13 Archive</option>
+                <option value="FRM16ARCHIVE">FORM 16 Archive</option>
+                <option value="FRM17ARCHIVE">FORM 17 Archive</option>
+                <option value="FRM21ARCHIVE">FORM 21 Archive</option>
+                <option value="FRM23ARCHIVE">FORM 23 Archive</option>
+                <option value="FRM25ARCHIVE">FORM 25 Archive</option>
+                <option value="FRM26ARCHIVE">FORM 26 Archive</option>
+                <option value="FRM27ARCHIVE">FORM 27 Archive</option>
+                <option value="FRM28ARCHIVE">FORM 28 Archive</option>
+                <option value="FRM29ARCHIVE">FORM 29 Archive</option>
+                <option value="FRM30ARCHIVE">FORM 30 Archive</option>
+                <option value="FRM31ARCHIVE">FORM 31 Archive</option>
+                <option value="FRM32ARCHIVE">FORM 32 Archive</option>
+                <option value="FRM33ARCHIVE">FORM 33 Archive</option>
+                <option value="MEMRNDMOFASSOAR">
+                  Memorandum of Association Archive
+                </option>
+                <option value="QYANNUALACCAR">
+                  Quarterly / Half Yearly / Annual Accounts Archive
+                </option>
+                <option value="STATLIEUPROSAR">
+                  Statement in Lieu of Prospectus Archive
+                </option>
+              </select>
+            </div>
+          </div>
+          <br />
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            name="button"
+            (click)="fetchData()"
+          >
+            Search
+          </button>
+          <br /><br />
+          <div
+            *ngIf="emptyFormError || hasError"
+            class="alert alert-warning alert-dismissible"
+            id="myEmptyFormAlert01"
+            role="alert"
+            style="margin: auto; width: 70%"
+          >
+            <span *ngIf="emptyFormError">
+              <b> Field Required - </b> Please enter a valid Company Name or
+              Incorporation Number.
+            </span>
+            <span *ngIf="hasError">Kindly select archive type</span>
+          </div>
+        </div>
+
+        <div *ngIf="checkEServices && !checkArchive">
+          <div class="row" style="align-items: center; margin-left: 1%">
+            <b>Process Name:</b>
+            <div
+              class="input-group mb-3"
+              style="width: 75%; margin-left: 3.8rem"
+            >
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white; text-align: center"
+              >
+                &nbsp; <i class="bi bi-card-text"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                id="inputGroupSelect02"
+                [(ngModel)]="processName"
+                required
+              >
+                <option selected disabled>Select Process Name</option>
+                <option value="Company Incorporation">
+                  Company Incorporation
+                </option>
+                <option value="Company Name Reservation">
+                  Company Name Reservation
+                </option>
+                <option value="Change in Company Objects">
+                  Change in Company Objects
+                </option>
+                <option value="Change of Company Status (Public to Private)">
+                  Change of Company Status (Public to Private)
+                </option>
+                <option value="Change of Company Address (different province)">
+                  Change of Company Address (different province)
+                </option>
+                <option value="Change of Company Address">
+                  Change of Company Address
+                </option>
+                <option
+                  value="Issuance of Commencement of Business Certificate"
+                >
+                  Issuance of Commencement of Business Certificate
+                </option>
+                <option value="Renewal of Registration of Broker">
+                  Renewal of Registration of Broker
+                </option>
+                <option value="Registration of Agent">
+                  Registration of Agent
+                </option>
+                <option
+                  value="Application for Conversion of Status (Public to Private to Single Member)"
+                >
+                  Application for Conversion of Status (Public to Private to
+                  Single Member)
+                </option>
+                <option
+                  value="Change of Company Status (Single Member to Private)"
+                >
+                  Change of Company Status (Single Member to Private)
+                </option>
+                <option value="Complaints Against CRO">
+                  Complaints Against CRO
+                </option>
+                <option value="Complaints Against Company">
+                  Complaints Against Company
+                </option>
+                <option value="Filing of Returns-M&I">
+                  Filing of Returns-M&I
+                </option>
+                <option value="Licensing of New Insurance Company">
+                  Licensing of New Insurance Company
+                </option>
+                <option value="Licensing of New Insurance Broker">
+                  Licensing of New Insurance Broker
+                </option>
+                <option value="Miscellaneous">Miscellaneous</option>
+                <option value="Certified True Copy">Certified True Copy</option>
+                <option value="Appointment/Change of Company Officers">
+                  Appointment/Change of Company Officers
+                </option>
+                <option value="Form A and 29">Form A and 29</option>
+                <option value="Alter Charter">Alter Charter</option>
+                <option
+                  value="Fnc. Form-V Filing Of Accounts And Related Information"
+                >
+                  Fnc. Form-V Filing Of Accounts And Related Information
+                </option>
+                <option
+                  value="FNC Form VI - Notice by a Foreign Company on ceasing to have any place of business in Pakistan"
+                >
+                  FNC Form VI - Notice by a Foreign Company on ceasing to have
+                  any place of business in Pakistan
+                </option>
+                <option value="Foreign Company Incorporation">
+                  Foreign Company Incorporation
+                </option>
+                <option
+                  value="Change in Particulars of Persons (Principal Officer)"
+                >
+                  Change in Particulars of Persons (Principal Officer)
+                </option>
+                <option
+                  value="Change in Particulars of Persons (Authorized Person)"
+                >
+                  Change in Particulars of Persons (Authorized Person)
+                </option>
+                <option value="Inspection">Inspection</option>
+                <option value="Miscelleanous(Without Payment)">
+                  Miscelleanous(Without Payment)
+                </option>
+                <option value="Filing of Returns-NBFC">
+                  Filing of Returns-NBFC
+                </option>
+                <option value="Filing of Statutory Return (Multiple Forms)">
+                  Filing of Statutory Return (Multiple Forms)
+                </option>
+                <option value="Renewal of Registration of Agent">
+                  Renewal of Registration of Agent
+                </option>
+                <option value="Registration of Broker">
+                  Registration of Broker
+                </option>
+                <option value="Filling of Returns-Insurance Companies">
+                  Filling of Returns-Insurance Companies
+                </option>
+                <option
+                  value="Change of Regsitered / Principal Office of Foreign Company (In Country of Orign)"
+                >
+                  Change of Regsitered / Principal Office of Foreign Company (In
+                  Country of Orign)
+                </option>
+                <option value="Appointment/Change of Director">
+                  Appointment/Change of Director
+                </option>
+                <option value="Appointment/Change of CEO">
+                  Appointment/Change of CEO
+                </option>
+                <option value="Appointment/Change of Other Officers">
+                  Appointment/Change of Other Officers
+                </option>
+                <option value="Appointment/Change of All Officers">
+                  Appointment/Change of All Officers
+                </option>
+                <option value="Filing of Form 27">Filing of Form 27</option>
+                <option value="Filing of Form 29">Filing of Form 29</option>
+                <option value="Filing of Form 27_28">
+                  Filing of Form 27_28
+                </option>
+                <option value="Companies Easy Exit Scheme (CEES)">
+                  Companies Easy Exit Scheme (CEES)
+                </option>
+                <option value="Insurance Surveyor Licensing">
+                  Insurance Surveyor Licensing
+                </option>
+                <option
+                  value="Renewal of Insurance Surveyors Companies License"
+                >
+                  Renewal of Insurance Surveyors Companies License
+                </option>
+                <option value="Licensing of Authorized Surveying Officer">
+                  Licensing of Authorized Surveying Officer
+                </option>
+                <option value="Filing of Statutory Return">
+                  Filing of Statutory Return
+                </option>
+                <option
+                  value="Renewal of Insurance Authorized Surveying Officer"
+                >
+                  Renewal of Insurance Authorized Surveying Officer
+                </option>
+                <option value="Feature List">Feature List</option>
+                <option value="CDMRS Features List">CDMRS Features List</option>
+                <option
+                  value="Filing of Form 4 (BO) under u/s 102 of Securities Act, 2015"
+                >
+                  Filing of Form 4 (BO) under u/s 102 of Securities Act, 2015
+                </option>
+                <option value="AML">AML</option>
+                <option value="Filing of Research Reports by Brokerage House">
+                  Filing of Research Reports by Brokerage House
+                </option>
+                <option
+                  value="LLP Form IV - Filing Of Consent To Act As Partner / Designated Partner"
+                >
+                  LLP Form IV - Filing Of Consent To Act As Partner / Designated
+                  Partner
+                </option>
+                <option value="Filing of Returns-NBFC(Quarterly)">
+                  Filing of Returns-NBFC(Quarterly)
+                </option>
+                <option value="Change of Company Name">
+                  Change of Company Name
+                </option>
+                <option value="Change of Company Status (Private to Public)">
+                  Change of Company Status (Private to Public)
+                </option>
+                <option value="Complaints Against Broker/Agent">
+                  Complaints Against Broker/Agent
+                </option>
+                <option value="Licensing of Surveyor Company">
+                  Licensing of Surveyor Company
+                </option>
+                <option
+                  value="Change in Particulars of Persons (Directors/Chief Executives/Secretaries)"
+                >
+                  Change in Particulars of Persons (Directors/Chief
+                  Executives/Secretaries)
+                </option>
+                <option value="Penalty">Penalty</option>
+                <option value="Form 29 - Multiple">Form 29 - Multiple</option>
+                <option value="Filing of Form 28">Filing of Form 28</option>
+                <option value="Licensing of Insurance Surveyors Companies">
+                  Licensing of Insurance Surveyors Companies
+                </option>
+                <option
+                  value="Change In Foreign Company Place of Business in Pakistan"
+                >
+                  Change In Foreign Company Place of Business in Pakistan
+                </option>
+                <option value="Filing of Form 28_29">
+                  Filing of Form 28_29
+                </option>
+                <option value="FNC Form IV - Application for Change of Name">
+                  FNC Form IV - Application for Change of Name
+                </option>
+                <option value="Filing of Returns-FRS(Previously SMBH)">
+                  Filing of Returns-FRS(Previously SMBH)
+                </option>
+                <option value="Filing of Returns - Insurance">
+                  Filing of Returns - Insurance
+                </option>
+                <option value="Annual Return by Listed Companies SMD-BO-246">
+                  Annual Return by Listed Companies SMD-BO-246
+                </option>
+                <option value="Reporting of Features of Debt Instrument">
+                  Reporting of Features of Debt Instrument
+                </option>
+                <option value="License of Sec42 Companies">
+                  Licence of Sec42 Companies
+                </option>
+                <option value="License of Sec42 if Entity Already Exists">
+                  Licence of Sec42 if Entity Already Exists
+                </option>
+                <option
+                  value="Periodic Reporting of Redemption and Status of Covenant Compliance"
+                >
+                  Periodic Reporting of Redemption and Status of Covenant
+                  Compliance
+                </option>
+                <option value="Facultative Reinsurance">
+                  Facultative Reinsurance
+                </option>
+                <option value="VOSS Company Registration">
+                  VOSS Company Registration
+                </option>
+                <option value="Filing of Returns (Form-4 BO) u/s 102(3)1">
+                  Filing of Returns (Form-4 BO) u/s 102(3)1
+                </option>
+                <option value="Name Reservation and Incorporation (Combined)">
+                  Name Reservation and Incorporation (Combined)
+                </option>
+                <option value="Name Reservation and Incorporation (LLP)">
+                  Name Reservation and Incorporation (LLP)
+                </option>
+                <option value="Filing of SMD-BO Form-5">
+                  Filing of SMD-BO Form-5
+                </option>
+                <option value="Filing of SMD-BO Form-6">
+                  Filing of SMD-BO Form-6
+                </option>
+                <option value="Filing of SMD-BO Form-7">
+                  Filing of SMD-BO Form-7
+                </option>
+                <option
+                  value="Application for Registration As An Intermediary (Individual)"
+                >
+                  Application for Registration As An Intermediary (Individual)
+                </option>
+                <option value="Form 1 (Receipt Of Subscription Money)">
+                  Form 1 (Receipt Of Subscription Money)
+                </option>
+                <option
+                  value="Application for Registration As An Intermediary (Firm/LLP/Company)"
+                >
+                  Application for Registration As An Intermediary
+                  (Firm/LLP/Company)
+                </option>
+                <option
+                  value="Form 31 - Form 32 Global Register of Beneficial Ownership"
+                >
+                  Form 31 - Form 32 Global Register of Beneficial Ownership
+                </option>
+                <option value="LLP Name Reservation">
+                  LLP Name Reservation
+                </option>
+                <option value="LLP Incorporation">LLP Incorporation</option>
+                <option value="Conversion of Firm into LLP">
+                  Conversion of Firm into LLP
+                </option>
+                <option value="Form C">Form C</option>
+                <option
+                  value="Form-38 (Application for obtaining status of inactive company)"
+                >
+                  Form-38 (Application for obtaining status of inactive company)
+                </option>
+                <option
+                  value="Form-39 (Application for conversion of status from inactive to active)"
+                >
+                  Form-39 (Application for conversion of status from inactive to
+                  active)
+                </option>
+                <option value="Form D (Annual Return of Inactive Company)">
+                  Form D (Annual Return of Inactive Company)
+                </option>
+                <option value="Form 4 - Change in Principal Line of Business">
+                  Form 4 - Change in Principal Line of Business
+                </option>
+                <option value="Form 5 - Petition for Alteration of memorandum">
+                  Form 5 - Petition for Alteration of memorandum
+                </option>
+                <option
+                  value="Application of Change / Rectification of Name (LLP Form II)"
+                >
+                  Application of Change / Rectification of Name (LLP Form II)
+                </option>
+                <option value="AML/CFT Reporting by Regulated Entities">
+                  AML/CFT Reporting by Regulated Entities
+                </option>
+                <option
+                  value="Notice of Induction and Cessation of Partners and Designated Partners(LLPFormV)"
+                >
+                  Notice of Induction and Cessation of Partners and Designated
+                  Partners(LLPFormV)
+                </option>
+                <option value="LLP Form VII - Change of Registered Office">
+                  LLP Form VII - Change of Registered Office
+                </option>
+                <option
+                  value="Fnc Form III - Registration of Alteration in Documents or Deatils of a Foreign Company"
+                >
+                  Fnc Form III - Registration of Alteration in Documents or
+                  Deatils of a Foreign Company
+                </option>
+                <option value="AML/CFT Quarterly Survey">
+                  AML/CFT Quarterly Survey
+                </option>
+                <option
+                  value="Form-45 (Declaration of compliance with the provisions of Section 123A)"
+                >
+                  Form-45 (Declaration of compliance with the provisions of
+                  Section 123A)
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="align-items: center; margin-left: 1%">
+            <b>Date between:</b>
+            <div class="input-group mb-3" style="width: 75%; margin-left: 4rem">
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-calendar-date"></i> &nbsp;
+              </div>
+              <input
+                class="form-control"
+                type="date"
+                [(ngModel)]="startDate"
+                name=""
+                value=""
+              />
+              &nbsp; &nbsp; &nbsp;
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-calendar-date"></i> &nbsp;
+              </div>
+              <input
+                class="form-control"
+                type="date"
+                [(ngModel)]="endDate"
+                name=""
+                value=""
+              />
+            </div>
+          </div>
+
+          <div class="row" style="align-items: center; margin-left: 1%">
+            <b>Document Status:</b>
+            <div
+              class="input-group mb-3"
+              style="width: 36.5%; margin-left: 2.4rem"
+            >
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-files"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                id="inputGroupSelect03"
+                [(ngModel)]="documentStatus"
+                required
+              >
+                <option selected disabled>Select Document Status</option>
+                <option value="Awaiting User Response">
+                  Awaiting User Response
+                </option>
+                <option value="Closed">Closed</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Submitted">Submitted</option>
+                <option value="Under Submission">Under Submission</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="align-items: center; margin-left: 1%">
+            <b>Sort By:</b>
+            <div
+              class="input-group mb-3"
+              style="width: 36.5%; margin-left: 7rem"
+            >
+              <div
+                class="input-group-addon"
+                style="font-size: 1.3rem; color: white"
+              >
+                &nbsp; <i class="bi bi-funnel"></i> &nbsp;
+              </div>
+              <select
+                class="custom-select"
+                id="inputGroupSelect04"
+                [(ngModel)]="sortBy"
+                required
+              >
+                <option selected disabled>Sort by</option>
+                <option value="Start Date">Start Date</option>
+                <option value="End Date">End Date</option>
+                <option value="Submitted Date">Submitted Date</option>
+              </select>
+            </div>
+          </div>
+
+          <br />
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            name="button"
+            (click)="fetchData()"
+          >
+            Search
+          </button>
+          <br />
+          <div
+            *ngIf="emptyFormError"
+            class="alert alert-warning alert-dismissible"
+            id="myEmptyFormAlert02"
+            role="alert"
+            style="margin: auto; width: 70%"
+          >
+            <span>
+              <b> Field Required - </b> Please enter a valid Company Name or
+              Incorporation Number.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="spinnerLoading">
+      <br /><br />
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <div
+      class="table-responsive"
+      *ngIf="dataAvailable && checkArchive && !checkEServices && containsData"
+      style="width: 85%; margin: auto; text-align: left"
+    >
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr style="font-size: 16px">
+            <th scope="col">Company ID</th>
+            <th scope="col">Company DOC ID</th>
+            <th scope="col">Document Name</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">User Process ID</th>
+            <th scope="col">File Reference No</th>
+            <th scope="col">Process FLDR ID</th>
+            <th scope="col">Document ID</th>
+            <th scope="col">View Document</th>
+          </tr>
+        </thead>
+        <br />
+        <tbody *ngIf="containsData">
+          <tr *ngFor="let data of fetchedData; let i = index">
+            <td>{{ data.COMP_PID }}</td>
+            <td>{{ data.CM_DOC_PID }}</td>
+            <td>{{ data.DOCUMENT_NAME4 }}</td>
+            <td>{{ data.CMPNYNAME }}</td>
+            <td>{{ data.USER_PROCESS_ID }}</td>
+            <td>{{ data.FILEREFERENCENO }}</td>
+            <td>{{ data.PROCESS_FLDR_ID }}</td>
+            <td>{{ data.DOCUMENTID }}</td>
+            <td>
+              <a
+                href="{{
+                  archiveDocumentUrl + 'L1.' + data.DOCUMENTID + '.V1'
+                }}"
+                target="_blank"
+              >
+                <button
+                  class="btn btn-success"
+                  type="button"
+                  name="button"
+                  [disabled]="authFailedError"
+                >
+                  <i class="bi bi-eye" style="font-size: 1.3rem"></i>
+                </button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="(dataUnAvailable || containsNoData) && !spinnerLoading">
+      <b>No Data Found</b>
+    </div>
+
+    <div
+      class="card"
+      id="searchingcard"
+      style="margin: auto; text-align: center; width: 55%"
+      *ngIf="
+        dataAvailable && !dataUnAvailable && checkEServices && !checkArchive
+      "
+    >
+      <div class="card-header" id="searchingcardheader">
+        <p>{{ fetchedData[0].CMPNYNAME }}</p>
+      </div>
+      <div *ngIf="containsData">
+        <div class="card-body">
+          <div
+            style="width: 85%; margin: auto"
+            id="cardinner"
+            *ngFor="let data of cardCheckArray; let i = index"
+          >
+            <div
+              class="card-header img-fluid"
+              style="background: white; color: black"
+            >
+              <div class="row">
+                <div class="col-md-auto" style="text-align: left">
+                  <b>{{ data }}</b>
+                </div>
+                <div class="col" style="text-align: right">
+                  <button
+                    class="btn btn-light"
+                    data-toggle="collapse"
+                    [attr.href]="'#multiCollapseExample' + i"
+                    role="button"
+                    aria-expanded="false"
+                    [attr.aria-controls]="'multiCollapseExample' + i"
+                    type="submit"
+                    name="button"
+                    (click)="changeDocsStatus()"
+                    style="background: transparent; border: transparent"
+                  >
+                    <i
+                      class="bi bi-plus-square"
+                      style="font-size: 1.1rem; color: black"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="collapse multi-collapse"
+              [attr.id]="'multiCollapseExample' + i"
+            >
+              <div class="table-responsive">
+                <table
+                  class="table table-striped table-hover table-bordered"
+                  style="width: 100%; margin: auto"
+                >
+                  <thead>
+                    <th>Document Name</th>
+                    <th>Date Submitted</th>
+                    <th>View Document</th>
+                  </thead>
+                  <br />
+                  <tbody *ngFor="let data2 of fetchedData">
+                    <tr *ngIf="data2.PROCESS_NAME == data">
+                      <td style="text-align: left; padding-left: 10%">
+                        {{ data2.DOCUMENT_DESC }}
+                      </td>
+                      <td>{{ data2.DATE_SUBMITTED | date: "longDate" }}</td>
+                      <td>
+                        <a [attr.href]="data2.DOCUMENT_NAME" target="_blank"
+                          ><button
+                            type="submit"
+                            name="button"
+                            class="btn btn-info"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="View Document"
+                          >
+                            <i
+                              class="bi bi-eye"
+                              style="font-size: 1.1rem; color: white"
+                            ></i></button
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+              </div>
+            </div>
+
+            <div
+              class="collapse multi-collapse"
+              [attr.id]="'multiCollapseExample' + i"
+            >
+              <div class="card-footer" style="background-color: white">
+                <button
+                  class="btn btn-info btn-sm"
+                  type="submit"
+                  name="button"
+                  (click)="viewNoting(data)"
+                >
+                  <i class="bi bi-eye" style="font-size: 1.1rem"></i> View
+                  Noting
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-info btn-sm"
+                  type="submit"
+                  name="button"
+                  (click)="viewInternalDocs(data)"
+                >
+                  <i class="bi bi-eye" style="font-size: 1.1rem"></i> View
+                  Internal Docs
+                </button>
+                <div *ngIf="spinnerLoading2">
+                  <br />
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="InternalDocDataFetch"
+                style="width: 70%; margin: auto"
+              >
+                <br />
+                <div class="alert alert-success" role="alert">
+                  <p *ngIf="internalDocsFileStatus">
+                    No Internal Docs Files Exist.
+                  </p>
+                  <div class="row">
+                    <i
+                      class="bi bi-arrow-right-circle"
+                      style="text-align: left; font-size: 1.3rem"
+                    ></i>
+                    <a
+                      *ngIf="!internalDocsFileStatus"
+                      [attr.href]="fileResponseLink"
+                      target="_blank"
+                      style="text-align: center; margin: auto"
+                      >{{ fileResponseName }}</a
+                    >
+                  </div>
+                </div>
+                <br />
+              </div>
+
+              <div *ngIf="notingDataFetch" style="width: 70%; margin: auto">
+                <br />
+                <div class="alert alert-success" role="alert">
+                  <p *ngIf="notingResponseStatus">No Notings Exist.</p>
+                  <div
+                    class="row"
+                    *ngFor="let noting of notingResponseToDisplay"
+                  >
+                    <p *ngIf="!notingResponseStatus" style="text-align: left">
+                      {{ noting }}
+                    </p>
+                  </div>
+                </div>
+                <br />
+              </div>
+            </div>
+          </div>
+
+          <hr />
+        </div>
+      </div>
+
+      <div *ngIf="containsNoData">
+        <p>No Record Found</p>
+      </div>
+    </div>
+    <br /><br />
+    <button
+      *ngIf="dataAvailable"
+      style="text-align: left"
+      type="submit"
+      name="button"
+      class="btn btn-secondary"
+      (click)="goBack()"
+    >
+      <i class="bi bi-chevron-left"></i>
+    </button>
+    <br />
+
+    <ng-container *ngIf="noTokenError">
+      <app-toast
+        [toastColor]="'bg-warning'"
+        [toastOperation]="'Warning'"
+        [toastMessage]="
+          'You are trying to access this website without any token. This is an unusual error. Please contact the administrator.'
+        "
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="authFailedError">
+      <app-toast
+        [toastColor]="'bg-danger'"
+        [toastOperation]="'Failure'"
+        [toastMessage]="
+          'The token has expired. In order to renew the token, please log in again.'
+        "
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="serverError">
+      <app-toast
+        [toastColor]="'bg-danger'"
+        [toastOperation]="'Failure'"
+        [toastMessage]="
+          'An unknown server error has occurred. Please try again later.'
+        "
+      ></app-toast>
+    </ng-container>
+  </div>
+</div>
+
+<br /><br /><br />

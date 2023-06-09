@@ -1,0 +1,237 @@
+<div class="container-fluid" style="width: 80%">
+  <div class="ribbon">
+    <div class="ribbon-content"><p>Search Bank Transaction Log</p></div>
+  </div>
+  <div class="jumbotron-fluid">
+    <br /><br /><br /><br />
+
+    <div style="text-align: center">
+      <input
+        class="form-check-input"
+        [checked]="enabledByDefault"
+        type="radio"
+        name="flexRadioDefault"
+        id="flexRadioDefault1"
+        [disabled]="authFailedError || noTokenError"
+        (click)="searchEntity()"
+      />
+      <label class="form-check-label" for="flexRadioDefault1">
+        Search By Entity Name
+      </label>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <input
+        class="form-check-input"
+        type="radio"
+        name="flexRadioDefault"
+        id="flexRadioDefault2"
+        [disabled]="authFailedError || noTokenError"
+        (click)="searchDate()"
+      />
+      <label class="form-check-label" for="flexRadioDefault2">
+        Search By Date
+      </label>
+    </div>
+
+    <br />
+
+    <div
+      class="col-xs-14 col-sm-14 col-md-12 col-lg-12 col-xl-12"
+      style="margin: auto"
+    >
+      <div class="form-group" *ngIf="allowDate && !enabledByDefault">
+        <div class="input-group" style="width: 30%; margin: auto">
+          <i class="input-group-addon" style="font-size: 1.3rem; color: white">
+            &nbsp; <i class="bi bi-search"></i> &nbsp;
+          </i>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="startDateKey"
+            placeholder="Start Date"
+          />
+          &nbsp;
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="endDateKey"
+            placeholder="End Date"
+          />
+          &nbsp;
+          <button
+            type="submit"
+            class="btn btn-outline-success"
+            name="button"
+            [disabled]="authFailedError || noTokenError"
+            (click)="searchBankLogDataDate()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="allowEntity || enabledByDefault">
+        <div class="input-group" style="width: 30%; margin: auto">
+          <i class="input-group-addon" style="font-size: 1.3rem; color: white">
+            &nbsp; <i class="bi bi-search"></i> &nbsp;
+          </i>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchDataKey"
+            placeholder="Search By Entity Name"
+          />
+          &nbsp;
+          <button
+            type="submit"
+            class="btn btn-outline-success"
+            name="button"
+            [disabled]="authFailedError || noTokenError"
+            (click)="searchBankLogDataEntity()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div style="float: left">
+      <button
+        class="btn btn-outline-success"
+        type="submit"
+        name="button"
+        (click)="exportData()"
+      >
+        Export to Excel <i class="bi bi-file-excel"></i>
+      </button>
+    </div>
+
+    <br /><br />
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr style="font-size: 15px">
+            <th scope="col">Entity Name</th>
+            <th scope="col">User Id</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Entity Type</th>
+            <th scope="col">Company Examine</th>
+            <th scope="col">CUIN</th>
+            <th scope="col">View Company When</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="!hasSearchedData">
+          <tr style="font-size: 13px" *ngFor="let bData of bankData">
+            <td>
+              {{ bData.ENTITY_NAME }}
+            </td>
+            <td>
+              {{ bData.USER_ID_FK }}
+            </td>
+            <td>
+              {{ bData.USER_NAME }}
+            </td>
+            <td>
+              {{ bData.ENTITY_TYPE }}
+            </td>
+            <td>
+              {{ bData.COMPANY_NAME }}
+            </td>
+            <td>
+              {{ bData.COMPANY_INC_NO }}
+            </td>
+            <td>
+              {{ bData.VIEW_COMPANY_WHEN | date: "medium" }}
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="hasSearchedData">
+          <tr style="font-size: 13px" *ngFor="let sData of searchedBankData">
+            <td>
+              {{ sData.ENTITY_NAME }}
+            </td>
+            <td>
+              {{ sData.USER_ID_FK }}
+            </td>
+            <td>
+              {{ sData.USER_NAME }}
+            </td>
+            <td>
+              {{ sData.ENTITY_TYPE }}
+            </td>
+            <td>
+              {{ sData.COMPANY_NAME }}
+            </td>
+            <td>
+              {{ sData.COMPANY_INC_NO }}
+            </td>
+            <td>
+              {{ sData.VIEW_COMPANY_WHEN | date: "medium" }}
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="dataUnavailable">
+          <br />
+          <tr style="font-size: 13px">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>No Record Found</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-container *ngIf="writeToExcelAlert">
+      <app-toast
+        [toastColor]="'bg-success'"
+        [toastOperation]="'Success'"
+        [toastMessage]="'Data has been exported to excel successfully.'"
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="noTokenError">
+      <app-toast
+        [toastColor]="'bg-warning'"
+        [toastOperation]="'Warning'"
+        [toastMessage]="
+          'You are trying to access this website without any token. This is an unusual error. Please contact the administrator.'
+        "
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="authFailedError">
+      <app-toast
+        [toastColor]="'bg-danger'"
+        [toastOperation]="'Failure'"
+        [toastMessage]="
+          'The token has expired. In order to renew the token, please log in again.'
+        "
+      ></app-toast>
+    </ng-container>
+
+    <ng-container *ngIf="serverError">
+      <app-toast
+        [toastColor]="'bg-danger'"
+        [toastOperation]="'Failure'"
+        [toastMessage]="
+          'An unknown server error has occurred. Please try again later.'
+        "
+      ></app-toast>
+    </ng-container>
+  </div>
+</div>
+
+<br /><br /><br />
+
+<ng-container *ngIf="isWaiting">
+  <app-loader></app-loader>
+</ng-container>

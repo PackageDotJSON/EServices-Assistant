@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="ribbon">
+    <div class="ribbon-content"><p>View Alerts</p></div>
+  </div>
+  <br /><br /><br /><br /><br />
+  <div class="row">
+    <div class="col">
+      <app-alert-links (eventEmitter)="displayTab($event)"></app-alert-links>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-view-sheet-table></app-view-sheet-table>
+    </div>
+  </div>
+</div>

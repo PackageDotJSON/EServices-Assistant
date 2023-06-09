@@ -1,0 +1,82 @@
+.card-header,
+.card-footer {
+  background: #67b26f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #4ca2cd,
+    #67b26f
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
+
+.card {
+  box-shadow: 12px 12px 12px grey;
+}
+
+.vl {
+  border-left: 5px solid transparent;
+  background: #67b26f;
+  background: -webkit-linear-gradient(top, #4ca2cd 0%, #67b26f 100%);
+  background: linear-gradient(to bottom, #4ca2cd 0%, #67b26f 100%);
+  height: 35px;
+  width: 9px;
+}
+
+img {
+  height: 120px;
+  width: 120px;
+  opacity: 1;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.imgClass:hover img {
+  opacity: 0.3;
+}
+
+.imgClass:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background: transparent;
+  color: white;
+  font-size: 10px;
+  padding: 12px 26px;
+}
+
+#imgUpload {
+  display: none;
+}
+
+.img-thumbnail {
+  border: hidden;
+  /* border: 0.1px solid transparent; */
+  background: #283c86; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #45a247,
+    #283c86
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #45a247,
+    #283c86
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

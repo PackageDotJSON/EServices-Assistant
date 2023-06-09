@@ -1,0 +1,7 @@
+<ng-container *ngIf="showViewAlerts">
+  <app-view-alerts (eventEmitter)="displayTab($event)"></app-view-alerts>
+</ng-container>
+
+<ng-container *ngIf="showUploadAlerts">
+  <app-upload-alerts (eventEmitter)="displayTab($event)"></app-upload-alerts>
+</ng-container>
