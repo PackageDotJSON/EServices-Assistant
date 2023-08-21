@@ -1,0 +1,56 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Father/Husband Name</th>
+        <th scope="col">CNIC/Passport</th>
+        <th scope="col">Address</th>
+        <th scope="col">Nationality</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>
+          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>
+          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>Test</td>
+        <td>
+          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-container *ngIf="isModalClicked">
+  <app-modal (closeModalEvent)="getModalState($event)"></app-modal>
+</ng-container>

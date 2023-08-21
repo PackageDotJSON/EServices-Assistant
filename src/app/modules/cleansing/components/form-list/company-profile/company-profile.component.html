@@ -1,0 +1,716 @@
+<form [formGroup]="companyProfileForm" (ngSubmit)="updateCompanyProfile()">
+  <div class="row">
+    <div class="col">
+      <small>Company Name:</small>
+      <input type="text" class="form-control" formControlName="compName" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compName').dirty ||
+          companyProfileForm.get('compName').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compName').hasError('required')">
+          Company Name is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('compName').hasError('maxlength')">
+          Company Name cannot be more than 100 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Incorporation Number:</small>
+      <input type="text" class="form-control" formControlName="compIncNo" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compIncNo').dirty ||
+          companyProfileForm.get('compIncNo').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compIncNo').hasError('required')">
+          CUIN is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compIncNo').hasError('maxlength')"
+        >
+          CUIN cannot be more than 40 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Registration Date:</small>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="incDate"
+        placeholder="dd-mm-yyyy"
+      />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('incDate').dirty ||
+          companyProfileForm.get('incDate').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('incDate').hasError('required')">
+          Registration Date is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('incDate').hasError('maxlength')">
+          Registration Date cannot be more than 20 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Industry Type:</small>
+      <select class="form-control" formControlName="compSector">
+        <option
+          *ngFor="let industry of industryList"
+          [value]="industry"
+          [disabled]="!industry.includes('--')"
+          [style.fontWeight]="!industry.includes('--') ? 'bold' : 'normal'"
+        >
+          {{ industry }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compSector').dirty ||
+          companyProfileForm.get('compSector').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compSector').hasError('required')"
+        >
+          Industry is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compSector').hasError('maxlength')"
+        >
+          Industry cannot be more than 100 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Type:</small>
+      <select class="form-control" formControlName="compKind">
+        <option *ngFor="let company of companyList" [value]="company">
+          {{ company }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compKind').dirty ||
+          companyProfileForm.get('compKind').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compKind').hasError('required')">
+          Company Type is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('compKind').hasError('maxlength')">
+          Company Type cannot be more than 150 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company District:</small>
+      <select class="form-control" formControlName="compDistt">
+        <option *ngFor="let district of districtList" [value]="district">
+          {{ district }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compDistt').dirty ||
+          companyProfileForm.get('compDistt').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compDistt').hasError('required')">
+          Company District is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compDistt').hasError('maxlength')"
+        >
+          Company District cannot be more than 75 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Registration Office:</small>
+      <select class="form-control" formControlName="compCro">
+        <option value="CRO Faisalabad">CRO Faisalabad</option>
+        <option value="CRO Gilgit">CRO Gilgit</option>
+        <option value="CRO Islamabad">CRO Islamabad</option>
+        <option value="CRO Karachi">CRO Karachi</option>
+        <option value="CRO Lahore">CRO Lahore</option>
+        <option value="CRO Multan">CRO Multan</option>
+        <option value="CRO Peshawar">CRO Peshawar</option>
+        <option value="CRO Quetta">CRO Quetta</option>
+        <option value="CRO Sukkur">CRO Sukkur</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compCro').dirty ||
+          companyProfileForm.get('compCro').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compCro').hasError('required')">
+          CRO is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('compCro').hasError('maxlength')">
+          CRO cannot be more than 50 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Company Address:</small>
+      <textarea
+        type="text"
+        class="form-control"
+        formControlName="compAddress"
+        rows="3"
+      ></textarea>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compAddress').dirty ||
+          companyProfileForm.get('compAddress').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compAddress').hasError('required')"
+        >
+          Company Address is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compAddress').hasError('maxlength')"
+        >
+          Company Address cannot be more than 512 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Main Objectives:</small>
+      <textarea
+        type="text"
+        class="form-control"
+        formControlName="compMainObj"
+        rows="3"
+      ></textarea>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compMainObj').dirty ||
+          companyProfileForm.get('compMainObj').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compMainObj').hasError('required')"
+        >
+          Main Objectives are required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compMainObj').hasError('maxlength')"
+        >
+          Main Objectives cannot be more than 3074 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Company Fax No:</small>
+      <input type="text" class="form-control" formControlName="compFaxNo" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compFaxNo').dirty ||
+          companyProfileForm.get('compFaxNo').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compFaxNo').hasError('required')">
+          Fax No. is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('compFaxNo').hasError('pattern')">
+          Fax No. cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compFaxNo').hasError('maxlength')"
+        >
+          Fax No. cannot be more than 20 numerical digits.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Telephone No:</small>
+      <input type="text" class="form-control" formControlName="compPhoneNo" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compPhoneNo').dirty ||
+          companyProfileForm.get('compPhoneNo').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compPhoneNo').hasError('required')"
+        >
+          Tel No. is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compPhoneNo').hasError('pattern')"
+        >
+          Tel No. cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compPhoneNo').hasError('maxlength')"
+        >
+          Tel No. cannot be more than 50 numerical digits.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Telephone No 2:</small>
+      <input type="text" class="form-control" formControlName="compPhoneNo2" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compPhoneNo2').dirty ||
+          companyProfileForm.get('compPhoneNo2').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compPhoneNo2').hasError('required')"
+        >
+          Tel No. 2 is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compPhoneNo2').hasError('pattern')"
+        >
+          Tel No. 2 cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compPhoneNo2').hasError('maxlength')"
+        >
+          Tel No. 2 cannot be more than 50 numerical digits.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Company Status:</small>
+      <select class="form-control" formControlName="compStatus">
+        <option value="ACTIVE">ACTIVE</option>
+        <option value="INACTIVE">INACTIVE</option>
+        <option value="INACTIVE FORM 38">INACTIVE FORM 38</option>
+        <option value="INACTIVE NON FILING">INACTIVE NON FILING</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compStatus').dirty ||
+          companyProfileForm.get('compStatus').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compStatus').hasError('required')"
+        >
+          Company Status is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compStatus').hasError('maxlength')"
+        >
+          Company Status cannot be more than 40 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Holding Company Name:</small>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="holdingCompCode"
+      />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('holdingCompCode').dirty ||
+          companyProfileForm.get('holdingCompCode').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('holdingCompCode').hasError('required')"
+        >
+          Holding Company Name is required.
+        </small>
+
+        <small
+          *ngIf="
+            companyProfileForm.get('holdingCompCode').hasError('maxlength')
+          "
+        >
+          Holding Company Name cannot be more than 100 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Email:</small>
+      <input type="email" class="form-control" formControlName="compEmail" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compEmail').dirty ||
+          companyProfileForm.get('compEmail').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compEmail').hasError('required')">
+          Company Email is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('compEmail').hasError('email')">
+          Company Email cannot be invalid.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compEmail').hasError('maxlength')"
+        >
+          Company Email cannot be more than 124 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>AGM Date:</small>
+      <input type="date" class="form-control" formControlName="agmDt" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('agmDt').dirty ||
+          companyProfileForm.get('agmDt').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('agmDt').hasError('required')">
+          AGM Date is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('agmDt').hasError('maxlength')">
+          AGM Date cannot be more than 20 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Form A/B/C Date:</small>
+      <input type="date" class="form-control" formControlName="frmADate" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('frmADate').dirty ||
+          companyProfileForm.get('frmADate').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('frmADate').hasError('required')">
+          Form A/B/C Date is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('frmADate').hasError('maxlength')">
+          Form A/B/C Date cannot be more than 20 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Old Company Name:</small>
+      <input type="text" class="form-control" formControlName="oldCmpnyNm" />
+
+      <div
+        *ngIf="
+          companyProfileForm.get('oldCmpnyNm').dirty ||
+          companyProfileForm.get('oldCmpnyNm').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('oldCmpnyNm').hasError('required')"
+        >
+          Old Company Name is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('oldCmpnyNm').hasError('maxlength')"
+        >
+          Old Company Name cannot be more than 100 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company City:</small>
+      <select class="form-control" formControlName="compCity">
+        <option *ngFor="let city of cityList" [value]="city">{{ city }}</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compCity').dirty ||
+          companyProfileForm.get('compCity').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('compCity').hasError('required')">
+          Company City is required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('compCity').hasError('maxlength')">
+          Company City cannot be more than 75 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Province:</small>
+      <select class="form-control" formControlName="compProvince">
+        <option value="FEDERAL CAPITAL TERRITORY">
+          FEDERAL CAPITAL TERRITORY
+        </option>
+        <option value="BALOCHISTAN">BALOCHISTAN</option>
+        <option value="FEDERALLY ADMINISTRATED TRIBAL AREAS (F.A.T.A)">
+          FEDERALLY ADMINISTRATED TRIBAL AREAS (F.A.T.A)
+        </option>
+        <option value="GILGIT">GILGIT</option>
+        <option value="ISLAMABAD CAPITAL TERRITORY (I.C.T.)">
+          ISLAMABAD CAPITAL TERRITORY (I.C.T.)
+        </option>
+        <option value="NORTH-WEST FRONTIER PROVINCE (N.W.F.P.)">
+          NORTH-WEST FRONTIER PROVINCE (N.W.F.P.)
+        </option>
+        <option value="PROVINCIALLY ADMINISTRATED TRIBAL AREAS (P.A.T.A)">
+          PROVINCIALLY ADMINISTRATED TRIBAL AREAS (P.A.T.A)
+        </option>
+        <option value="PUNJAB">PUNJAB</option>
+        <option value="SINDH">SINDH</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compProvince').dirty ||
+          companyProfileForm.get('compProvince').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compProvince').hasError('required')"
+        >
+          Company Province is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compProvince').hasError('maxlength')"
+        >
+          Company Province cannot be more than 75 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Is Listed Company:</small>
+      <select class="form-control" formControlName="listed">
+        <option value="Y">YES</option>
+        <option value="N">NO</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('listed').dirty ||
+          companyProfileForm.get('listed').touched
+        "
+        class="custom-error-message"
+      >
+        <small *ngIf="companyProfileForm.get('listed').hasError('required')">
+          Is Company Listed required.
+        </small>
+
+        <small *ngIf="companyProfileForm.get('listed').hasError('maxlength')">
+          Is Company Listed cannot be more than 1 character.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Company Submission Mode:</small>
+      <select class="form-control" formControlName="compSubMode">
+        <option value="Online">Online</option>
+        <option value="Online/Offline">Online/Offline</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compSubMode').dirty ||
+          companyProfileForm.get('compSubMode').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compSubMode').hasError('required')"
+        >
+          Company Submission Mode is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compSubMode').hasError('maxlength')"
+        >
+          Company Submission Mode cannot be more than 25 characters.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Is State Owned Company:</small>
+      <select class="form-control" formControlName="stateOwned">
+        <option value="Y">YES</option>
+        <option value="N">NO</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('stateOwned').dirty ||
+          companyProfileForm.get('stateOwned').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('stateOwned').hasError('required')"
+        >
+          Is State Owned Company required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('stateOwned').hasError('maxlength')"
+        >
+          Is State Owned Company cannot be more than 1 character.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Legal Enquiry Status:</small>
+      <select class="form-control" formControlName="compCaseFlag">
+        <option value="COURT CASES">COURT CASES</option>
+        <option value="DISPUTE CASES">DISPUTE CASES</option>
+        <option value="FIA INQUIRY">FIA INQUIRY</option>
+        <option value="FRAUDULENT ACTIVITIES">FRAUDULENT ACTIVITIES</option>
+        <option value="NAB INQUIRY">NAB INQUIRY</option>
+        <option value="SECURITY CLEARANCE">SECURITY CLEARANCE</option>
+      </select>
+
+      <div
+        *ngIf="
+          companyProfileForm.get('compCaseFlag').dirty ||
+          companyProfileForm.get('compCaseFlag').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="companyProfileForm.get('compCaseFlag').hasError('required')"
+        >
+          Legal Enquiry Status is required.
+        </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compCaseFlag').hasError('maxlength')"
+        >
+          Legal Enquiry Status cannot be more than 80 characters.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <button type="submit" class="btn btn-outline-primary">Update</button>
+
+</form>
+
+<ng-container *ngIf="isRequestSent">
+  <div class="line"></div>
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
+
+<ng-container *ngIf="companyResponse$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>

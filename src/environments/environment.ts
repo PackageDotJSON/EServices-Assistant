@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:3001',
-  loadingTime: 0
+  dataCleansingKey: 'secpTestAPI@',
+  loadingTime: 0,
 };
 
 /*

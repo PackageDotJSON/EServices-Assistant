@@ -57,6 +57,7 @@
           class="form-control"
           [(ngModel)]="companyName"
           placeholder="Enter Company Name"
+          (keydown.enter)="processList(); showCard()"
           required
         />
       </div>
@@ -72,6 +73,7 @@
           class="form-control"
           [(ngModel)]="incorporationNumber"
           placeholder="Enter Incorporation Number"
+          (keydown.enter)="processList(); showCard()"
           required
         />
       </div>
@@ -135,7 +137,19 @@
             }}
           </td>
           <td>{{ companyData[0][i][3] }}</td>
-          <td></td>
+          <td>
+            <button
+              class="btn btn-outline-success"
+              (click)="
+                navigateToCompanyPage(
+                  companyData[0][i][0],
+                  companyData[0][i][1]
+                )
+              "
+            >
+              View Company Details
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -181,7 +195,19 @@
             }}
           </td>
           <td>{{ companyData[0][i][3] }}</td>
-          <td></td>
+          <td>
+            <button
+              class="btn btn-outline-success"
+              (click)="
+                navigateToCompanyPage(
+                  companyData[0][i][0],
+                  companyData[0][i][1]
+                )
+              "
+            >
+              View Company Details
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

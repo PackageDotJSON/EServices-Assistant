@@ -1,0 +1,251 @@
+<form [formGroup]="capitalStructureForm" (ngSubmit)="updateCapitalStructure()">
+  <div class="row">
+    <div class="col">
+      <small>Per Share Value:</small>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="compPerShareValue"
+      />
+
+      <div
+        *ngIf="
+          capitalStructureForm.get('compPerShareValue').dirty ||
+          capitalStructureForm.get('compPerShareValue').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="
+            capitalStructureForm.get('compPerShareValue').hasError('required')
+          "
+        >
+          The Per Share Value is required.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compPerShareValue').hasError('pattern')
+          "
+        >
+          The Per Share Value cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compPerShareValue').hasError('maxlength')
+          "
+        >
+          The Per Share Value cannot contain more than 22 numerical digits.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Authorized Capital:</small>
+      <input type="text" class="form-control" formControlName="compAthrzCap" />
+
+      <div
+        *ngIf="
+          capitalStructureForm.get('compAthrzCap').dirty ||
+          capitalStructureForm.get('compAthrzCap').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="capitalStructureForm.get('compAthrzCap').hasError('required')"
+        >
+          The Authorized Capital is required.
+        </small>
+
+        <small
+          *ngIf="capitalStructureForm.get('compAthrzCap').hasError('pattern')"
+        >
+          The Authorized Capital cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="capitalStructureForm.get('compAthrzCap').hasError('maxlength')"
+        >
+          The Authorized Capital cannot contain more than 22 numerical digits.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Authorized Capital - Share:</small>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="compAthrzCapShrs"
+      />
+
+      <div
+        *ngIf="
+          capitalStructureForm.get('compAthrzCapShrs').dirty ||
+          capitalStructureForm.get('compAthrzCapShrs').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="
+            capitalStructureForm.get('compAthrzCapShrs').hasError('required')
+          "
+        >
+          The Authorized Capital - Share is required.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compAthrzCapShrs').hasError('pattern')
+          "
+        >
+          The Authorized Capital - Share cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compAthrzCapShrs').hasError('maxlength')
+          "
+        >
+          The Authorized Capital - Share contain more than 22 numerical digits.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="row">
+    <div class="col">
+      <small>Authorized Capital - Per Share Value:</small>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="compAthrzPerValue"
+      />
+
+      <div
+        *ngIf="
+          capitalStructureForm.get('compAthrzPerValue').dirty ||
+          capitalStructureForm.get('compAthrzPerValue').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="
+            capitalStructureForm.get('compAthrzPerValue').hasError('required')
+          "
+        >
+          The Authorized Capital - Per Share Value is required.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compAthrzPerValue').hasError('pattern')
+          "
+        >
+          The Authorized Capital - Per Share Value cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compAthrzPerValue').hasError('maxlength')
+          "
+        >
+          The Authorized Capital - Per Share Value cannot more than 22 numerical
+          digits.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Paidup Capital:</small>
+      <input type="text" class="form-control" formControlName="compPadupCap" />
+
+      <div
+        *ngIf="
+          capitalStructureForm.get('compPadupCap').dirty ||
+          capitalStructureForm.get('compPadupCap').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="capitalStructureForm.get('compPadupCap').hasError('required')"
+        >
+          The Paidup Capital is required.
+        </small>
+
+        <small
+          *ngIf="capitalStructureForm.get('compPadupCap').hasError('pattern')"
+        >
+          The Paidup Capital cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="capitalStructureForm.get('compPadupCap').hasError('maxlength')"
+        >
+          The Paidup Capital cannot contain more than 22 numerical digits.
+        </small>
+      </div>
+    </div>
+
+    <div class="col">
+      <small>Paidup Capital - Per Share Value:</small>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="compPadupCapShrs"
+      />
+
+      <div
+        *ngIf="
+          capitalStructureForm.get('compPadupCapShrs').dirty ||
+          capitalStructureForm.get('compPadupCapShrs').touched
+        "
+        class="custom-error-message"
+      >
+        <small
+          *ngIf="
+            capitalStructureForm.get('compPadupCapShrs').hasError('required')
+          "
+        >
+          The Paidup Capital - Per Share Value is required.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compPadupCapShrs').hasError('pattern')
+          "
+        >
+          The Paidup Capital - Per Share Value cannot contain alphabets.
+        </small>
+
+        <small
+          *ngIf="
+            capitalStructureForm.get('compPadupCapShrs').hasError('maxlength')
+          "
+        >
+          The Paidup Capital - Per Share Value cannot contain more than 22
+          numerical digits.
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <div class="line"></div>
+  <button type="submit" class="btn btn-outline-primary">Update</button>
+</form>
+
+<ng-container *ngIf="isRequestSent">
+  <div class="line"></div>
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
+
+<ng-container *ngIf="capitalResponse$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>

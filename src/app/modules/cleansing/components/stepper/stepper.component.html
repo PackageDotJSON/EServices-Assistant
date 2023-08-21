@@ -1,0 +1,91 @@
+<br />
+<h4>
+  <b>{{ companyName }}</b>
+</h4>
+<div class="bs-stepper">
+  <div class="bs-stepper-header" role="tablist">
+    <div class="step" data-target="#company-profile-part">
+      <button
+        type="button"
+        class="step-trigger"
+        role="tab"
+        aria-controls="company-profile-part"
+        id="company-profile-part-trigger"
+        [routerLink]="routeUrls.COMPANY_PROFILE"
+      >
+        <span class="bs-stepper-circle">1</span>
+        <span class="bs-stepper-label">Company Profile</span>
+      </button>
+    </div>
+    <div class="line"></div>
+    <div class="step" data-target="#capital-structure-part">
+      <button
+        type="button"
+        class="step-trigger"
+        role="tab"
+        aria-controls="capital-structure-part"
+        id="capital-structure-part-trigger"
+        [routerLink]="routeUrls.CAPITAL_STRUCTURE"
+      >
+        <span class="bs-stepper-circle">2</span>
+        <span class="bs-stepper-label">Capital Structure</span>
+      </button>
+    </div>
+    <div class="line"></div>
+    <div class="step" data-target="#officers-information-part">
+      <button
+        type="button"
+        class="step-trigger"
+        role="tab"
+        aria-controls="officers-information-part"
+        id="officers-information-part-trigger"
+        [routerLink]="routeUrls.OFFICERS_INFORMATION"
+      >
+        <span class="bs-stepper-circle">3</span>
+        <span class="bs-stepper-label">Officers Information</span>
+      </button>
+    </div>
+    <div class="line"></div>
+    <div class="step" data-target="#directors-information-part">
+      <button
+        type="button"
+        class="step-trigger"
+        role="tab"
+        aria-controls="directors-information-part"
+        id="directors-information-part-trigger"
+        [routerLink]="routeUrls.DIRECTORS_INFORMATION"
+      >
+        <span class="bs-stepper-circle">4</span>
+        <span class="bs-stepper-label">Directors Information</span>
+      </button>
+    </div>
+    <div class="line"></div>
+    <div class="step" data-target="#auditor-information-part">
+      <button
+        type="button"
+        class="step-trigger"
+        role="tab"
+        aria-controls="auditor-information-part"
+        id="auditor-information-part-trigger"
+        [routerLink]="routeUrls.AUDITOR_INFORMATION"
+      >
+        <span class="bs-stepper-circle">5</span>
+        <span class="bs-stepper-label">Auditor Information</span>
+      </button>
+    </div>
+    <div class="line"></div>
+    <div class="step" data-target="#shareholding-information-part">
+      <button
+        type="button"
+        class="step-trigger"
+        role="tab"
+        aria-controls="shareholding-information-part"
+        id="shareholding-information-part-trigger"
+        [routerLink]="routeUrls.SHAREHOLDING_INFORMATION"
+      >
+        <span class="bs-stepper-circle">6</span>
+        <span class="bs-stepper-label">Shareholding Information</span>
+      </button>
+    </div>
+  </div>
+</div>

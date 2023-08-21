@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserAccess } from '../../../services/login-service/login.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { BASE_URL } from '../../../constants/base-url.constant';
 import { PRODUCTS_API } from '../../../enums/apis.enum';
 import { Subscription } from 'rxjs';
@@ -33,7 +33,8 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
   constructor(
     private http: HttpClient,
     private useraccess: UserAccess,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   companySelect(): void {
@@ -170,6 +171,13 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
           }
         )
     );
+  }
+
+  navigateToCompanyPage(companyCuin: number, companyName: string) {
+    this.router.navigate([`../viewcompanysubmissionmode/${companyCuin}`], {
+      state: { companyName },
+      relativeTo: this.activatedRoute,
+    });
   }
 
   hideCard(): void {

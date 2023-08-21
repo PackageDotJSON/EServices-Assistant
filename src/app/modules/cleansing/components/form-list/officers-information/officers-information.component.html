@@ -1,0 +1,493 @@
+<div class="row">
+  <div class="col-3">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a
+        class="list-group-item list-group-item-action active"
+        id="ceo-details-list"
+        data-toggle="list"
+        href="#list-ceo"
+        role="tab"
+        aria-controls="ceo"
+        >CEO Details</a
+      >
+      <a
+        class="list-group-item list-group-item-action"
+        id="chief-details-list"
+        data-toggle="list"
+        href="#list-chief"
+        role="tab"
+        aria-controls="chief"
+        >Chief Accountant Details</a
+      >
+      <a
+        class="list-group-item list-group-item-action"
+        id="advisor-details-list"
+        data-toggle="list"
+        href="#list-advisor"
+        role="tab"
+        aria-controls="advisor"
+        >Legal Advisor Details</a
+      >
+      <a
+        class="list-group-item list-group-item-action"
+        id="agent-details-list"
+        data-toggle="list"
+        href="#list-agent"
+        role="tab"
+        aria-controls="agent"
+        >Managing Agent Details</a
+      >
+      <a
+        class="list-group-item list-group-item-action"
+        id="secretary-details-list"
+        data-toggle="list"
+        href="#list-secretary"
+        role="tab"
+        aria-controls="secretary"
+        >Secretary Details</a
+      >
+    </div>
+  </div>
+  <div class="col-9">
+    <form [formGroup]="officersInformationForm">
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="list-ceo"
+          role="tabpanel"
+          aria-labelledby="ceo-details-list"
+        >
+          <div class="row">
+            <div class="col">
+              <small>Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoName"
+              />
+            </div>
+
+            <div class="col">
+              <small>CNIC:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoCnic"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoFatherName"
+              />
+            </div>
+
+            <div class="col">
+              <small>Country:</small>
+              <select class="form-control" formControlName="ceoCountry">
+                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date:</small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="ceoAppointmentDate"
+              />
+            </div>
+
+            <div class="col">
+              <small>Cell No:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoCellNo"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Qualification:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoQualification"
+              />
+            </div>
+
+            <div class="col">
+              <small>Experience:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoExperience"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Other Business:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoOtherBusiness"
+              />
+            </div>
+
+            <div class="col">
+              <small>Fax:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoFax"
+              />
+            </div>
+
+            <div class="col">
+              <small>Telephone No:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="ceoTelephoneNo"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address:</small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="ceoAddress"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="line"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="list-chief"
+          role="tabpanel"
+          aria-labelledby="chief-details-list"
+        >
+          <div class="row">
+            <div class="col">
+              <small>Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="chiefName"
+              />
+            </div>
+
+            <div class="col">
+              <small>CNIC:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="chiefCnic"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="chiefFatherName"
+              />
+            </div>
+
+            <div class="col">
+              <small>Country:</small>
+              <select class="form-control" formControlName="chiefCountry">
+                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date:</small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="chiefAppointmentDate"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address:</small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="chiefAddress"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="line"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="list-advisor"
+          role="tabpanel"
+          aria-labelledby="advisor-details-list"
+        >
+          <div class="row">
+            <div class="col">
+              <small>Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="advisorName"
+              />
+            </div>
+
+            <div class="col">
+              <small>CNIC:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="advisorCnic"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="advisorFatherName"
+              />
+            </div>
+
+            <div class="col">
+              <small>Country:</small>
+              <select class="form-control" formControlName="advisorCountry">
+                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date:</small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="advisorAppointmentDate"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address:</small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="advisorAddress"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="line"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="list-agent"
+          role="tabpanel"
+          aria-labelledby="agent-details-list"
+        >
+          <div class="row">
+            <div class="col">
+              <small>Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="agentName"
+              />
+            </div>
+
+            <div class="col">
+              <small>CNIC:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="agentCnic"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="agentFatherName"
+              />
+            </div>
+
+            <div class="col">
+              <small>Country:</small>
+              <select class="form-control" formControlName="agentCountry">
+                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date:</small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="agentAppointmentDate"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address:</small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="agentAddress"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="line"></div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="list-secretary"
+          role="tabpanel"
+          aria-labelledby="secretary-details-list"
+        >
+          <div class="row">
+            <div class="col">
+              <small>Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="secretaryName"
+              />
+            </div>
+
+            <div class="col">
+              <small>CNIC:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="secretaryCnic"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="secretaryFatherName"
+              />
+            </div>
+
+            <div class="col">
+              <small>Country:</small>
+              <select class="form-control" formControlName="secretaryCountry">
+                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date:</small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="secretaryAppointmentDate"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address:</small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="secretaryAddress"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="line"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -14,9 +14,6 @@ textarea,
 select {
   margin-left: 1.1em;
 }
-.custom-error-message {
-  color: red;
-}
 .template-button {
   display: flex;
   justify-content: end;

@@ -1,0 +1,197 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#staticBackdrop"
+  id="custom-button"
+  #modalButton
+>
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Edit Record</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="informationForm">
+          <div class="row">
+            <div class="col">
+              <small>Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="name"
+              />
+            </div>
+            <div class="col">
+              <small>Father's/Husband's Name:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="fatherHusbandName"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>CNIC/Passport:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="cnicPassport"
+              />
+            </div>
+
+            <div class="col">
+              <small>Nationality:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="nationality"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Designation:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="designation"
+              />
+            </div>
+
+            <div class="col">
+              <small>Status:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="status"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>NTN:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="NTN"
+              />
+            </div>
+
+            <div class="col">
+              <small>Appointment Date:</small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="appointmentDate"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row" *ngIf="!hideElement">
+            <div class="col">
+              <small>Nature:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="nature"
+              />
+            </div>
+
+            <div class="col">
+              <small>Nominating Director:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="entityNominatingDirector"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col" *ngIf="!hideElement">
+              <small>No of Shares:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="noOfShares"
+              />
+            </div>
+
+            <div class="col">
+              <small>Other Occupation:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="otherOccupation"
+              />
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address:</small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="address"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="line"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          (click)="closeModal()"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>

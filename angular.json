@@ -27,11 +27,13 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/angular2-multiselect-dropdown/themes/default.theme.scss",
+              "node_modules/bs-stepper/dist/css/bs-stepper.min.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/bs-stepper/dist/js/bs-stepper.min.js"
             ]
           },
           "configurations": {

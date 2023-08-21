@@ -132,3 +132,12 @@ export const enum IOSCO_ALERTS_API {
   DOWNLOAD_IOSCO_ALERT = '/download-iosco-alert',
   DOWNLOAD_EXCEL_TEMPLATE = '/download-excel-template',
 }
+
+// Data Cleansing API
+
+export const enum DATA_CLEANSING_API {
+  GET_COMPANY_PROFILE = '/getprofile',
+  UPDATE_COMPANY_PROFILE = '/updtcmpprofile',
+  GET_CAPITAL_STRUCTURE = '/getcptl',
+  UPDATE_CAPITAL_STRUCTURE = '/updtcptl',
+}

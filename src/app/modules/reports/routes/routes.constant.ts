@@ -40,12 +40,19 @@ export const ROUTES: Routes = [
         component: ViewCompanyRecordsComponent,
       },
       {
+        path: 'datasharingmonitoringreport',
+        component: DataSharingMonitoringReportComponent,
+      },
+      {
         path: 'viewcompanysubmissionmode',
         component: ViewCompanySubmissionModeComponent,
       },
       {
-        path: 'datasharingmonitoringreport',
-        component: DataSharingMonitoringReportComponent,
+        path: 'viewcompanysubmissionmode/:id',
+        loadChildren: () =>
+          import('../../cleansing/cleansing.module').then(
+            (m) => m.CleansingModule
+          ),
       },
     ],
   },
