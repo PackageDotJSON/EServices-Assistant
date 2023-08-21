@@ -12,6 +12,10 @@ import { Observable, Subscription } from 'rxjs';
 import { CompanyState } from '../../../state-management/company-state.service';
 import { ICompanyProfile } from '../../../models/company-profile.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
+import {
+  formatDateToDDMMYYYY,
+  formatDateToYYYYMMDD,
+} from 'src/app/utility/utility-functions';
 
 @Component({
   selector: 'app-company-profile',
@@ -110,8 +114,17 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
         .getCompanyProfile(this.cuin)
         .pipe(
           tap((res: ICompanyProfile) => {
+            const convertedDate: string[] = formatDateToYYYYMMDD([
+              res.incDate,
+              res.agmDt,
+              res.frmADate,
+            ]);
+
             this.companyProfileForm.patchValue({
               ...res,
+              incDate: convertedDate[0],
+              agmDt: convertedDate[1],
+              frmADate: convertedDate[2],
             });
           })
         )
@@ -121,6 +134,19 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
 
   updateCompanyProfile() {
     this.isRequestSent = true;
+
+    const convertedDate: string[] = formatDateToDDMMYYYY([
+      this.companyProfileForm.get('incDate').value,
+      this.companyProfileForm.get('agmDt').value,
+      this.companyProfileForm.get('frmADate').value,
+    ]);
+
+    this.companyProfileForm.patchValue({
+      incDate: convertedDate[0],
+      agmDt: convertedDate[1],
+      frmADate: convertedDate[2],
+    });
+
     this.companyResponse$ = this.dataCleansingService
       .updateCompanyProfile(this.companyProfileForm.value)
       .pipe(
