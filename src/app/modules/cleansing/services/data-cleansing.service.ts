@@ -7,11 +7,10 @@ import { DATA_CLEANSING_API } from 'src/app/enums/apis.enum';
 import { ICompanyProfile } from '../models/company-profile.model';
 import { IResponse } from '../../alerts/models/response.model';
 import { ICapitalStructure } from '../models/capital-structure.model';
-import { CompanyState } from '../state-management/company-state.service';
 
 @Injectable()
 export class DataCleansingService {
-  constructor(private http: HttpClient, private companyStateService: CompanyState) {}
+  constructor(private http: HttpClient) {}
 
   getCompanyProfile(cuin: string): Observable<ICompanyProfile> {
     return this.http.get(

@@ -9,4 +9,5 @@ export interface ICapitalStructure {
   key: string;
   message: string;
   timestamp: string;
+  userId: string;
 }

@@ -93,6 +93,7 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
         ],
       ],
       compIncNo: [this.cuin],
+      userId: [],
     });
   }
 
@@ -120,6 +121,10 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
     }
 
     this.isRequestSent = true;
+    this.capitalStructureForm.patchValue({
+      userId: sessionStorage.getItem('cookie').split('@')[0],
+    });
+
     this.capitalResponse$ = this.dataCleansingService
       .updateCapitalStructure(this.capitalStructureForm.value)
       .pipe(

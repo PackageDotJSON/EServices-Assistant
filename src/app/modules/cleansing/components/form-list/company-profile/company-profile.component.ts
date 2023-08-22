@@ -98,6 +98,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       compSubMode: ['', [Validators.required, Validators.maxLength(25)]],
       stateOwned: ['', [Validators.required, Validators.maxLength(1)]],
       compCaseFlag: ['', [Validators.maxLength(80)]],
+      userId: [],
     });
   }
 
@@ -145,6 +146,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       incDate: convertedDate[0],
       agmDt: convertedDate[1],
       frmADate: convertedDate[2],
+      userId: sessionStorage.getItem('cookie').split('@')[0],
     });
 
     this.companyResponse$ = this.dataCleansingService

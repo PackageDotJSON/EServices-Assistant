@@ -26,4 +26,5 @@ export interface ICompanyProfile {
   oldCmpnyNm: string;
   stateOwned: string;
   timestamp: string;
+  userId: string;
 }
