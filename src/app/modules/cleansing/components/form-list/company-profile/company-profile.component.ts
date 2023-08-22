@@ -104,7 +104,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       listed: ['', [Validators.required, Validators.maxLength(1)]],
       compSubMode: ['', [Validators.required, Validators.maxLength(25)]],
       stateOwned: ['', [Validators.required, Validators.maxLength(1)]],
-      compCaseFlag: ['', [Validators.required, Validators.maxLength(80)]],
+      compCaseFlag: ['', [Validators.maxLength(80)]],
     });
   }
 

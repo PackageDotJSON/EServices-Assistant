@@ -23,7 +23,7 @@
 
     <div class="col">
       <small>Company Incorporation Number:</small>
-      <input type="text" class="form-control" formControlName="compIncNo" />
+      <input type="text" class="form-control" formControlName="compIncNo" readonly/>
 
       <div
         *ngIf="
@@ -682,12 +682,6 @@
         class="custom-error-message"
       >
         <small
-          *ngIf="companyProfileForm.get('compCaseFlag').hasError('required')"
-        >
-          Legal Enquiry Status is required.
-        </small>
-
-        <small
           *ngIf="companyProfileForm.get('compCaseFlag').hasError('maxlength')"
         >
           Legal Enquiry Status cannot be more than 80 characters.
@@ -699,7 +693,6 @@
   <div class="line"></div>
 
   <button type="submit" class="btn btn-outline-primary">Update</button>
-
 </form>
 
 <ng-container *ngIf="isRequestSent">
