@@ -32,6 +32,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   companyResponse$: Observable<IResponse>;
   isRequestSent = false;
   subscription = new Subscription();
+  invalidForm = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,11 +72,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       ],
       compFaxNo: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(20),
-        ],
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(20)],
       ],
       compPhoneNo: [
         '',
@@ -87,18 +84,14 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       ],
       compPhoneNo2: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(50),
-        ],
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(50)],
       ],
       compStatus: ['', [Validators.required, Validators.maxLength(40)]],
-      holdingCompCode: ['', [Validators.required, Validators.maxLength(100)]],
+      holdingCompCode: ['', [Validators.maxLength(100)]],
       compMainObj: ['', [Validators.required, Validators.maxLength(3074)]],
-      agmDt: ['', [Validators.required, Validators.maxLength(20)]],
-      frmADate: ['', [Validators.required, Validators.maxLength(20)]],
-      oldCmpnyNm: ['', [Validators.required, Validators.maxLength(100)]],
+      agmDt: ['', [Validators.maxLength(20)]],
+      frmADate: ['', [Validators.maxLength(20)]],
+      oldCmpnyNm: ['', [Validators.maxLength(100)]],
       compCity: ['', [Validators.required, Validators.maxLength(75)]],
       compProvince: ['', [Validators.required, Validators.maxLength(75)]],
       listed: ['', [Validators.required, Validators.maxLength(1)]],
@@ -133,6 +126,13 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   }
 
   updateCompanyProfile() {
+    if (this.companyProfileForm.invalid === true) {
+      this.invalidForm = true;
+      return;
+    } else {
+      this.invalidForm = false;
+    }
+
     this.isRequestSent = true;
 
     const convertedDate: string[] = formatDateToDDMMYYYY([

@@ -18,6 +18,7 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
   cuin: string;
   capitalResponse$: Observable<IResponse>;
   isRequestSent = false;
+  invalidForm = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,6 +112,13 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
   }
 
   updateCapitalStructure() {
+    if (this.capitalStructureForm.invalid === true) {
+      this.invalidForm = true;
+      return;
+    } else {
+      this.invalidForm = false;
+    }
+
     this.isRequestSent = true;
     this.capitalResponse$ = this.dataCleansingService
       .updateCapitalStructure(this.capitalStructureForm.value)

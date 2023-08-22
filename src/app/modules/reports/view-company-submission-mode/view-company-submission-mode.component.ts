@@ -174,10 +174,13 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
   }
 
   navigateToCompanyPage(companyCuin: number, companyName: string) {
-    this.router.navigate([`../viewcompanysubmissionmode/${companyCuin}`], {
-      state: { companyName },
-      relativeTo: this.activatedRoute,
-    });
+    this.router.navigate(
+      [`../viewcompanysubmissionmode/${companyCuin}/company-profile`],
+      {
+        state: { companyName },
+        relativeTo: this.activatedRoute,
+      }
+    );
   }
 
   hideCard(): void {

@@ -1,7 +1,7 @@
 <form [formGroup]="companyProfileForm" (ngSubmit)="updateCompanyProfile()">
   <div class="row">
     <div class="col">
-      <small>Company Name:</small>
+      <small>Company Name: <mark>(required)</mark></small>
       <input type="text" class="form-control" formControlName="compName" />
 
       <div
@@ -22,8 +22,13 @@
     </div>
 
     <div class="col">
-      <small>Company Incorporation Number:</small>
-      <input type="text" class="form-control" formControlName="compIncNo" readonly/>
+      <small>Company Incorporation Number: <mark>(required)</mark></small>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="compIncNo"
+        readonly
+      />
 
       <div
         *ngIf="
@@ -45,7 +50,7 @@
     </div>
 
     <div class="col">
-      <small>Registration Date:</small>
+      <small>Registration Date: <mark>(required)</mark></small>
       <input
         type="date"
         class="form-control"
@@ -75,7 +80,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Industry Type:</small>
+      <small>Industry Type: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compSector">
         <option
           *ngFor="let industry of industryList"
@@ -109,7 +114,7 @@
     </div>
 
     <div class="col">
-      <small>Company Type:</small>
+      <small>Company Type: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compKind">
         <option *ngFor="let company of companyList" [value]="company">
           {{ company }}
@@ -134,7 +139,7 @@
     </div>
 
     <div class="col">
-      <small>Company District:</small>
+      <small>Company District: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compDistt">
         <option *ngFor="let district of districtList" [value]="district">
           {{ district }}
@@ -161,7 +166,7 @@
     </div>
 
     <div class="col">
-      <small>Company Registration Office:</small>
+      <small>Company Registration Office: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compCro">
         <option value="CRO Faisalabad">CRO Faisalabad</option>
         <option value="CRO Gilgit">CRO Gilgit</option>
@@ -196,7 +201,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Company Address:</small>
+      <small>Company Address: <mark>(required)</mark></small>
       <textarea
         type="text"
         class="form-control"
@@ -226,7 +231,7 @@
     </div>
 
     <div class="col">
-      <small>Main Objectives:</small>
+      <small>Main Objectives: <mark>(required)</mark></small>
       <textarea
         type="text"
         class="form-control"
@@ -270,10 +275,6 @@
         "
         class="custom-error-message"
       >
-        <small *ngIf="companyProfileForm.get('compFaxNo').hasError('required')">
-          Fax No. is required.
-        </small>
-
         <small *ngIf="companyProfileForm.get('compFaxNo').hasError('pattern')">
           Fax No. cannot contain alphabets.
         </small>
@@ -287,7 +288,7 @@
     </div>
 
     <div class="col">
-      <small>Company Telephone No:</small>
+      <small>Company Telephone No: <mark>(required)</mark></small>
       <input type="text" class="form-control" formControlName="compPhoneNo" />
 
       <div
@@ -329,12 +330,6 @@
         class="custom-error-message"
       >
         <small
-          *ngIf="companyProfileForm.get('compPhoneNo2').hasError('required')"
-        >
-          Tel No. 2 is required.
-        </small>
-
-        <small
           *ngIf="companyProfileForm.get('compPhoneNo2').hasError('pattern')"
         >
           Tel No. 2 cannot contain alphabets.
@@ -353,7 +348,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Company Status:</small>
+      <small>Company Status: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compStatus">
         <option value="ACTIVE">ACTIVE</option>
         <option value="INACTIVE">INACTIVE</option>
@@ -398,12 +393,6 @@
         class="custom-error-message"
       >
         <small
-          *ngIf="companyProfileForm.get('holdingCompCode').hasError('required')"
-        >
-          Holding Company Name is required.
-        </small>
-
-        <small
           *ngIf="
             companyProfileForm.get('holdingCompCode').hasError('maxlength')
           "
@@ -414,7 +403,7 @@
     </div>
 
     <div class="col">
-      <small>Company Email:</small>
+      <small>Company Email: <mark>(required)</mark></small>
       <input type="email" class="form-control" formControlName="compEmail" />
 
       <div
@@ -451,10 +440,6 @@
         "
         class="custom-error-message"
       >
-        <small *ngIf="companyProfileForm.get('agmDt').hasError('required')">
-          AGM Date is required.
-        </small>
-
         <small *ngIf="companyProfileForm.get('agmDt').hasError('maxlength')">
           AGM Date cannot be more than 20 characters.
         </small>
@@ -476,10 +461,6 @@
         "
         class="custom-error-message"
       >
-        <small *ngIf="companyProfileForm.get('frmADate').hasError('required')">
-          Form A/B/C Date is required.
-        </small>
-
         <small *ngIf="companyProfileForm.get('frmADate').hasError('maxlength')">
           Form A/B/C Date cannot be more than 20 characters.
         </small>
@@ -498,12 +479,6 @@
         class="custom-error-message"
       >
         <small
-          *ngIf="companyProfileForm.get('oldCmpnyNm').hasError('required')"
-        >
-          Old Company Name is required.
-        </small>
-
-        <small
           *ngIf="companyProfileForm.get('oldCmpnyNm').hasError('maxlength')"
         >
           Old Company Name cannot be more than 100 characters.
@@ -512,7 +487,7 @@
     </div>
 
     <div class="col">
-      <small>Company City:</small>
+      <small>Company City: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compCity">
         <option *ngFor="let city of cityList" [value]="city">{{ city }}</option>
       </select>
@@ -535,7 +510,7 @@
     </div>
 
     <div class="col">
-      <small>Company Province:</small>
+      <small>Company Province: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compProvince">
         <option value="FEDERAL CAPITAL TERRITORY">
           FEDERAL CAPITAL TERRITORY
@@ -584,7 +559,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Is Listed Company:</small>
+      <small>Is Listed Company: <mark>(required)</mark></small>
       <select class="form-control" formControlName="listed">
         <option value="Y">YES</option>
         <option value="N">NO</option>
@@ -608,7 +583,7 @@
     </div>
 
     <div class="col">
-      <small>Company Submission Mode:</small>
+      <small>Company Submission Mode: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compSubMode">
         <option value="Online">Online</option>
         <option value="Online/Offline">Online/Offline</option>
@@ -636,7 +611,7 @@
     </div>
 
     <div class="col">
-      <small>Is State Owned Company:</small>
+      <small>Is State Owned Company: <mark>(required)</mark></small>
       <select class="form-control" formControlName="stateOwned">
         <option value="Y">YES</option>
         <option value="N">NO</option>
@@ -689,9 +664,9 @@
       </div>
     </div>
   </div>
-
   <div class="line"></div>
-
+  <small *ngIf="invalidForm" class="custom-error-message">Some <mark>required</mark> fields are missing.</small>
+  <br />
   <button type="submit" class="btn btn-outline-primary">Update</button>
 </form>
 

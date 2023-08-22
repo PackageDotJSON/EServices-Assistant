@@ -1,7 +1,7 @@
 <form [formGroup]="capitalStructureForm" (ngSubmit)="updateCapitalStructure()">
   <div class="row">
     <div class="col">
-      <small>Per Share Value:</small>
+      <small>Per Share Value: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -42,7 +42,7 @@
     </div>
 
     <div class="col">
-      <small>Authorized Capital:</small>
+      <small>Authorized Capital: <mark>required</mark></small>
       <input type="text" class="form-control" formControlName="compAthrzCap" />
 
       <div
@@ -73,7 +73,7 @@
     </div>
 
     <div class="col">
-      <small>Authorized Capital - Share:</small>
+      <small>Authorized Capital - Share: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -118,7 +118,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Authorized Capital - Per Share Value:</small>
+      <small>Authorized Capital - Per Share Value: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -160,7 +160,7 @@
     </div>
 
     <div class="col">
-      <small>Paidup Capital:</small>
+      <small>Paidup Capital: <mark>required</mark></small>
       <input type="text" class="form-control" formControlName="compPadupCap" />
 
       <div
@@ -191,7 +191,7 @@
     </div>
 
     <div class="col">
-      <small>Paidup Capital - Per Share Value:</small>
+      <small>Paidup Capital - Per Share Value: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -234,6 +234,10 @@
   </div>
 
   <div class="line"></div>
+  <small *ngIf="invalidForm" class="custom-error-message"
+    >Some <mark>required</mark> fields are missing.</small
+  >
+  <br />
   <button type="submit" class="btn btn-outline-primary">Update</button>
 </form>
 

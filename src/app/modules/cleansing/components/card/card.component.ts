@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import {
   ActivatedRoute,
   Event,
+  NavigationEnd,
   NavigationStart,
   Router,
 } from '@angular/router';
@@ -28,7 +29,7 @@ export class CardComponent implements OnDestroy {
       this.router.events
         .pipe(
           tap((event: Event) => {
-            event instanceof NavigationStart &&
+            event instanceof NavigationEnd &&
               (this.cardHeader = ROUTES_DESCRIPTION[event.url.split('/')[4]]);
           })
         )
