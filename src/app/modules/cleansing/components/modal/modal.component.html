@@ -22,35 +22,87 @@
 >
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Edit Record</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="informationForm">
+      <form [formGroup]="informationForm" (ngSubmit)="updateInfo()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Edit Record</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
           <div class="row">
             <div class="col">
-              <small>Name:</small>
+              <small>Name: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
-                formControlName="name"
+                formControlName="directorName"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorName').dirty ||
+                  informationForm.get('directorName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm.get('directorName').hasError('required')
+                  "
+                >
+                  Name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm.get('directorName').hasError('maxlength')
+                  "
+                >
+                  Name cannot be more than 100 characters.
+                </small>
+              </div>
             </div>
             <div class="col">
-              <small>Father's/Husband's Name:</small>
+              <small>Father's/Husband's Name: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
-                formControlName="fatherHusbandName"
+                formControlName="directorFatherHusbandName"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorFatherHusbandName').dirty ||
+                  informationForm.get('directorFatherHusbandName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorFatherHusbandName')
+                      .hasError('required')
+                  "
+                >
+                  Father's/Husband's Name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorFatherHusbandName')
+                      .hasError('maxlength')
+                  "
+                >
+                  Father's/Husband's Name cannot be more than 100 characters.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -58,21 +110,90 @@
 
           <div class="row">
             <div class="col">
-              <small>CNIC/Passport:</small>
+              <small>CNIC/Passport: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
-                formControlName="cnicPassport"
+                formControlName="directorCnicPassport"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorCnicPassport').dirty ||
+                  informationForm.get('directorCnicPassport').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorCnicPassport')
+                      .hasError('required')
+                  "
+                >
+                  CNIC is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorCnicPassport')
+                      .hasError('pattern')
+                  "
+                >
+                  CNIC cannot contain alphabets.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorCnicPassport')
+                      .hasError('maxlength')
+                  "
+                >
+                  CNIC cannot be more than 50 characters.
+                </small>
+              </div>
             </div>
 
             <div class="col">
-              <small>Nationality:</small>
-              <input
+              <small>Nationality: <mark>required</mark></small>
+              <select
                 class="form-control"
-                type="text"
-                formControlName="nationality"
-              />
+                formControlName="directorNationality"
+              >
+                <option *ngFor="let country of countriesList" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  informationForm.get('directorNationality').dirty ||
+                  informationForm.get('directorNationality').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorNationality')
+                      .hasError('required')
+                  "
+                >
+                  Nationality is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorNationality')
+                      .hasError('maxlength')
+                  "
+                >
+                  Nationality cannot be more than 50 characters.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -80,80 +201,225 @@
 
           <div class="row">
             <div class="col">
-              <small>Designation:</small>
+              <small>Designation: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
                 formControlName="designation"
+                readonly
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('designation').dirty ||
+                  informationForm.get('designation').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm.get('designation').hasError('required')
+                  "
+                >
+                  Designation is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm.get('designation').hasError('maxlength')
+                  "
+                >
+                  Designation cannot be more than 75 characters.
+                </small>
+              </div>
             </div>
 
             <div class="col">
-              <small>Status:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="status"
-              />
+              <small>Status: <mark>required</mark></small>
+              <select class="form-control" formControlName="status">
+                <option value="REMOVED">REMOVED</option>
+                <option value="RESIGNED">RESIGNED</option>
+                <option value="DIED">DIED</option>
+                <option value="DISQUALIFIED">DISQUALIFIED</option>
+                <option value="APPOINTED">APPOINTED</option>
+                <option value="RE_APPOINTED">RE_APPOINTED</option>
+                <option value="RE_ELECTED">RE_ELECTED</option>
+                <option value="CHANGE_IN_NIC">CHANGE_IN_NIC</option>
+                <option value="OTHER_CHANGE">OTHER_CHANGE</option>
+                <option value="ELECTED">ELECTED</option>
+                <option value="RETIRED">RETIRED</option>
+              </select>
+
+              <div
+                *ngIf="
+                  informationForm.get('status').dirty ||
+                  informationForm.get('status').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="informationForm.get('status').hasError('required')"
+                >
+                  Status is required.
+                </small>
+
+                <small
+                  *ngIf="informationForm.get('status').hasError('maxlength')"
+                >
+                  Status cannot be more than 25 characters.
+                </small>
+              </div>
             </div>
           </div>
 
           <div class="line"></div>
 
           <div class="row">
-            <div class="col">
+            <div class="col" *ngIf="currentRoute === 'directors-information'">
               <small>NTN:</small>
               <input
                 class="form-control"
                 type="text"
-                formControlName="NTN"
+                formControlName="directorNTN"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorNTN').dirty ||
+                  informationForm.get('directorNTN').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm.get('directorNTN').hasError('maxlength')
+                  "
+                >
+                  NTN cannot be more than 10 characters.
+                </small>
+              </div>
             </div>
 
             <div class="col">
-              <small>Appointment Date:</small>
+              <small>Appointment Date: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="date"
-                formControlName="appointmentDate"
+                formControlName="directorAppointmentDate"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorAppointmentDate').dirty ||
+                  informationForm.get('directorAppointmentDate').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorAppointmentDate')
+                      .hasError('required')
+                  "
+                >
+                  Appointment Date is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorAppointmentDate')
+                      .hasError('maxlength')
+                  "
+                >
+                  Appointment Date cannot be more than 75 characters.
+                </small>
+              </div>
             </div>
           </div>
 
           <div class="line"></div>
 
-          <div class="row" *ngIf="!hideElement">
+          <div class="row" *ngIf="currentRoute === 'directors-information'">
             <div class="col">
-              <small>Nature:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="nature"
-              />
+              <small>Nature: <mark>required</mark></small>
+              <select class="form-control" formControlName="directorshipNature">
+                <option value="Appointed">Appointed</option>
+                <option value="Nominee">Nominee</option>
+                <option value="Independent">Independent</option>
+                <option value="Other">Other</option>
+              </select>
+
+              <div
+                *ngIf="
+                  informationForm.get('directorshipNature').dirty ||
+                  informationForm.get('directorshipNature').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorshipNature')
+                      .hasError('required')
+                  "
+                >
+                  Nature is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorshipNature')
+                      .hasError('maxlength')
+                  "
+                >
+                  Nature cannot be more than 30 characters.
+                </small>
+              </div>
             </div>
 
             <div class="col">
-              <small>Nominating Director:</small>
+              <small>Nominating Director: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
                 formControlName="entityNominatingDirector"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('entityNominatingDirector').dirty ||
+                  informationForm.get('entityNominatingDirector').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('entityNominatingDirector')
+                      .hasError('required')
+                  "
+                >
+                  Nominating Director is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('entityNominatingDirector')
+                      .hasError('maxlength')
+                  "
+                >
+                  Nominating Director cannot be more than 25 characters.
+                </small>
+              </div>
             </div>
           </div>
 
           <div class="line"></div>
 
           <div class="row">
-            <div class="col" *ngIf="!hideElement">
-              <small>No of Shares:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="noOfShares"
-              />
-            </div>
-
             <div class="col">
               <small>Other Occupation:</small>
               <input
@@ -161,6 +427,22 @@
                 type="text"
                 formControlName="otherOccupation"
               />
+
+              <div
+                *ngIf="
+                  informationForm.get('otherOccupation').dirty ||
+                  informationForm.get('otherOccupation').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm.get('otherOccupation').hasError('maxlength')
+                  "
+                >
+                  Other Occupation cannot be more than 512 characters.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -168,30 +450,70 @@
 
           <div class="row">
             <div class="col">
-              <small>Address:</small>
+              <small>Address: <mark>required</mark></small>
               <textarea
                 class="form-control"
                 type="text"
-                formControlName="address"
+                formControlName="directorAddress"
                 rows="3"
               ></textarea>
+
+              <div
+                *ngIf="
+                  informationForm.get('directorAddress').dirty ||
+                  informationForm.get('directorAddress').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm.get('directorAddress').hasError('required')
+                  "
+                >
+                  Address is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm.get('directorAddress').hasError('maxlength')
+                  "
+                >
+                  Address cannot be more than 512 characters.
+                </small>
+              </div>
             </div>
           </div>
 
           <div class="line"></div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-          (click)="closeModal()"
-        >
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
+          <small *ngIf="invalidForm" class="custom-error-message"
+            >Some <mark>required</mark> fields are missing.</small
+          >
+          <br />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save</button>
+          <ng-container *ngIf="isRequestSent">
+            <div class="line"></div>
+            <app-loading-spinner></app-loading-spinner>
+          </ng-container>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="response$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>

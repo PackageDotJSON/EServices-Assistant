@@ -15,6 +15,7 @@ import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import {
   formatDateToDDMMYYYY,
   formatDateToYYYYMMDD,
+  getUserId,
 } from 'src/app/utility/utility-functions';
 
 @Component({
@@ -146,14 +147,14 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       incDate: convertedDate[0],
       agmDt: convertedDate[1],
       frmADate: convertedDate[2],
-      userId: sessionStorage.getItem('cookie').split('@')[0],
+      userId: getUserId(),
     });
 
     this.companyResponse$ = this.dataCleansingService
       .updateCompanyProfile(this.companyProfileForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && ((this.isRequestSent = false), this.getCompanyProfile());
+          res && (this.isRequestSent = false);
         })
       );
   }

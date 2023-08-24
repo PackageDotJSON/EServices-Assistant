@@ -1,1 +1,49 @@
-<p>auditor-information works!</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Father/Husband Name</th>
+        <th scope="col">CNIC/Passport</th>
+        <th scope="col">NTN</th>
+        <th scope="col">Nationality</th>
+        <th scope="col">Designation</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="auditorDetails as aDetails; else isLoading">
+      <tr *ngFor="let auditor of aDetails.directorInfo; let i = index">
+        <td>{{ auditor.directorName }}</td>
+        <td>{{ auditor.directorFatherHusbandName }}</td>
+        <td>{{ auditor.directorCnicPassport }}</td>
+        <td>{{ auditor.directorNTN }}</td>
+        <td>{{ auditor.directorNationality }}</td>
+        <td>{{ auditor.designation }}</td>
+        <td>
+          <button
+            class="btn btn-outline-secondary"
+            (click)="
+              isModalClicked = true; selectedAuditor = auditor; index = i
+            "
+          >
+            <i class="bi bi-pencil"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+    <ng-template #isLoading>
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+  </table>
+</div>
+
+<ng-container *ngIf="isModalClicked">
+  <app-modal
+    (closeModalEvent)="getModalState($event)"
+    [formData]="selectedAuditor"
+    [remainingData]="auditorDetails"
+    [index]="index"
+  ></app-modal>
+</ng-container>

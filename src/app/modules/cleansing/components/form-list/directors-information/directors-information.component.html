@@ -5,56 +5,45 @@
         <th scope="col">Name</th>
         <th scope="col">Father/Husband Name</th>
         <th scope="col">CNIC/Passport</th>
-        <th scope="col">Address</th>
+        <th scope="col">NTN</th>
         <th scope="col">Nationality</th>
         <th scope="col">Designation</th>
         <th scope="col">Edit</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
+
+    <tbody *ngIf="directorDetails as dDetails; else isLoading">
+      <tr *ngFor="let director of dDetails.directorInfo; let i = index">
+        <td>{{ director.directorName }}</td>
+        <td>{{ director.directorFatherHusbandName }}</td>
+        <td>{{ director.directorCnicPassport }}</td>
+        <td>{{ director.directorNTN }}</td>
+        <td>{{ director.directorNationality }}</td>
+        <td>{{ director.designation }}</td>
         <td>
-          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
-            <i class="bi bi-pencil"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>
-          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
-            <i class="bi bi-pencil"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>
-          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="
+              isModalClicked = true; selectedDirector = director; index = i
+            "
+          >
             <i class="bi bi-pencil"></i>
           </button>
         </td>
       </tr>
     </tbody>
+
+    <ng-template #isLoading>
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
   </table>
 </div>
 
 <ng-container *ngIf="isModalClicked">
-  <app-modal (closeModalEvent)="getModalState($event)"></app-modal>
+  <app-modal
+    (closeModalEvent)="getModalState($event)"
+    [formData]="selectedDirector"
+    [remainingData]="directorDetails"
+    [index]="index"
+  ></app-modal>
 </ng-container>

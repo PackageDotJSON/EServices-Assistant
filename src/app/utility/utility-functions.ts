@@ -3,7 +3,8 @@ export function formatDateToYYYYMMDD(inputDate: string[]): string[] {
 
   inputDate.forEach((item) => {
     if (item) {
-      const newItem = item.split('/');
+      const delimiter = item.includes('/') ? '/' : '-';
+      const newItem = item.split(delimiter);
 
       const day = newItem[0];
       const month = newItem[1];
@@ -23,7 +24,8 @@ export function formatDateToDDMMYYYY(inputDate: string[]): string[] {
 
   inputDate.forEach((item) => {
     if (item) {
-      const newItem = item.split('-');
+      const delimiter = item.includes('/') ? '/' : '-';
+      const newItem = item.split(delimiter);
 
       const year = newItem[0];
       const month = newItem[1];
@@ -34,6 +36,10 @@ export function formatDateToDDMMYYYY(inputDate: string[]): string[] {
       newDateFormat.push(null);
     }
   });
-  
+
   return newDateFormat;
+}
+
+export function getUserId() {
+  return sessionStorage.getItem('cookie').split('@')[0];
 }

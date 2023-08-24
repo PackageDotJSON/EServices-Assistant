@@ -1,6 +1,6 @@
 # EServices Assistant
 
-This application has been developed by IS&T department, SECP, Islamabad.
+This application has been developed by MUHAMMAD HASSAN, working in the IS&T department, SECP, Islamabad.
 
 The app has been developed using the latest Single Page Application (SPA) and Representational State Transfer (REST) technology. Angular along with Bootstrap have been used for the front-end whereas, Node.js/Express.js along with DB2 and Oracle have been used for the back-end development.
 

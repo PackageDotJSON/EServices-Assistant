@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ICapitalStructure } from '../../../models/capital-structure.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
+import { getUserId } from 'src/app/utility/utility-functions';
 
 @Component({
   selector: 'app-capital-structure',
@@ -122,14 +123,14 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
 
     this.isRequestSent = true;
     this.capitalStructureForm.patchValue({
-      userId: sessionStorage.getItem('cookie').split('@')[0],
+      userId: getUserId(),
     });
 
     this.capitalResponse$ = this.dataCleansingService
       .updateCapitalStructure(this.capitalStructureForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && ((this.isRequestSent = false), this.getCapitalStructure());
+          res && (this.isRequestSent = false);
         })
       );
   }

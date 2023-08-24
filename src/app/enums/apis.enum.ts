@@ -140,4 +140,19 @@ export const enum DATA_CLEANSING_API {
   UPDATE_COMPANY_PROFILE = '/updtcmpprofile',
   GET_CAPITAL_STRUCTURE = '/getcptl',
   UPDATE_CAPITAL_STRUCTURE = '/updtcptl',
+  GET_CEO_DETAILS = '/getceo',
+  UPDATE_CEO_DETAILS = '/updtceo',
+  GET_CHIEF_DETAILS = '/getcac',
+  UPDATE_CHIEF_DETAILS = '/updtcac',
+  GET_ADVISOR_DETAILS = '/getlgladv',
+  UPDATE_ADVISOR_DETAILS = '/updtlgladv',
+  GET_AGENT_DETAILS = '/getmng',
+  UPDATE_AGENT_DETAILS = '/updtmng',
+  GET_SECRETARY_DETAILS = '/getsecr',
+  UPDATE_SECRETARY_DETAILS = '/updtsecr',
+  GET_DIRECTOR_DETAILS = '/getdir',
+  UPDATE_DIRECTOR_DETAILS = '/updtdir',
+  GET_AUDITOR_DETAILS = '/getaud',
+  UPDATE_AUDITOR_DETAILS = '/updtaud'
+
 }

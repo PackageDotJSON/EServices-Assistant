@@ -150,3 +150,7 @@ th {
 .custom-error-message {
   color: red;
 }
+
+.custom-success-message {
+  color: green;
+}

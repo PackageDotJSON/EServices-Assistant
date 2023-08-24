@@ -49,31 +49,69 @@
     </div>
   </div>
   <div class="col-9">
-    <form [formGroup]="officersInformationForm">
-      <div class="tab-content" id="nav-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="list-ceo"
-          role="tabpanel"
-          aria-labelledby="ceo-details-list"
-        >
+    <div class="tab-content" id="nav-tabContent">
+      <!-- CEO Information Form -->
+
+      <div
+        class="tab-pane fade show active"
+        id="list-ceo"
+        role="tabpanel"
+        aria-labelledby="ceo-details-list"
+      >
+        <form [formGroup]="ceoInfoForm" (ngSubmit)="updateCeoDetails()">
           <div class="row">
             <div class="col">
-              <small>Name:</small>
+              <small>Name: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
                 formControlName="ceoName"
               />
+
+              <div
+                *ngIf="
+                  ceoInfoForm.get('ceoName').dirty ||
+                  ceoInfoForm.get('ceoName').touched
+                "
+                class="custom-error-message"
+              >
+                <small *ngIf="ceoInfoForm.get('ceoName').hasError('required')">
+                  CEO's name is required.
+                </small>
+
+                <small *ngIf="ceoInfoForm.get('ceoName').hasError('maxlength')">
+                  CEO's name cannot be more than 100 characters.
+                </small>
+              </div>
             </div>
 
             <div class="col">
-              <small>CNIC:</small>
+              <small>CNIC: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
-                formControlName="ceoCnic"
+                formControlName="ceoNIC"
               />
+
+              <div
+                *ngIf="
+                  ceoInfoForm.get('ceoNIC').dirty ||
+                  ceoInfoForm.get('ceoNIC').touched
+                "
+                class="custom-error-message"
+              >
+                <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('required')">
+                  CEO's CNIC is required.
+                </small>
+
+                <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('pattern')">
+                  CEO's CNIC cannot contain alphabets.
+                </small>
+
+                <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('maxlength')">
+                  CEO's CNIC cannot be more than 75 characters.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -81,19 +119,61 @@
 
           <div class="row">
             <div class="col">
-              <small>Father's Name:</small>
+              <small>Father's Name: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
                 formControlName="ceoFatherName"
               />
+
+              <div
+                *ngIf="
+                  ceoInfoForm.get('ceoFatherName').dirty ||
+                  ceoInfoForm.get('ceoFatherName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="ceoInfoForm.get('ceoFatherName').hasError('required')"
+                >
+                  CEO's father name is required.
+                </small>
+
+                <small
+                  *ngIf="ceoInfoForm.get('ceoFatherName').hasError('maxlength')"
+                >
+                  CEO's father name cannot be more than 100 characters.
+                </small>
+              </div>
             </div>
 
             <div class="col">
-              <small>Country:</small>
+              <small>Country: <mark>required</mark></small>
               <select class="form-control" formControlName="ceoCountry">
-                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
+                <option *ngFor="let country of countriesList" [value]="country">
+                  {{ country }}
+                </option>
               </select>
+
+              <div
+                *ngIf="
+                  ceoInfoForm.get('ceoCountry').dirty ||
+                  ceoInfoForm.get('ceoCountry').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="ceoInfoForm.get('ceoCountry').hasError('required')"
+                >
+                  CEO's country is required.
+                </small>
+
+                <small
+                  *ngIf="ceoInfoForm.get('ceoCountry').hasError('maxlength')"
+                >
+                  CEO's country cannot be more than 50 characters.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -101,43 +181,32 @@
 
           <div class="row">
             <div class="col">
-              <small>Appointment Date:</small>
+              <small>Appointment Date: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="date"
-                formControlName="ceoAppointmentDate"
+                formControlName="ceoAppDate"
               />
-            </div>
 
-            <div class="col">
-              <small>Cell No:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="ceoCellNo"
-              />
-            </div>
-          </div>
+              <div
+                *ngIf="
+                  ceoInfoForm.get('ceoAppDate').dirty ||
+                  ceoInfoForm.get('ceoAppDate').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="ceoInfoForm.get('ceoAppDate').hasError('required')"
+                >
+                  CEO's appointment date is required.
+                </small>
 
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Qualification:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="ceoQualification"
-              />
-            </div>
-
-            <div class="col">
-              <small>Experience:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="ceoExperience"
-              />
+                <small
+                  *ngIf="ceoInfoForm.get('ceoAppDate').hasError('maxlength')"
+                >
+                  CEO's appointment date cannot be more than 20 characters.
+                </small>
+              </div>
             </div>
           </div>
 
@@ -145,349 +214,962 @@
 
           <div class="row">
             <div class="col">
-              <small>Other Business:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="ceoOtherBusiness"
-              />
-            </div>
-
-            <div class="col">
-              <small>Fax:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="ceoFax"
-              />
-            </div>
-
-            <div class="col">
-              <small>Telephone No:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="ceoTelephoneNo"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Address:</small>
+              <small>Address: <mark>required</mark></small>
               <textarea
                 class="form-control"
                 type="text"
                 formControlName="ceoAddress"
               ></textarea>
+
+              <div
+                *ngIf="
+                  ceoInfoForm.get('ceoAddress').dirty ||
+                  ceoInfoForm.get('ceoAddress').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="ceoInfoForm.get('ceoAddress').hasError('required')"
+                >
+                  CEO's address is required.
+                </small>
+
+                <small
+                  *ngIf="ceoInfoForm.get('ceoAddress').hasError('maxlength')"
+                >
+                  CEO's address cannot be more than 512 characters.
+                </small>
+              </div>
             </div>
           </div>
 
           <div class="line"></div>
-        </div>
-
-        <div
-          class="tab-pane fade"
-          id="list-chief"
-          role="tabpanel"
-          aria-labelledby="chief-details-list"
-        >
-          <div class="row">
-            <div class="col">
-              <small>Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="chiefName"
-              />
-            </div>
-
-            <div class="col">
-              <small>CNIC:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="chiefCnic"
-              />
-            </div>
-          </div>
+          <small *ngIf="invalidForm" class="custom-error-message"
+            >Some <mark>required</mark> fields are missing.</small
+          >
+          <br />
+          <button type="submit" class="btn btn-outline-primary">Update</button>
 
           <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Father's Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="chiefFatherName"
-              />
-            </div>
-
-            <div class="col">
-              <small>Country:</small>
-              <select class="form-control" formControlName="chiefCountry">
-                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Appointment Date:</small>
-              <input
-                class="form-control"
-                type="date"
-                formControlName="chiefAppointmentDate"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Address:</small>
-              <textarea
-                class="form-control"
-                type="text"
-                formControlName="chiefAddress"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="line"></div>
-        </div>
-
-        <div
-          class="tab-pane fade"
-          id="list-advisor"
-          role="tabpanel"
-          aria-labelledby="advisor-details-list"
-        >
-          <div class="row">
-            <div class="col">
-              <small>Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="advisorName"
-              />
-            </div>
-
-            <div class="col">
-              <small>CNIC:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="advisorCnic"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Father's Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="advisorFatherName"
-              />
-            </div>
-
-            <div class="col">
-              <small>Country:</small>
-              <select class="form-control" formControlName="advisorCountry">
-                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Appointment Date:</small>
-              <input
-                class="form-control"
-                type="date"
-                formControlName="advisorAppointmentDate"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Address:</small>
-              <textarea
-                class="form-control"
-                type="text"
-                formControlName="advisorAddress"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="line"></div>
-        </div>
-
-        <div
-          class="tab-pane fade"
-          id="list-agent"
-          role="tabpanel"
-          aria-labelledby="agent-details-list"
-        >
-          <div class="row">
-            <div class="col">
-              <small>Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="agentName"
-              />
-            </div>
-
-            <div class="col">
-              <small>CNIC:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="agentCnic"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Father's Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="agentFatherName"
-              />
-            </div>
-
-            <div class="col">
-              <small>Country:</small>
-              <select class="form-control" formControlName="agentCountry">
-                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Appointment Date:</small>
-              <input
-                class="form-control"
-                type="date"
-                formControlName="agentAppointmentDate"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Address:</small>
-              <textarea
-                class="form-control"
-                type="text"
-                formControlName="agentAddress"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="line"></div>
-        </div>
-
-        <div
-          class="tab-pane fade"
-          id="list-secretary"
-          role="tabpanel"
-          aria-labelledby="secretary-details-list"
-        >
-          <div class="row">
-            <div class="col">
-              <small>Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="secretaryName"
-              />
-            </div>
-
-            <div class="col">
-              <small>CNIC:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="secretaryCnic"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Father's Name:</small>
-              <input
-                class="form-control"
-                type="text"
-                formControlName="secretaryFatherName"
-              />
-            </div>
-
-            <div class="col">
-              <small>Country:</small>
-              <select class="form-control" formControlName="secretaryCountry">
-                <option *ngFor="let country of countriesList" [value]="country">{{country}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Appointment Date:</small>
-              <input
-                class="form-control"
-                type="date"
-                formControlName="secretaryAppointmentDate"
-              />
-            </div>
-          </div>
-
-          <div class="line"></div>
-
-          <div class="row">
-            <div class="col">
-              <small>Address:</small>
-              <textarea
-                class="form-control"
-                type="text"
-                formControlName="secretaryAddress"
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="line"></div>
-        </div>
+        </form>
       </div>
-    </form>
+
+      <!-- Chief Information Form -->
+
+      <div
+        class="tab-pane fade"
+        id="list-chief"
+        role="tabpanel"
+        aria-labelledby="chief-details-list"
+      >
+        <form [formGroup]="chiefInfoForm" (ngSubmit)="updateChiefDetails()">
+          <div class="row">
+            <div class="col">
+              <small>Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="cacName"
+              />
+
+              <div
+                *ngIf="
+                  chiefInfoForm.get('cacName').dirty ||
+                  chiefInfoForm.get('cacName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="chiefInfoForm.get('cacName').hasError('required')"
+                >
+                  Chief Accountant's Name is required.
+                </small>
+
+                <small
+                  *ngIf="chiefInfoForm.get('cacName').hasError('maxlength')"
+                >
+                  Chief Accountant's Name cannot be more than 100 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>CNIC: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="cacNIC"
+              />
+
+              <div
+                *ngIf="
+                  chiefInfoForm.get('cacNIC').dirty ||
+                  chiefInfoForm.get('cacNIC').touched
+                "
+                class="custom-error-message"
+              >
+                <small *ngIf="chiefInfoForm.get('cacNIC').hasError('required')">
+                  Chief Accountant's CNIC is required.
+                </small>
+
+                <small *ngIf="chiefInfoForm.get('cacNIC').hasError('pattern')">
+                  Chief Accountant's CNIC cannot contain alphabets.
+                </small>
+
+                <small
+                  *ngIf="chiefInfoForm.get('cacNIC').hasError('maxlength')"
+                >
+                  Chief Accountant's CNIC cannot be more than 75 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="cacFatherName"
+              />
+
+              <div
+                *ngIf="
+                  chiefInfoForm.get('cacFatherName').dirty ||
+                  chiefInfoForm.get('cacFatherName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    chiefInfoForm.get('cacFatherName').hasError('required')
+                  "
+                >
+                  Chief Accountant's Father Name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    chiefInfoForm.get('cacFatherName').hasError('maxlength')
+                  "
+                >
+                  Chief Accountant's Father Name cannot be more than 100
+                  characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>Country: <mark>required</mark></small>
+              <select class="form-control" formControlName="cacCountry">
+                <option *ngFor="let country of countriesList" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  chiefInfoForm.get('cacCountry').dirty ||
+                  chiefInfoForm.get('cacCountry').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="chiefInfoForm.get('cacCountry').hasError('required')"
+                >
+                  Chief Accountant's country is required.
+                </small>
+
+                <small
+                  *ngIf="chiefInfoForm.get('cacCountry').hasError('maxlength')"
+                >
+                  Chief Accountant's country cannot be more than 50 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="cacAppDate"
+              />
+
+              <div
+                *ngIf="
+                  chiefInfoForm.get('cacAppDate').dirty ||
+                  chiefInfoForm.get('cacAppDate').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="chiefInfoForm.get('cacAppDate').hasError('required')"
+                >
+                  Chief Accountant's appointment date is required.
+                </small>
+
+                <small
+                  *ngIf="chiefInfoForm.get('cacAppDate').hasError('maxlength')"
+                >
+                  Chief Accountant's appointment date cannot be more than 20
+                  characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address: <mark>required</mark></small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="cacAddress"
+              ></textarea>
+
+              <div
+                *ngIf="
+                  chiefInfoForm.get('cacAddress').dirty ||
+                  chiefInfoForm.get('cacAddress').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="chiefInfoForm.get('cacAddress').hasError('required')"
+                >
+                  Chief Accountant's address is required.
+                </small>
+
+                <small
+                  *ngIf="chiefInfoForm.get('cacAddress').hasError('maxlength')"
+                >
+                  Chief Accountant's address cannot be more than 512 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+          <small *ngIf="invalidForm" class="custom-error-message"
+            >Some <mark>required</mark> fields are missing.</small
+          >
+          <br />
+          <button type="submit" class="btn btn-outline-primary">Update</button>
+
+          <div class="line"></div>
+        </form>
+      </div>
+
+      <!-- Advisor Information Form -->
+      <div
+        class="tab-pane fade"
+        id="list-advisor"
+        role="tabpanel"
+        aria-labelledby="advisor-details-list"
+      >
+        <form [formGroup]="advisorInfoForm" (ngSubmit)="updateAdvisorDetails()">
+          <div class="row">
+            <div class="col">
+              <small>Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="lglAdvName"
+              />
+
+              <div
+                *ngIf="
+                  advisorInfoForm.get('lglAdvName').dirty ||
+                  advisorInfoForm.get('lglAdvName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="advisorInfoForm.get('lglAdvName').hasError('required')"
+                >
+                  Legal Advisor's name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvName').hasError('maxlength')
+                  "
+                >
+                  Legal Advisor's name cannot be more than 100 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>CNIC: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="lglAdvNIC"
+              />
+
+              <div
+                *ngIf="
+                  advisorInfoForm.get('lglAdvNIC').dirty ||
+                  advisorInfoForm.get('lglAdvNIC').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('required')"
+                >
+                  Legal Advisor's CNIC is required.
+                </small>
+
+                <small
+                  *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('pattern')"
+                >
+                  Legal Advisor's CNIC cannot contain alphabets.
+                </small>
+
+                <small
+                  *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('maxlength')"
+                >
+                  Legal Advisor's CNIC cannot be more than 75 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="lglAdvFatherName"
+              />
+
+              <div
+                *ngIf="
+                  advisorInfoForm.get('lglAdvFatherName').dirty ||
+                  advisorInfoForm.get('lglAdvFatherName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvFatherName').hasError('required')
+                  "
+                >
+                  Legal Advisor's Father Name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    advisorInfoForm
+                      .get('lglAdvFatherName')
+                      .hasError('maxlength')
+                  "
+                >
+                  Legal Advisor's Father name cannot be more than 100
+                  characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>Country: <mark>required</mark></small>
+              <select class="form-control" formControlName="lglAdvCountry">
+                <option *ngFor="let country of countriesList" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  advisorInfoForm.get('lglAdvCountry').dirty ||
+                  advisorInfoForm.get('lglAdvCountry').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvCountry').hasError('required')
+                  "
+                >
+                  Legal Advisor's country is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvCountry').hasError('maxlength')
+                  "
+                >
+                  Legal Advisor's country cannot be more than 50 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="lglAdvAppDate"
+              />
+
+              <div
+                *ngIf="
+                  advisorInfoForm.get('lglAdvAppDate').dirty ||
+                  advisorInfoForm.get('lglAdvAppDate').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvAppDate').hasError('required')
+                  "
+                >
+                  Legal Advisor's appointment date is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvAppDate').hasError('maxlength')
+                  "
+                >
+                  Legal Advisor's appointment date cannot be more than 20
+                  characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address: <mark>required</mark></small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="lglAdvAddress"
+              ></textarea>
+
+              <div
+                *ngIf="
+                  advisorInfoForm.get('lglAdvAddress').dirty ||
+                  advisorInfoForm.get('lglAdvAddress').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvAddress').hasError('required')
+                  "
+                >
+                  Legal Advisor's address is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    advisorInfoForm.get('lglAdvAddress').hasError('maxlength')
+                  "
+                >
+                  Legal Advisor's address cannot be more than 512 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+          <small *ngIf="invalidForm" class="custom-error-message"
+            >Some <mark>required</mark> fields are missing.</small
+          >
+          <br />
+
+          <button type="submit" class="btn btn-outline-primary">Update</button>
+
+          <div class="line"></div>
+        </form>
+      </div>
+
+      <!-- Agent Information Form -->
+      <div
+        class="tab-pane fade"
+        id="list-agent"
+        role="tabpanel"
+        aria-labelledby="agent-details-list"
+      >
+        <form [formGroup]="agentInfoForm" (ngSubmit)="updateAgentDetails()">
+          <div class="row">
+            <div class="col">
+              <small>Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="mngName"
+              />
+
+              <div
+                *ngIf="
+                  agentInfoForm.get('mngName').dirty ||
+                  agentInfoForm.get('mngName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="agentInfoForm.get('mngName').hasError('required')"
+                >
+                  Managing Agent's name is required.
+                </small>
+
+                <small
+                  *ngIf="agentInfoForm.get('mngName').hasError('maxlength')"
+                >
+                  Managing Agent's name cannot be more than 100 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>CNIC: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="mngNIC"
+              />
+
+              <div
+                *ngIf="
+                  agentInfoForm.get('mngNIC').dirty ||
+                  agentInfoForm.get('mngNIC').touched
+                "
+                class="custom-error-message"
+              >
+                <small *ngIf="agentInfoForm.get('mngNIC').hasError('required')">
+                  Managing Agent's CNIC is required.
+                </small>
+
+                <small *ngIf="agentInfoForm.get('mngNIC').hasError('pattern')">
+                  Managing Agent's CNIC cannot contain alphabets.
+                </small>
+
+                <small
+                  *ngIf="agentInfoForm.get('mngNIC').hasError('maxlength')"
+                >
+                  Managing Agent's CNIC cannot be more than 75 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="mngFatherName"
+              />
+
+              <div
+                *ngIf="
+                  agentInfoForm.get('mngFatherName').dirty ||
+                  agentInfoForm.get('mngFatherName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    agentInfoForm.get('mngFatherName').hasError('required')
+                  "
+                >
+                  Managing Agent's Father Name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    agentInfoForm.get('mngFatherName').hasError('maxlength')
+                  "
+                >
+                  Managing Agent's Father Name cannot be more than 100
+                  characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>Country: <mark>required</mark></small>
+              <select class="form-control" formControlName="mngCountry">
+                <option *ngFor="let country of countriesList" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  agentInfoForm.get('mngCountry').dirty ||
+                  agentInfoForm.get('mngCountry').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="agentInfoForm.get('mngCountry').hasError('required')"
+                >
+                  Managing Agent's country is required.
+                </small>
+
+                <small
+                  *ngIf="agentInfoForm.get('mngCountry').hasError('maxlength')"
+                >
+                  Managing Agent's Father country cannot be more than 50
+                  characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="mngAppDate"
+              />
+
+              <div
+                *ngIf="
+                  agentInfoForm.get('mngAppDate').dirty ||
+                  agentInfoForm.get('mngAppDate').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="agentInfoForm.get('mngAppDate').hasError('required')"
+                >
+                  Managing Agent's appointment date is required.
+                </small>
+
+                <small
+                  *ngIf="agentInfoForm.get('mngAppDate').hasError('maxlength')"
+                >
+                  Managing Agent's Father appointment date cannot be more than
+                  20 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address: <mark>required</mark></small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="mngAddress"
+              ></textarea>
+
+              <div
+                *ngIf="
+                  agentInfoForm.get('mngAddress').dirty ||
+                  agentInfoForm.get('mngAddress').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="agentInfoForm.get('mngAddress').hasError('required')"
+                >
+                  Managing Agent's address is required.
+                </small>
+
+                <small
+                  *ngIf="agentInfoForm.get('mngAddress').hasError('maxlength')"
+                >
+                  Managing Agent's Father address cannot be more than 20
+                  characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+          <small *ngIf="invalidForm" class="custom-error-message"
+            >Some <mark>required</mark> fields are missing.</small
+          >
+          <br />
+
+          <button type="submit" class="btn btn-outline-primary">Update</button>
+
+          <div class="line"></div>
+        </form>
+      </div>
+
+      <!-- Secretary Information Form -->
+      <div
+        class="tab-pane fade"
+        id="list-secretary"
+        role="tabpanel"
+        aria-labelledby="secretary-details-list"
+      >
+        <form [formGroup]="secretaryInfoForm" (ngSubmit)="updateSecretaryDetails()">
+          <div class="row">
+            <div class="col">
+              <small>Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="secrName"
+              />
+
+              <div
+                *ngIf="
+                  secretaryInfoForm.get('secrName').dirty ||
+                  secretaryInfoForm.get('secrName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="secretaryInfoForm.get('secrName').hasError('required')"
+                >
+                  Secretary's name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrName').hasError('maxlength')
+                  "
+                >
+                  Secretary's name cannot be more than 100 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>CNIC: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="secrNIC"
+              />
+
+              <div
+                *ngIf="
+                  secretaryInfoForm.get('secrNIC').dirty ||
+                  secretaryInfoForm.get('secrNIC').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="secretaryInfoForm.get('secrNIC').hasError('required')"
+                >
+                  Secretary's CNIC is required.
+                </small>
+
+                <small
+                  *ngIf="secretaryInfoForm.get('secrNIC').hasError('pattern')"
+                >
+                  Secretary's CNIC cannot contain alphabets.
+                </small>
+
+                <small
+                  *ngIf="secretaryInfoForm.get('secrNIC').hasError('maxlength')"
+                >
+                  Secretary's CNIC cannot be more than 75 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Father's Name: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="secrFatherName"
+              />
+
+              <div
+                *ngIf="
+                  secretaryInfoForm.get('secrFatherName').dirty ||
+                  secretaryInfoForm.get('secrFatherName').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrFatherName').hasError('required')
+                  "
+                >
+                  Secretary's Father Name is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    secretaryInfoForm
+                      .get('secrFatherName')
+                      .hasError('maxlength')
+                  "
+                >
+                  Secretary's Father Name cannot be more than 100 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>Country: <mark>required</mark></small>
+              <select class="form-control" formControlName="secrCountry">
+                <option *ngFor="let country of countriesList" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  secretaryInfoForm.get('secrCountry').dirty ||
+                  secretaryInfoForm.get('secrCountry').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrCountry').hasError('required')
+                  "
+                >
+                  Secretary's country is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrCountry').hasError('maxlength')
+                  "
+                >
+                  Secretary's country cannot be more than 50 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Appointment Date: <mark>required</mark></small>
+              <input
+                class="form-control"
+                type="date"
+                formControlName="secrAppDate"
+              />
+
+              <div
+                *ngIf="
+                  secretaryInfoForm.get('secrAppDate').dirty ||
+                  secretaryInfoForm.get('secrAppDate').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrAppDate').hasError('required')
+                  "
+                >
+                  Secretary's appointment date is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrAppDate').hasError('maxlength')
+                  "
+                >
+                  Secretary's appointment date cannot be more than 20
+                  characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row">
+            <div class="col">
+              <small>Address: <mark>required</mark></small>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="secrAddress"
+              ></textarea>
+
+              <div
+                *ngIf="
+                  secretaryInfoForm.get('secrAddress').dirty ||
+                  secretaryInfoForm.get('secrAddress').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrAddress').hasError('required')
+                  "
+                >
+                  Secretary's address is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    secretaryInfoForm.get('secrAddress').hasError('maxlength')
+                  "
+                >
+                  Secretary's address cannot be more than 512 characters.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+          <small *ngIf="invalidForm" class="custom-error-message"
+            >Some <mark>required</mark> fields are missing.</small
+          >
+          <br />
+          <button type="submit" class="btn btn-outline-primary">Update</button>
+
+          <div class="line"></div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-container *ngIf="isRequestSent">
+  <div class="line"></div>
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
+
+<ng-container *ngIf="officerResponse$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>
