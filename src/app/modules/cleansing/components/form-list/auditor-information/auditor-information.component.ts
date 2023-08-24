@@ -38,10 +38,10 @@ export class AuditorInformationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDirectorData();
+    this.getAuditorData();
   }
 
-  getDirectorData() {
+  getAuditorData() {
     this.subscription.add(
       this.dataCleansingService
         .getAuditorDetails(this.cuin)

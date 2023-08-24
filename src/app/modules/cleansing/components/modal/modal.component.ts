@@ -18,7 +18,7 @@ import {
   IDirectorDetails,
   ISingleDirector,
 } from '../../models/director-details.model';
-import { COUNTRIES } from '../../settings/cleansing.settings';
+import { CITIES, COUNTRIES } from '../../settings/cleansing.settings';
 import { DataCleansingService } from '../../services/data-cleansing.service';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import {
@@ -42,7 +42,8 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   currentRoute: string;
   subscription = new Subscription();
   cuin: string;
-  readonly countriesList = COUNTRIES;
+  readonly countryList = COUNTRIES;
+  readonly cityList = CITIES;
   response$: Observable<IResponse>;
   isRequestSent = false;
   invalidForm = false;
@@ -72,14 +73,108 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.insertFormData();
   }
 
+  setValidators() {
+    this.subscription.add(
+      this.informationForm.valueChanges
+        .pipe(
+          tap((_) => {
+            if (this.currentRoute === 'director-information') {
+              this.informationForm
+                .get('designation')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorAppointmentDate')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorNTN')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('otherOccupation')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('status')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorshipNature')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('entityNominatingDirector')
+                .setValidators(Validators.required);
+            } else {
+              this.informationForm.get('designation').clearValidators();
+              this.informationForm
+                .get('directorAppointmentDate')
+                .clearValidators();
+              this.informationForm.get('directorNTN').clearValidators();
+              this.informationForm.get('otherOccupation').clearValidators();
+              this.informationForm.get('status').clearValidators();
+              this.informationForm.get('directorshipNature').clearValidators();
+              this.informationForm
+                .get('entityNominatingDirector')
+                .clearValidators();
+            }
+
+            if (this.currentRoute === 'auditor-information') {
+              this.informationForm
+                .get('designation')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorAppointmentDate')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorNTN')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('otherOccupation')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('status')
+                .setValidators(Validators.required);
+            } else {
+              this.informationForm.get('designation').clearValidators();
+              this.informationForm
+                .get('directorAppointmentDate')
+                .clearValidators();
+              this.informationForm.get('directorNTN').clearValidators();
+              this.informationForm.get('otherOccupation').clearValidators();
+              this.informationForm.get('status').clearValidators();
+            }
+
+            if (this.currentRoute === 'shareholding-information') {
+              this.informationForm
+                .get('directorNumberOfShares')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorCity')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorValueOfShares')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorClassOfShares')
+                .setValidators(Validators.required);
+            } else {
+              this.informationForm
+                .get('directorNumberOfShares')
+                .clearValidators();
+              this.informationForm.get('directorCity').clearValidators();
+              this.informationForm
+                .get('directorValueOfShares')
+                .clearValidators();
+              this.informationForm
+                .get('directorClassOfShares')
+                .clearValidators();
+            }
+          })
+        )
+        .subscribe()
+    );
+  }
+
   createInformationForm() {
     this.informationForm = this.formBuilder.group({
-      designation: ['', [Validators.required, Validators.maxLength(75)]],
+      // required parameter in all the three forms
       directorAddress: ['', [Validators.required, Validators.maxLength(512)]],
-      directorAppointmentDate: [
-        '',
-        [Validators.required, Validators.maxLength(75)],
-      ],
       directorCnicPassport: [
         '',
         [
@@ -92,19 +187,33 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         '',
         [Validators.required, Validators.maxLength(100)],
       ],
-      directorNTN: ['', [Validators.maxLength(10)]],
       directorName: ['', [Validators.required, Validators.maxLength(100)]],
       directorNationality: [
         '',
         [Validators.required, Validators.maxLength(50)],
       ],
-      directorshipNature: ['', [Validators.required, Validators.maxLength(30)]],
-      entityNominatingDirector: [
+
+      // optional parameters
+      directorNumberOfShares: [
         '',
-        [Validators.required, Validators.maxLength(25)],
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
       ],
+      designation: ['', [Validators.maxLength(75)]],
+      directorAppointmentDate: ['', [Validators.maxLength(75)]],
+      directorNTN: ['', [Validators.maxLength(10)]],
+      directorshipNature: ['', [Validators.maxLength(30)]],
+      entityNominatingDirector: ['', [Validators.maxLength(25)]],
       otherOccupation: ['', [Validators.maxLength(512)]],
-      status: ['', [Validators.required, Validators.maxLength(25)]],
+      status: ['', [Validators.maxLength(25)]],
+      directorCity: ['', [Validators.maxLength(75)]],
+      directorValueOfShares: [
+        '',
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
+      ],
+      directorClassOfShares: [
+        '',
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
+      ],
     });
   }
 
@@ -145,18 +254,30 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     if (Array.isArray(convertedDate)) {
       this.informationForm.patchValue({
         directorAppointmentDate: convertedDate[0],
-        userId: getUserId(),
       });
     } else {
       this.informationForm.patchValue({
         directorAppointmentDate: convertedDate,
-        userId: getUserId(),
       });
     }
 
-    this.remainingData.directorInfo[this.index] = this.informationForm.value;
+    this.remainingData.userId = getUserId();
 
     if (this.currentRoute === 'directors-information') {
+      this.removeControls(
+        'directorNumberOfShares',
+        'directorCity',
+        'directorValueOfShares',
+        'directorClassOfShares'
+      );
+
+      this.remainingData.directorInfo[this.index] = this.informationForm.value;
+
+      this.removeNullKeys(
+        this.remainingData.directorInfo,
+        this.informationForm.value
+      );
+
       this.response$ = this.dataCleansingService
         .updateDirectorDetails(this.remainingData)
         .pipe(
@@ -164,7 +285,23 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
             this.isRequestSent = false;
           })
         );
-    } else {
+    } else if (this.currentRoute === 'auditor-information') {
+      this.removeControls(
+        'directorNumberOfShares',
+        'directorshipNature',
+        'entityNominatingDirector',
+        'directorCity',
+        'directorValueOfShares',
+        'directorClassOfShares'
+      );
+
+      this.remainingData.directorInfo[this.index] = this.informationForm.value;
+
+      this.removeNullKeys(
+        this.remainingData.directorInfo,
+        this.informationForm.value
+      );
+
       this.response$ = this.dataCleansingService
         .updateAuditorDetails(this.remainingData)
         .pipe(
@@ -172,7 +309,48 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
             this.isRequestSent = false;
           })
         );
+    } else {
+      this.removeControls(
+        'designation',
+        'directorAppointmentDate',
+        'directorNTN',
+        'otherOccupation',
+        'status',
+        'directorshipNature',
+        'entityNominatingDirector'
+      );
+
+      this.remainingData.directorInfo[this.index] = this.informationForm.value;
+
+      this.removeNullKeys(
+        this.remainingData.directorInfo,
+        this.informationForm.value
+      );
+
+      this.response$ = this.dataCleansingService
+        .updateShareholderDetails(this.remainingData)
+        .pipe(
+          tap((_) => {
+            this.isRequestSent = false;
+          })
+        );
     }
+  }
+
+  removeControls(...controlNames) {
+    controlNames.forEach((control) => {
+      this.informationForm.removeControl(control);
+    });
+  }
+
+  removeNullKeys(array, comparisonObject) {
+    array.forEach((obj) => {
+      for (const key in obj) {
+        if (!comparisonObject.hasOwnProperty(key)) {
+          delete obj[key];
+        }
+      }
+    });
   }
 
   ngAfterViewInit(): void {

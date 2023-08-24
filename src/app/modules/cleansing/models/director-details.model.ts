@@ -1,17 +1,21 @@
 export interface ISingleDirector {
-  designation: string;
   directorAddress: string;
-  directorAppointmentDate: string;
   directorCnicPassport: string;
   directorFatherHusbandName: string;
-  directorNTN: string;
   directorName: string;
   directorNationality: string;
+  
+  directorNumberOfShares?: string;  
+  designation?: string;
+  directorAppointmentDate?: string;
+  directorNTN?: string;
   directorshipNature?: string;
   entityNominatingDirector?: string;
-  noOfShares?: string;
-  otherOccupation: string;
-  status: string;
+  otherOccupation?: string;
+  status?: string;
+  directorCity?: string;
+  directorValueOfShares?: string;
+  directorClassOfShares?: string;
 }
 
 export interface IDirectorDetails extends ISingleDirector {

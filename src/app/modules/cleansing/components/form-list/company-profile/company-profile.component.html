@@ -276,7 +276,7 @@
         class="custom-error-message"
       >
         <small *ngIf="companyProfileForm.get('compFaxNo').hasError('pattern')">
-          Fax No. cannot contain alphabets.
+          Fax No. cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -307,7 +307,7 @@
         <small
           *ngIf="companyProfileForm.get('compPhoneNo').hasError('pattern')"
         >
-          Tel No. cannot contain alphabets.
+          Tel No. cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -332,7 +332,7 @@
         <small
           *ngIf="companyProfileForm.get('compPhoneNo2').hasError('pattern')"
         >
-          Tel No. 2 cannot contain alphabets.
+          Tel No. 2 cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -417,7 +417,7 @@
           Company Email is required.
         </small>
 
-        <small *ngIf="companyProfileForm.get('compEmail').hasError('email')">
+        <small *ngIf="companyProfileForm.get('compEmail').hasError('pattern')">
           Company Email cannot be invalid.
         </small>
 

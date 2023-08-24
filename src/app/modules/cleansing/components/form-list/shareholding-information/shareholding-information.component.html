@@ -5,52 +5,45 @@
         <th scope="col">Name</th>
         <th scope="col">Father/Husband Name</th>
         <th scope="col">CNIC/Passport</th>
-        <th scope="col">Address</th>
         <th scope="col">Nationality</th>
+        <th scope="col">Number Of Shares</th>
         <th scope="col">Edit</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
+
+    <tbody *ngIf="shareholderDetails as sDetails; else isLoading">
+      <tr *ngFor="let shareholder of sDetails.directorInfo; let i = index">
+        <td>{{ shareholder.directorName }}</td>
+        <td>{{ shareholder.directorFatherHusbandName }}</td>
+        <td>{{ shareholder.directorCnicPassport }}</td>
+        <td>{{ shareholder.directorNationality }}</td>
+        <td>{{ shareholder.directorNumberOfShares }}</td>
         <td>
-          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
-            <i class="bi bi-pencil"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>
-          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
-            <i class="bi bi-pencil"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>Test</td>
-        <td>
-          <button class="btn btn-outline-secondary" (click)="isModalClicked = true">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="
+              isModalClicked = true;
+              selectedShareholder = shareholder;
+              index = i
+            "
+          >
             <i class="bi bi-pencil"></i>
           </button>
         </td>
       </tr>
     </tbody>
+
+    <ng-template #isLoading>
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
   </table>
 </div>
 
 <ng-container *ngIf="isModalClicked">
-  <app-modal (closeModalEvent)="getModalState($event)"></app-modal>
+  <app-modal
+    (closeModalEvent)="getModalState($event)"
+    [formData]="selectedShareholder"
+    [remainingData]="shareholderDetails"
+    [index]="index"
+  ></app-modal>
 </ng-container>

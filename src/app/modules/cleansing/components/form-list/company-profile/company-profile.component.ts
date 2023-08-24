@@ -69,7 +69,13 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       compAddress: ['', [Validators.required, Validators.maxLength(512)]],
       compEmail: [
         '',
-        [Validators.required, Validators.email, Validators.maxLength(124)],
+        [
+          Validators.required,
+          Validators.pattern(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+          ),
+          Validators.maxLength(124),
+        ],
       ],
       compFaxNo: [
         '',

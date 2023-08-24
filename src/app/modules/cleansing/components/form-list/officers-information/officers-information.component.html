@@ -105,7 +105,7 @@
                 </small>
 
                 <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('pattern')">
-                  CEO's CNIC cannot contain alphabets.
+                  CEO's CNIC cannot contain alphabets or special characters.
                 </small>
 
                 <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('maxlength')">
@@ -313,7 +313,7 @@
                 </small>
 
                 <small *ngIf="chiefInfoForm.get('cacNIC').hasError('pattern')">
-                  Chief Accountant's CNIC cannot contain alphabets.
+                  Chief Accountant's CNIC cannot contain alphabets or special characters.
                 </small>
 
                 <small
@@ -534,7 +534,7 @@
                 <small
                   *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('pattern')"
                 >
-                  Legal Advisor's CNIC cannot contain alphabets.
+                  Legal Advisor's CNIC cannot contain alphabets or special characters.
                 </small>
 
                 <small
@@ -764,7 +764,7 @@
                 </small>
 
                 <small *ngIf="agentInfoForm.get('mngNIC').hasError('pattern')">
-                  Managing Agent's CNIC cannot contain alphabets.
+                  Managing Agent's CNIC cannot contain alphabets or special characters.
                 </small>
 
                 <small
@@ -988,7 +988,7 @@
                 <small
                   *ngIf="secretaryInfoForm.get('secrNIC').hasError('pattern')"
                 >
-                  Secretary's CNIC cannot contain alphabets.
+                  Secretary's CNIC cannot contain alphabets or special characters.
                 </small>
 
                 <small

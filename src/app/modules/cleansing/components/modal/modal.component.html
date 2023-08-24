@@ -141,7 +141,7 @@
                       .hasError('pattern')
                   "
                 >
-                  CNIC cannot contain alphabets.
+                  CNIC cannot contain alphabets or special characters.
                 </small>
 
                 <small
@@ -162,7 +162,7 @@
                 class="form-control"
                 formControlName="directorNationality"
               >
-                <option *ngFor="let country of countriesList" [value]="country">
+                <option *ngFor="let country of countryList" [value]="country">
                   {{ country }}
                 </option>
               </select>
@@ -199,7 +199,7 @@
 
           <div class="line"></div>
 
-          <div class="row">
+          <div class="row" *ngIf="currentRoute !== 'shareholding-information'">
             <div class="col">
               <small>Designation: <mark>required</mark></small>
               <input
@@ -274,8 +274,10 @@
 
           <div class="line"></div>
 
-          <div class="row">
-            <div class="col" *ngIf="currentRoute === 'directors-information'">
+          <div class="row" *ngIf="currentRoute !== 'shareholding-information'">
+            <div
+              class="col"
+            >
               <small>NTN:</small>
               <input
                 class="form-control"
@@ -419,7 +421,7 @@
 
           <div class="line"></div>
 
-          <div class="row">
+          <div class="row" *ngIf="currentRoute !== 'shareholding-information'">
             <div class="col">
               <small>Other Occupation:</small>
               <input
@@ -441,6 +443,192 @@
                   "
                 >
                   Other Occupation cannot be more than 512 characters.
+                </small>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="line"></div>
+
+          <div class="row" *ngIf="currentRoute === 'shareholding-information'">
+            <div class="col">
+              <small>Number of Shares:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="directorNumberOfShares"
+              />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorNumberOfShares').dirty ||
+                  informationForm.get('directorNumberOfShares').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorNumberOfShares')
+                      .hasError('required')
+                  "
+                >
+                  Number of Shares is/are required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorNumberOfShares')
+                      .hasError('pattern')
+                  "
+                >
+                  Number of Shares cannot contain alphabets or special characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorNumberOfShares')
+                      .hasError('maxlength')
+                  "
+                >
+                  Number of Shares cannot be more than 10 characters.
+                </small>
+              </div>
+            </div>
+            <div class="line"></div>
+          </div>
+
+          <div class="row" *ngIf="currentRoute === 'shareholding-information'">
+            <div class="col">
+              <small>City:</small>
+              <select
+                class="form-control"
+                type="text"
+                formControlName="directorCity"
+              >
+                <option *ngFor="let city of cityList" [value]="city">
+                  {{ city }}
+                </option>
+              </select>
+
+              <div
+                *ngIf="
+                  informationForm.get('directorCity').dirty ||
+                  informationForm.get('directorCity').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm.get('directorCity').hasError('required')
+                  "
+                >
+                  City is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm.get('directorCity').hasError('maxlength')
+                  "
+                >
+                  City cannot be more than 75 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>Value of Shares:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="directorValueOfShares"
+              />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorValueOfShares').dirty ||
+                  informationForm.get('directorValueOfShares').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorValueOfShares')
+                      .hasError('required')
+                  "
+                >
+                  Value of Shares is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorValueOfShares')
+                      .hasError('pattern')
+                  "
+                >
+                  Value of Shares cannot contain alphabets or special characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorValueOfShares')
+                      .hasError('maxlength')
+                  "
+                >
+                  Value of Shares cannot be more than 10 characters.
+                </small>
+              </div>
+            </div>
+
+            <div class="col">
+              <small>Class of Shares:</small>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="directorClassOfShares"
+              />
+
+              <div
+                *ngIf="
+                  informationForm.get('directorClassOfShares').dirty ||
+                  informationForm.get('directorClassOfShares').touched
+                "
+                class="custom-error-message"
+              >
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorClassOfShares')
+                      .hasError('required')
+                  "
+                >
+                  Class of Shares is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorClassOfShares')
+                      .hasError('pattern')
+                  "
+                >
+                  Class of Shares cannot contain alphabets or special characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorClassOfShares')
+                      .hasError('maxlength')
+                  "
+                >
+                  Class of Shares cannot be more than 10 characters.
                 </small>
               </div>
             </div>

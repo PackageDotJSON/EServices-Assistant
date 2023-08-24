@@ -216,4 +216,25 @@ export class DataCleansingService {
       payload
     ) as Observable<IResponse>;
   }
+
+  getShareholderDetails(cuin: string): Observable<IDirectorDetails> {
+    return this.http.get(
+      DATA_CLEANSING_BASE_URL +
+        DATA_CLEANSING_API.GET_SHAREHOLDER_DETAILS +
+        QUERY_STRING_GENERATOR.ONE +
+        cuin +
+        QUERY_STRING_GENERATOR.TWO +
+        DATA_CLEANSING_KEY +
+        QUERY_STRING_GENERATOR.THREE +
+        this.userId
+    ) as Observable<IDirectorDetails>;
+  }
+
+  updateShareholderDetails(payload: IDirectorDetails): Observable<IResponse> {
+    payload.key = DATA_CLEANSING_KEY;
+    return this.http.post(
+      DATA_CLEANSING_BASE_URL + DATA_CLEANSING_API.UPDATE_SHAREHOLDER_DETAILS,
+      payload
+    ) as Observable<IResponse>;
+  }
 }

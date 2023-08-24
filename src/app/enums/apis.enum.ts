@@ -153,6 +153,7 @@ export const enum DATA_CLEANSING_API {
   GET_DIRECTOR_DETAILS = '/getdir',
   UPDATE_DIRECTOR_DETAILS = '/updtdir',
   GET_AUDITOR_DETAILS = '/getaud',
-  UPDATE_AUDITOR_DETAILS = '/updtaud'
-
+  UPDATE_AUDITOR_DETAILS = '/updtaud',
+  GET_SHAREHOLDER_DETAILS = '/getshrholdr',
+  UPDATE_SHAREHOLDER_DETAILS = '/updtshrholdr',
 }
