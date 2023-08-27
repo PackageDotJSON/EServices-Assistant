@@ -81,14 +81,19 @@
           Self Service
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink02">
-          <div *ngFor="let route of routes; let i = index">
-            <a
-              class="dropdown-item"
-              routerLinkActive="active"
-              routerLink="{{ route.routes }}"
-              >{{ routes[i].roles }}</a
-            >
-          </div>
+          <ng-container *ngIf="isLoading">
+            <app-loading-spinner></app-loading-spinner>
+          </ng-container>
+          <ng-container *ngIf="!isLoading">
+            <div *ngFor="let route of routes; let i = index">
+              <a
+                class="dropdown-item"
+                routerLinkActive="active"
+                routerLink="{{ route.routes }}"
+                >{{ routes[i].roles }}</a
+              >
+            </div>
+          </ng-container>
         </div>
       </li>
       <li class="nav-item">

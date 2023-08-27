@@ -79,7 +79,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       ceoCountry: ['', [Validators.required, Validators.maxLength(50)]],
       ceoFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       ceoAppDate: ['', [Validators.required, Validators.maxLength(20)]],
-      compIncNo: [this.cuin],
+      compIncNo: [''],
       userId: [''],
     });
 
@@ -98,7 +98,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       cacCountry: ['', [Validators.required, Validators.maxLength(50)]],
       cacFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       cacAppDate: ['', [Validators.required, Validators.maxLength(20)]],
-      compIncNo: [this.cuin],
+      compIncNo: [''],
       userId: [''],
     });
 
@@ -117,7 +117,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       lglAdvCountry: ['', [Validators.required, Validators.maxLength(50)]],
       lglAdvFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       lglAdvAppDate: ['', [Validators.required, Validators.maxLength(20)]],
-      compIncNo: [this.cuin],
+      compIncNo: [''],
       userId: [''],
     });
 
@@ -136,7 +136,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       mngCountry: ['', [Validators.required, Validators.maxLength(50)]],
       mngFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       mngAppDate: ['', [Validators.required, Validators.maxLength(20)]],
-      compIncNo: [this.cuin],
+      compIncNo: [''],
       userId: [''],
     });
 
@@ -155,7 +155,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       secrCountry: ['', [Validators.required, Validators.maxLength(50)]],
       secrFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       secrAppDate: ['', [Validators.required, Validators.maxLength(20)]],
-      compIncNo: [this.cuin],
+      compIncNo: [''],
       userId: [''],
     });
   }
@@ -166,14 +166,22 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         .getCeoDetails(this.cuin)
         .pipe(
           tap((res: ICeoDetails) => {
-            const convertedDate: string[] = formatDateToYYYYMMDD([
-              res.ceoAppDate,
-            ]);
+            if (res.ceoAppDate) {
+              const convertedDate: string[] = formatDateToYYYYMMDD([
+                res.ceoAppDate,
+              ]);
 
-            this.ceoInfoForm.patchValue({
-              ...res,
-              ceoAppDate: convertedDate,
-            });
+              this.ceoInfoForm.patchValue({
+                ...res,
+                ceoAppDate: convertedDate,
+                compIncNo: this.cuin,
+              });
+            } else {
+              this.ceoInfoForm.patchValue({
+                ...res,
+                compIncNo: this.cuin,
+              });
+            }
           })
         )
         .subscribe()
@@ -191,6 +199,8 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
     this.isRequestSent = true;
 
     let convertedDate: string[];
+
+    const originalDate = this.ceoInfoForm.get('ceoAppDate').value;
 
     if (Array.isArray(this.ceoInfoForm.get('ceoAppDate').value)) {
       convertedDate = formatDateToDDMMYYYY([
@@ -218,7 +228,9 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateCeoDetails(this.ceoInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          res &&
+            ((this.isRequestSent = false),
+            this.ceoInfoForm.patchValue({ ceoAppDate: originalDate }));
         })
       );
   }
@@ -229,14 +241,22 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         .getChiefDetails(this.cuin)
         .pipe(
           tap((res: IChiefDetails) => {
-            const convertedDate: string[] = formatDateToYYYYMMDD([
-              res.cacAppDate,
-            ]);
+            if (res.cacAppDate) {
+              const convertedDate: string[] = formatDateToYYYYMMDD([
+                res.cacAppDate,
+              ]);
 
-            this.chiefInfoForm.patchValue({
-              ...res,
-              cacAppDate: convertedDate,
-            });
+              this.chiefInfoForm.patchValue({
+                ...res,
+                cacAppDate: convertedDate,
+                compIncNo: this.cuin,
+              });
+            } else {
+              this.chiefInfoForm.patchValue({
+                ...res,
+                compIncNo: this.cuin,
+              });
+            }
           })
         )
         .subscribe()
@@ -254,6 +274,8 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
     this.isRequestSent = true;
 
     let convertedDate: string[];
+
+    const originalDate = this.chiefInfoForm.get('cacAppDate').value;
 
     if (Array.isArray(this.chiefInfoForm.get('cacAppDate').value)) {
       convertedDate = formatDateToDDMMYYYY([
@@ -281,7 +303,9 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateChiefDetails(this.chiefInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          res &&
+            ((this.isRequestSent = false),
+            this.chiefInfoForm.patchValue({ cacAppDate: originalDate }));
         })
       );
   }
@@ -292,14 +316,22 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         .getAdvisorDetails(this.cuin)
         .pipe(
           tap((res: IAdvisorDetails) => {
-            const convertedDate: string[] = formatDateToYYYYMMDD([
-              res.lglAdvAppDate,
-            ]);
+            if (res.lglAdvAppDate) {
+              const convertedDate: string[] = formatDateToYYYYMMDD([
+                res.lglAdvAppDate,
+              ]);
 
-            this.advisorInfoForm.patchValue({
-              ...res,
-              lglAdvAppDate: convertedDate,
-            });
+              this.advisorInfoForm.patchValue({
+                ...res,
+                lglAdvAppDate: convertedDate,
+                compIncNo: this.cuin,
+              });
+            } else {
+              this.advisorInfoForm.patchValue({
+                ...res,
+                compIncNo: this.cuin,
+              });
+            }
           })
         )
         .subscribe()
@@ -317,6 +349,8 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
     this.isRequestSent = true;
 
     let convertedDate: string[];
+
+    const originalDate = this.advisorInfoForm.get('lglAdvAppDate').value;
 
     if (Array.isArray(this.advisorInfoForm.get('lglAdvAppDate').value)) {
       convertedDate = formatDateToDDMMYYYY([
@@ -344,7 +378,9 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateAdvisorDetails(this.advisorInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          res &&
+            ((this.isRequestSent = false),
+            this.advisorInfoForm.patchValue({ lglAdvAppDate: originalDate }));
         })
       );
   }
@@ -355,14 +391,22 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         .getAgentDetails(this.cuin)
         .pipe(
           tap((res: IAgentDetails) => {
-            const convertedDate: string[] = formatDateToYYYYMMDD([
-              res.mngAppDate,
-            ]);
+            if (res.mngAppDate) {
+              const convertedDate: string[] = formatDateToYYYYMMDD([
+                res.mngAppDate,
+              ]);
 
-            this.agentInfoForm.patchValue({
-              ...res,
-              mngAppDate: convertedDate,
-            });
+              this.agentInfoForm.patchValue({
+                ...res,
+                mngAppDate: convertedDate,
+                compIncNo: this.cuin,
+              });
+            } else {
+              this.agentInfoForm.patchValue({
+                ...res,
+                compIncNo: this.cuin,
+              });
+            }
           })
         )
         .subscribe()
@@ -380,6 +424,8 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
     this.isRequestSent = true;
 
     let convertedDate: string[];
+
+    const originalDate = this.agentInfoForm.get('mngAppDate').value;
 
     if (Array.isArray(this.agentInfoForm.get('mngAppDate').value)) {
       convertedDate = formatDateToDDMMYYYY([
@@ -407,7 +453,9 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateAgentDetails(this.agentInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          res &&
+            ((this.isRequestSent = false),
+            this.agentInfoForm.patchValue({ mngAppDate: originalDate }));
         })
       );
   }
@@ -418,14 +466,22 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         .getSecretaryDetails(this.cuin)
         .pipe(
           tap((res: ISecretaryDetails) => {
-            const convertedDate: string[] = formatDateToYYYYMMDD([
-              res.secrAppDate,
-            ]);
+            if (res.secrAppDate) {
+              const convertedDate: string[] = formatDateToYYYYMMDD([
+                res.secrAppDate,
+              ]);
 
-            this.secretaryInfoForm.patchValue({
-              ...res,
-              secrAppDate: convertedDate,
-            });
+              this.secretaryInfoForm.patchValue({
+                ...res,
+                secrAppDate: convertedDate,
+                compIncNo: this.cuin,
+              });
+            } else {
+              this.secretaryInfoForm.patchValue({
+                ...res,
+                compIncNo: this.cuin,
+              });
+            }
           })
         )
         .subscribe()
@@ -443,6 +499,8 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
     this.isRequestSent = true;
 
     let convertedDate: string[];
+
+    const originalDate = this.secretaryInfoForm.get('secrAppDate').value;
 
     if (Array.isArray(this.secretaryInfoForm.get('secrAppDate').value)) {
       convertedDate = formatDateToDDMMYYYY([
@@ -470,7 +528,9 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateSecretaryDetails(this.secretaryInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          res &&
+            ((this.isRequestSent = false),
+            this.secretaryInfoForm.patchValue({ secrAppDate: originalDate }));
         })
       );
   }

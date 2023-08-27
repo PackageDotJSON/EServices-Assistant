@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authFailedError = false;
   routes: any = ['/records', '/process', '/companyuser'];
   serverError = false;
+  isLoading = true;
 
   readonly homeUrl = ROUTES_URL.HOME_URL;
   readonly applicationManagementUrl = ROUTES_URL.APPLICATION_MANAGEMENT_URL;
@@ -76,6 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               this.routes[index].routes =
                 ROUTES_URL.REPORTS_URL + this.routes[index].routes;
             }
+            this.isLoading = false;
           }
         },
         (error) => {

@@ -71,6 +71,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.createInformationForm();
     this.insertFormData();
+    this.setValidators();
   }
 
   setValidators() {
@@ -78,7 +79,11 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       this.informationForm.valueChanges
         .pipe(
           tap((_) => {
-            if (this.currentRoute === 'director-information') {
+            if (
+              this.currentRoute === 'auditor-information' ||
+              this.currentRoute === 'director-information'
+            ) {
+              // add required validators for both auditor and director
               this.informationForm
                 .get('designation')
                 .setValidators(Validators.required);
@@ -86,13 +91,31 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
                 .get('directorAppointmentDate')
                 .setValidators(Validators.required);
               this.informationForm
-                .get('directorNTN')
-                .setValidators(Validators.required);
-              this.informationForm
                 .get('otherOccupation')
                 .setValidators(Validators.required);
               this.informationForm
                 .get('status')
+                .setValidators(Validators.required);
+
+              // remove not required validators for both auditor and director
+              this.informationForm
+                .get('directorNumberOfShares')
+                .clearValidators();
+              this.informationForm.get('directorCity').clearValidators();
+              this.informationForm
+                .get('directorValueOfShares')
+                .clearValidators();
+              this.informationForm
+                .get('directorClassOfShares')
+                .clearValidators();
+
+              this.informationForm.updateValueAndValidity();
+            }
+
+            if (this.currentRoute === 'director-information') {
+              // add additional validators required for director only
+              this.informationForm
+                .get('directorNTN')
                 .setValidators(Validators.required);
               this.informationForm
                 .get('directorshipNature')
@@ -100,47 +123,12 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm
                 .get('entityNominatingDirector')
                 .setValidators(Validators.required);
-            } else {
-              this.informationForm.get('designation').clearValidators();
-              this.informationForm
-                .get('directorAppointmentDate')
-                .clearValidators();
-              this.informationForm.get('directorNTN').clearValidators();
-              this.informationForm.get('otherOccupation').clearValidators();
-              this.informationForm.get('status').clearValidators();
-              this.informationForm.get('directorshipNature').clearValidators();
-              this.informationForm
-                .get('entityNominatingDirector')
-                .clearValidators();
-            }
 
-            if (this.currentRoute === 'auditor-information') {
-              this.informationForm
-                .get('designation')
-                .setValidators(Validators.required);
-              this.informationForm
-                .get('directorAppointmentDate')
-                .setValidators(Validators.required);
-              this.informationForm
-                .get('directorNTN')
-                .setValidators(Validators.required);
-              this.informationForm
-                .get('otherOccupation')
-                .setValidators(Validators.required);
-              this.informationForm
-                .get('status')
-                .setValidators(Validators.required);
-            } else {
-              this.informationForm.get('designation').clearValidators();
-              this.informationForm
-                .get('directorAppointmentDate')
-                .clearValidators();
-              this.informationForm.get('directorNTN').clearValidators();
-              this.informationForm.get('otherOccupation').clearValidators();
-              this.informationForm.get('status').clearValidators();
+              this.informationForm.updateValueAndValidity();
             }
 
             if (this.currentRoute === 'shareholding-information') {
+              // add validators required for shareholder
               this.informationForm
                 .get('directorNumberOfShares')
                 .setValidators(Validators.required);
@@ -153,17 +141,23 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm
                 .get('directorClassOfShares')
                 .setValidators(Validators.required);
-            } else {
+
+              // remove not required validators for shareholder that are required for director
+              this.informationForm.get('directorshipNature').clearValidators();
               this.informationForm
-                .get('directorNumberOfShares')
+                .get('entityNominatingDirector')
                 .clearValidators();
-              this.informationForm.get('directorCity').clearValidators();
+
+              // remove not required validator for shareholder that are required for both director and auditor
               this.informationForm
-                .get('directorValueOfShares')
+                .get('directorAppointmentDate')
                 .clearValidators();
-              this.informationForm
-                .get('directorClassOfShares')
-                .clearValidators();
+              this.informationForm.get('designation').clearValidators();
+              this.informationForm.get('directorNTN').clearValidators();
+              this.informationForm.get('otherOccupation').clearValidators();
+              this.informationForm.get('status').clearValidators();
+
+              this.informationForm.updateValueAndValidity();
             }
           })
         )
@@ -199,8 +193,14 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
       ],
       designation: ['', [Validators.maxLength(75)]],
-      directorAppointmentDate: ['', [Validators.maxLength(75)]],
-      directorNTN: ['', [Validators.maxLength(10)]],
+      directorAppointmentDate: [
+        '',
+        [Validators.pattern(/^\d{4}-\d{2}-\d{2}$/), Validators.maxLength(75)],
+      ],
+      directorNTN: [
+        '',
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
+      ],
       directorshipNature: ['', [Validators.maxLength(30)]],
       entityNominatingDirector: ['', [Validators.maxLength(25)]],
       otherOccupation: ['', [Validators.maxLength(512)]],
@@ -238,6 +238,10 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.isRequestSent = true;
     let convertedDate: string[];
+
+    const originalDate = this.informationForm.get(
+      'directorAppointmentDate'
+    ).value;
 
     if (
       Array.isArray(this.informationForm.get('directorAppointmentDate').value)
@@ -283,6 +287,9 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(
           tap((_) => {
             this.isRequestSent = false;
+            this.informationForm.patchValue({
+              directorAppointmentDate: originalDate,
+            });
           })
         );
     } else if (this.currentRoute === 'auditor-information') {
@@ -307,6 +314,9 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(
           tap((_) => {
             this.isRequestSent = false;
+            this.informationForm.patchValue({
+              directorAppointmentDate: originalDate,
+            });
           })
         );
     } else {
@@ -332,6 +342,9 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(
           tap((_) => {
             this.isRequestSent = false;
+            this.informationForm.patchValue({
+              directorAppointmentDate: originalDate,
+            });
           })
         );
     }

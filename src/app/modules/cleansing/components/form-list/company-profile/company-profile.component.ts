@@ -143,6 +143,12 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
 
     this.isRequestSent = true;
 
+    const originalDate = [
+      this.companyProfileForm.get('incDate').value,
+      this.companyProfileForm.get('agmDt').value,
+      this.companyProfileForm.get('frmADate').value,
+    ];
+
     const convertedDate: string[] = formatDateToDDMMYYYY([
       this.companyProfileForm.get('incDate').value,
       this.companyProfileForm.get('agmDt').value,
@@ -160,7 +166,13 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       .updateCompanyProfile(this.companyProfileForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          res &&
+            ((this.isRequestSent = false),
+            this.companyProfileForm.patchValue({
+              incDate: originalDate[0],
+              agmDt: originalDate[1],
+              frmADate: originalDate[2],
+            }));
         })
       );
   }

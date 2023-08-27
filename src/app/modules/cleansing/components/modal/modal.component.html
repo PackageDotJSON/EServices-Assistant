@@ -30,6 +30,7 @@
             class="close"
             data-dismiss="modal"
             aria-label="Close"
+            (click)="closeModal()"
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -237,17 +238,15 @@
             <div class="col">
               <small>Status: <mark>required</mark></small>
               <select class="form-control" formControlName="status">
-                <option value="REMOVED">REMOVED</option>
-                <option value="RESIGNED">RESIGNED</option>
-                <option value="DIED">DIED</option>
-                <option value="DISQUALIFIED">DISQUALIFIED</option>
-                <option value="APPOINTED">APPOINTED</option>
-                <option value="RE_APPOINTED">RE_APPOINTED</option>
-                <option value="RE_ELECTED">RE_ELECTED</option>
-                <option value="CHANGE_IN_NIC">CHANGE_IN_NIC</option>
-                <option value="OTHER_CHANGE">OTHER_CHANGE</option>
-                <option value="ELECTED">ELECTED</option>
-                <option value="RETIRED">RETIRED</option>
+                <option value="Removed">REMOVED</option>
+                <option value="Resigned">RESIGNED</option>
+                <option value="Died">DIED</option>
+                <option value="Disqualified">DISQUALIFIED</option>
+                <option value="Appointed">APPOINTED</option>
+                <option value="Re-Appointment">RE-APPOINTED</option>
+                <option value="Re-Elected">RE-ELECTED</option>
+                <option value="Elected">ELECTED</option>
+                <option value="Retired">RETIRED</option>
               </select>
 
               <div
@@ -275,9 +274,7 @@
           <div class="line"></div>
 
           <div class="row" *ngIf="currentRoute !== 'shareholding-information'">
-            <div
-              class="col"
-            >
+            <div class="col">
               <small>NTN:</small>
               <input
                 class="form-control"
@@ -292,6 +289,11 @@
                 "
                 class="custom-error-message"
               >
+                <small
+                  *ngIf="informationForm.get('directorNTN').hasError('pattern')"
+                >
+                  NTN cannot contain alphabets or special characters.
+                </small>
                 <small
                   *ngIf="
                     informationForm.get('directorNTN').hasError('maxlength')
@@ -308,6 +310,7 @@
                 class="form-control"
                 type="date"
                 formControlName="directorAppointmentDate"
+                onkeydown="return false"
               />
 
               <div
@@ -325,6 +328,16 @@
                   "
                 >
                   Appointment Date is required.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorAppointmentDate')
+                      .hasError('pattern')
+                  "
+                >
+                  Appointment Date is invalid.
                 </small>
 
                 <small
@@ -446,7 +459,6 @@
                 </small>
               </div>
             </div>
-
           </div>
 
           <div class="line"></div>
@@ -484,7 +496,8 @@
                       .hasError('pattern')
                   "
                 >
-                  Number of Shares cannot contain alphabets or special characters.
+                  Number of Shares cannot contain alphabets or special
+                  characters.
                 </small>
 
                 <small
@@ -571,7 +584,8 @@
                       .hasError('pattern')
                   "
                 >
-                  Value of Shares cannot contain alphabets or special characters.
+                  Value of Shares cannot contain alphabets or special
+                  characters.
                 </small>
 
                 <small
@@ -618,7 +632,8 @@
                       .hasError('pattern')
                   "
                 >
-                  Class of Shares cannot contain alphabets or special characters.
+                  Class of Shares cannot contain alphabets or special
+                  characters.
                 </small>
 
                 <small
