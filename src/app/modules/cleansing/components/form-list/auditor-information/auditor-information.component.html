@@ -1,4 +1,12 @@
 <div class="table-responsive">
+  <button
+    id="custom-button"
+    type="button"
+    class="btn btn-outline-success"
+    (click)="isModalClicked = true; addNewAuditor()"
+  >
+    Add New Auditor
+  </button>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -9,6 +17,7 @@
         <th scope="col">Nationality</th>
         <th scope="col">Designation</th>
         <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
 
@@ -30,6 +39,11 @@
             <i class="bi bi-pencil"></i>
           </button>
         </td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="deleteAuditor(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
 
@@ -38,6 +52,11 @@
     </ng-template>
   </table>
 </div>
+
+<ng-container *ngIf="isRequestSent">
+  <div class="line"></div>
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
 
 <ng-container *ngIf="isModalClicked">
   <app-modal

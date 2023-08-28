@@ -180,7 +180,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       designation: ['', [Validators.maxLength(75)]],
       directorAppointmentDate: ['', [Validators.maxLength(75)]],
       directorNTN: [
-        '',
+        null,
         [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
       ],
       directorshipNature: ['', [Validators.maxLength(30)]],

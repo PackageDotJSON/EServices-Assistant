@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CompanyState } from '../../../state-management/company-state.service';
 import { tap } from 'rxjs/operators';
 import {
   IDirectorDetails,
   ISingleDirector,
 } from '../../../models/director-details.model';
+import { IResponse } from 'src/app/modules/alerts/models/response.model';
 
 @Component({
   selector: 'app-directors-information',
@@ -20,6 +21,8 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
   directorDetails: IDirectorDetails;
   selectedDirector: ISingleDirector;
   index: number;
+  response$: Observable<IResponse>;
+  isRequestSent = false;
 
   constructor(
     private dataCleansingService: DataCleansingService,
@@ -52,6 +55,26 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
         )
         .subscribe()
     );
+  }
+
+  addNewDirector() {
+    this.index = this.directorDetails.directorInfo.length;
+    this.selectedDirector = {
+      directorAddress: '',
+      directorCnicPassport: '',
+      directorFatherHusbandName: '',
+      directorName: '',
+      directorNationality: '',
+      designation: 'Director',
+    };
+  }
+
+  deleteDirector(i) {
+    this.isRequestSent = true;
+    this.directorDetails.directorInfo.splice(i, 1);
+    this.response$ = this.dataCleansingService
+      .updateDirectorDetails(this.directorDetails)
+      .pipe(tap((_) => (this.isRequestSent = false)));
   }
 
   getModalState(state: boolean) {

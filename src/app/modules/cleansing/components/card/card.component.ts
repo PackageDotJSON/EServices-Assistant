@@ -1,11 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   CLEANSING_ROUTES,

@@ -1,4 +1,12 @@
 <div class="table-responsive">
+  <button
+    id="custom-button"
+    type="button"
+    class="btn btn-outline-success"
+    (click)="isModalClicked = true; addNewShareholder()"
+  >
+    Add New Shareholder
+  </button>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -7,6 +15,7 @@
         <th scope="col">Nationality</th>
         <th scope="col">Number Of Shares</th>
         <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
 
@@ -28,6 +37,11 @@
             <i class="bi bi-pencil"></i>
           </button>
         </td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="deleteShareholder(i)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
 
@@ -37,6 +51,11 @@
   </table>
 </div>
 
+<ng-container *ngIf="isRequestSent">
+  <div class="line"></div>
+  <app-loading-spinner></app-loading-spinner>
+</ng-container>
+
 <ng-container *ngIf="isModalClicked">
   <app-modal
     (closeModalEvent)="getModalState($event)"
@@ -44,4 +63,12 @@
     [remainingData]="shareholderDetails"
     [index]="index"
   ></app-modal>
+</ng-container>
+
+<ng-container *ngIf="response$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
 </ng-container>

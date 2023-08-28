@@ -42,6 +42,7 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
     this.checkCompany = true;
     this.checkIncorporation = false;
     this.enabledByDefault = true;
+    this.incorporationNumber = null;
   }
 
   incorporationSelect(): void {
@@ -49,6 +50,7 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
     this.checkIncorporation = true;
     this.checkCompany = false;
     this.enabledByDefault = false;
+    this.companyName = '';
   }
 
   processList(): void {

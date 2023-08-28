@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   IDirectorDetails,
   ISingleDirector,
@@ -7,6 +7,7 @@ import {
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
 import { tap } from 'rxjs/operators';
+import { IResponse } from 'src/app/modules/alerts/models/response.model';
 
 @Component({
   selector: 'app-auditor-information',
@@ -20,6 +21,8 @@ export class AuditorInformationComponent implements OnInit {
   auditorDetails: IDirectorDetails;
   selectedAuditor: ISingleDirector;
   index: number;
+  response$: Observable<IResponse>;
+  isRequestSent = false;
 
   constructor(
     private dataCleansingService: DataCleansingService,
@@ -52,6 +55,26 @@ export class AuditorInformationComponent implements OnInit {
         )
         .subscribe()
     );
+  }
+
+  addNewAuditor() {
+    this.index = this.auditorDetails.directorInfo.length;
+    this.selectedAuditor = {
+      directorAddress: '',
+      directorCnicPassport: '',
+      directorFatherHusbandName: '',
+      directorName: '',
+      directorNationality: '',
+      designation: 'Auditor',
+    };
+  }
+
+  deleteAuditor(i) {
+    this.isRequestSent = true;
+    this.auditorDetails.directorInfo.splice(i, 1);
+    this.response$ = this.dataCleansingService
+      .updateAuditorDetails(this.auditorDetails)
+      .pipe(tap((_) => (this.isRequestSent = false)));
   }
 
   getModalState(state: boolean) {

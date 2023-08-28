@@ -6,3 +6,7 @@ th {
   background: white;
   color: black;
 }
+
+#custom-button {
+  float: right;
+}
