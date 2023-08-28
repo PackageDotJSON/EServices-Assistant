@@ -3,7 +3,6 @@
     <thead>
       <tr>
         <th scope="col">Name</th>
-        <th scope="col">Father/Husband Name</th>
         <th scope="col">CNIC/Passport</th>
         <th scope="col">Nationality</th>
         <th scope="col">Number Of Shares</th>
@@ -14,7 +13,6 @@
     <tbody *ngIf="shareholderDetails as sDetails; else isLoading">
       <tr *ngFor="let shareholder of sDetails.directorInfo; let i = index">
         <td>{{ shareholder.directorName }}</td>
-        <td>{{ shareholder.directorFatherHusbandName }}</td>
         <td>{{ shareholder.directorCnicPassport }}</td>
         <td>{{ shareholder.directorNationality }}</td>
         <td>{{ shareholder.directorNumberOfShares }}</td>

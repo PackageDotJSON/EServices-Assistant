@@ -107,6 +107,16 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
             this.capitalStructureForm.patchValue({
               ...res,
             });
+
+            this.capitalStructureForm.patchValue({
+              compAthrzCap:
+                this.capitalStructureForm.get('compPerShareValue').value *
+                this.capitalStructureForm.get('compAthrzCapShrs').value,
+
+              compPadupCap:
+                this.capitalStructureForm.get('compAthrzPerValue').value *
+                this.capitalStructureForm.get('compPadupCapShrs').value,
+            });
           })
         )
         .subscribe()
@@ -124,6 +134,13 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
     this.isRequestSent = true;
     this.capitalStructureForm.patchValue({
       userId: getUserId(),
+      compAthrzCap:
+        this.capitalStructureForm.get('compPerShareValue').value *
+        this.capitalStructureForm.get('compAthrzCapShrs').value,
+
+      compPadupCap:
+        this.capitalStructureForm.get('compAthrzPerValue').value *
+        this.capitalStructureForm.get('compPadupCapShrs').value,
     });
 
     this.capitalResponse$ = this.dataCleansingService

@@ -70,7 +70,12 @@
               </div>
             </div>
             <div class="col">
-              <small>Father's/Husband's Name: <mark>required</mark></small>
+              <small
+                >Father's/Husband's Name:
+                <mark *ngIf="currentRoute !== 'shareholding-information'"
+                  >required</mark
+                ></small
+              >
               <input
                 class="form-control"
                 type="text"
@@ -111,7 +116,10 @@
 
           <div class="row">
             <div class="col">
-              <small>CNIC/Passport: <mark>required</mark></small>
+              <small
+                >CUIN/CNIC/Passport/Registration No:
+                <mark>required</mark></small
+              >
               <input
                 class="form-control"
                 type="text"
@@ -132,7 +140,7 @@
                       .hasError('required')
                   "
                 >
-                  CNIC is required.
+                  CUIN/CNIC/Passport/Registration No is required.
                 </small>
 
                 <small
@@ -142,7 +150,8 @@
                       .hasError('pattern')
                   "
                 >
-                  CNIC cannot contain alphabets or special characters.
+                  CUIN/CNIC/Passport/Registration No cannot contain special
+                  characters.
                 </small>
 
                 <small
@@ -152,7 +161,8 @@
                       .hasError('maxlength')
                   "
                 >
-                  CNIC cannot be more than 50 characters.
+                  CUIN/CNIC/Passport/Registration No cannot be more than 50
+                  characters.
                 </small>
               </div>
             </div>
@@ -357,12 +367,13 @@
 
           <div class="row" *ngIf="currentRoute === 'directors-information'">
             <div class="col">
-              <small>Nature: <mark>required</mark></small>
+              <small>Nature Of Directorship:</small>
               <select class="form-control" formControlName="directorshipNature">
-                <option value="Appointed">Appointed</option>
+                <option value="null">None</option>
                 <option value="Nominee">Nominee</option>
                 <option value="Independent">Independent</option>
                 <option value="Other">Other</option>
+                <option value="Alternate Director">Alternate Director</option>
               </select>
 
               <div
@@ -376,26 +387,16 @@
                   *ngIf="
                     informationForm
                       .get('directorshipNature')
-                      .hasError('required')
-                  "
-                >
-                  Nature is required.
-                </small>
-
-                <small
-                  *ngIf="
-                    informationForm
-                      .get('directorshipNature')
                       .hasError('maxlength')
                   "
                 >
-                  Nature cannot be more than 30 characters.
+                  Nature of Directorship cannot be more than 30 characters.
                 </small>
               </div>
             </div>
 
             <div class="col">
-              <small>Nominating Director: <mark>required</mark></small>
+              <small>Nominating Authority:</small>
               <input
                 class="form-control"
                 type="text"
@@ -413,20 +414,10 @@
                   *ngIf="
                     informationForm
                       .get('entityNominatingDirector')
-                      .hasError('required')
-                  "
-                >
-                  Nominating Director is required.
-                </small>
-
-                <small
-                  *ngIf="
-                    informationForm
-                      .get('entityNominatingDirector')
                       .hasError('maxlength')
                   "
                 >
-                  Nominating Director cannot be more than 25 characters.
+                  Nominating Authority cannot be more than 25 characters.
                 </small>
               </div>
             </div>
@@ -465,7 +456,7 @@
 
           <div class="row" *ngIf="currentRoute === 'shareholding-information'">
             <div class="col">
-              <small>Number of Shares:</small>
+              <small>Number of Shares: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -514,9 +505,9 @@
             <div class="line"></div>
           </div>
 
-          <div class="row" *ngIf="currentRoute === 'shareholding-information'">
+          <!-- <div class="row" *ngIf="currentRoute === 'shareholding-information'">
             <div class="col">
-              <small>City:</small>
+              <small>City: <mark>required</mark></small>
               <select
                 class="form-control"
                 type="text"
@@ -553,7 +544,7 @@
             </div>
 
             <div class="col">
-              <small>Value of Shares:</small>
+              <small>Value of Shares: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -601,7 +592,7 @@
             </div>
 
             <div class="col">
-              <small>Class of Shares:</small>
+              <small>Class of Shares: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -647,7 +638,7 @@
                 </small>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="line"></div>
 

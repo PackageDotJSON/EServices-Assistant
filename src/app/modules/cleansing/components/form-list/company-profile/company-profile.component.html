@@ -81,7 +81,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Industry Type: <mark>(required)</mark></small>
+      <small>Sector: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compSector">
         <option
           *ngFor="let industry of industryList"
@@ -168,17 +168,7 @@
 
     <div class="col">
       <small>Company Registration Office: <mark>(required)</mark></small>
-      <select class="form-control" formControlName="compCro">
-        <option value="CRO Faisalabad">CRO Faisalabad</option>
-        <option value="CRO Gilgit">CRO Gilgit</option>
-        <option value="CRO Islamabad">CRO Islamabad</option>
-        <option value="CRO Karachi">CRO Karachi</option>
-        <option value="CRO Lahore">CRO Lahore</option>
-        <option value="CRO Multan">CRO Multan</option>
-        <option value="CRO Peshawar">CRO Peshawar</option>
-        <option value="CRO Quetta">CRO Quetta</option>
-        <option value="CRO Sukkur">CRO Sukkur</option>
-      </select>
+      <input class="form-control" formControlName="compCro" readonly />
 
       <div
         *ngIf="
@@ -350,12 +340,7 @@
   <div class="row">
     <div class="col">
       <small>Company Status: <mark>(required)</mark></small>
-      <select class="form-control" formControlName="compStatus">
-        <option value="ACTIVE">ACTIVE</option>
-        <option value="INACTIVE">INACTIVE</option>
-        <option value="INACTIVE FORM 38">INACTIVE FORM 38</option>
-        <option value="INACTIVE NON FILING">INACTIVE NON FILING</option>
-      </select>
+      <input class="form-control" formControlName="compStatus" readonly />
 
       <div
         *ngIf="
@@ -432,7 +417,12 @@
 
     <div class="col">
       <small>AGM Date:</small>
-      <input type="date" class="form-control" formControlName="agmDt" onkeydown="return false"/>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="agmDt"
+        onkeydown="return false"
+      />
 
       <div
         *ngIf="
@@ -453,7 +443,12 @@
   <div class="row">
     <div class="col">
       <small>Form A/B/C Date:</small>
-      <input type="date" class="form-control" formControlName="frmADate" onkeydown="return false"/>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="frmADate"
+        onkeydown="return false"
+      />
 
       <div
         *ngIf="
@@ -560,12 +555,26 @@
 
   <div class="row">
     <div class="col">
-      <small>Is Listed Company: <mark>(required)</mark></small>
-      <select class="form-control" formControlName="listed">
-        <option value="Y">YES</option>
-        <option value="N">NO</option>
-      </select>
+      <small>Status of Public Company: <mark>(required)</mark></small>
+      <ng-container
+        *ngIf="
+          companyProfileForm.get('compKind').value === 'Public Limited Company';
+          else disableDropDown
+        "
+      >
+        <select class="form-control" formControlName="listed">
+          <option value="Y">Listed</option>
+          <option value="N">Unlisted</option>
+        </select>
+      </ng-container>
 
+      <ng-template #disableDropDown>
+        <input
+          class="form-control"
+          [value]="companyProfileForm.get('listed').value === 'N' && 'Unlisted'"
+          readonly
+        />
+      </ng-template>
       <div
         *ngIf="
           companyProfileForm.get('listed').dirty ||
@@ -584,8 +593,9 @@
     </div>
 
     <div class="col">
-      <small>Company Submission Mode: <mark>(required)</mark></small>
+      <small>Company Submission Mode:</small>
       <select class="form-control" formControlName="compSubMode">
+        <option value="null">None</option>
         <option value="Online">Online</option>
         <option value="Online/Offline">Online/Offline</option>
       </select>
@@ -667,7 +677,9 @@
     </div>
   </div>
   <div class="line"></div>
-  <small *ngIf="invalidForm" class="custom-error-message">Some <mark>required</mark> fields are missing.</small>
+  <small *ngIf="invalidForm" class="custom-error-message"
+    >Some <mark>required</mark> fields are missing.</small
+  >
   <br />
   <button type="submit" class="btn btn-outline-primary">Update</button>
 </form>

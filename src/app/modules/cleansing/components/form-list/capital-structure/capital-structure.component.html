@@ -1,7 +1,7 @@
 <form [formGroup]="capitalStructureForm" (ngSubmit)="updateCapitalStructure()">
   <div class="row">
     <div class="col">
-      <small>Per Share Value: <mark>required</mark></small>
+      <small>Authorized Capital - Per Share Value: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -20,7 +20,7 @@
             capitalStructureForm.get('compPerShareValue').hasError('required')
           "
         >
-          The Per Share Value is required.
+          The Authorized Capital - Per Share Value is required.
         </small>
 
         <small
@@ -28,7 +28,7 @@
             capitalStructureForm.get('compPerShareValue').hasError('pattern')
           "
         >
-          The Per Share Value cannot contain alphabets or special characters.
+          The Authorized Capital - Per Share Value cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -36,14 +36,14 @@
             capitalStructureForm.get('compPerShareValue').hasError('maxlength')
           "
         >
-          The Per Share Value cannot contain more than 22 numerical digits.
+          The Authorized Capital - Per Share Value cannot contain more than 22 numerical digits.
         </small>
       </div>
     </div>
 
     <div class="col">
       <small>Authorized Capital: <mark>required</mark></small>
-      <input type="text" class="form-control" formControlName="compAthrzCap" />
+      <input type="text" class="form-control" formControlName="compAthrzCap" readonly/>
 
       <div
         *ngIf="
@@ -73,7 +73,7 @@
     </div>
 
     <div class="col">
-      <small>Authorized Capital - Share: <mark>required</mark></small>
+      <small>Authorized Capital - Shares: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -92,7 +92,7 @@
             capitalStructureForm.get('compAthrzCapShrs').hasError('required')
           "
         >
-          The Authorized Capital - Share is required.
+          The Authorized Capital - Shares is required.
         </small>
 
         <small
@@ -100,7 +100,7 @@
             capitalStructureForm.get('compAthrzCapShrs').hasError('pattern')
           "
         >
-          The Authorized Capital - Share cannot contain alphabets or special characters.
+          The Authorized Capital - Shares cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -108,7 +108,7 @@
             capitalStructureForm.get('compAthrzCapShrs').hasError('maxlength')
           "
         >
-          The Authorized Capital - Share contain more than 22 numerical digits.
+          The Authorized Capital - Shares contain more than 22 numerical digits.
         </small>
       </div>
     </div>
@@ -118,7 +118,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Authorized Capital - Per Share Value: <mark>required</mark></small>
+      <small>Paidup Capital - Per Share Value: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -137,7 +137,7 @@
             capitalStructureForm.get('compAthrzPerValue').hasError('required')
           "
         >
-          The Authorized Capital - Per Share Value is required.
+          The Paidup Capital - Per Share Value is required.
         </small>
 
         <small
@@ -145,7 +145,7 @@
             capitalStructureForm.get('compAthrzPerValue').hasError('pattern')
           "
         >
-          The Authorized Capital - Per Share Value cannot contain alphabets or special characters.
+          The Paidup Capital - Per Share Value Value cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -153,7 +153,7 @@
             capitalStructureForm.get('compAthrzPerValue').hasError('maxlength')
           "
         >
-          The Authorized Capital - Per Share Value cannot more than 22 numerical
+          The Paidup Capital - Per Share Value cannot more than 22 numerical
           digits.
         </small>
       </div>
@@ -161,7 +161,7 @@
 
     <div class="col">
       <small>Paidup Capital: <mark>required</mark></small>
-      <input type="text" class="form-control" formControlName="compPadupCap" />
+      <input type="text" class="form-control" formControlName="compPadupCap" readonly/>
 
       <div
         *ngIf="
@@ -191,7 +191,7 @@
     </div>
 
     <div class="col">
-      <small>Paidup Capital - Per Share Value: <mark>required</mark></small>
+      <small>Paidup Capital - Shares: <mark>required</mark></small>
       <input
         type="text"
         class="form-control"
@@ -210,7 +210,7 @@
             capitalStructureForm.get('compPadupCapShrs').hasError('required')
           "
         >
-          The Paidup Capital - Per Share Value is required.
+          The Paidup Capital - Shares is required.
         </small>
 
         <small
@@ -218,7 +218,7 @@
             capitalStructureForm.get('compPadupCapShrs').hasError('pattern')
           "
         >
-          The Paidup Capital - Per Share Value cannot contain alphabets or special characters.
+          The Paidup Capital - Shares cannot contain alphabets or special characters.
         </small>
 
         <small
@@ -226,7 +226,7 @@
             capitalStructureForm.get('compPadupCapShrs').hasError('maxlength')
           "
         >
-          The Paidup Capital - Per Share Value cannot contain more than 22
+          The Paidup Capital - Shares cannot contain more than 22
           numerical digits.
         </small>
       </div>
