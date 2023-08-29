@@ -70,8 +70,8 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.createInformationForm();
-    this.insertFormData();
     this.setValidators();
+    this.insertFormData();
   }
 
   setValidators() {
@@ -81,25 +81,8 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
           tap((_) => {
             if (
               this.currentRoute === 'auditor-information' ||
-              this.currentRoute === 'director-information'
+              this.currentRoute === 'directors-information'
             ) {
-              // add required validators for both auditor and director
-              this.informationForm
-                .get('designation')
-                .setValidators(Validators.required);
-              this.informationForm
-                .get('directorAppointmentDate')
-                .setValidators([
-                  Validators.required,
-                  Validators.pattern(/^\d{4}-\d{2}-\d{2}$/),
-                ]);
-              this.informationForm
-                .get('status')
-                .setValidators(Validators.required);
-              this.informationForm
-                .get('directorFatherHusbandName')
-                .setValidators(Validators.required);
-
               // remove not required validators for both auditor and director
               this.informationForm
                 .get('directorNumberOfShares')
@@ -112,13 +95,29 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
                 .get('directorClassOfShares')
                 .clearValidators();
 
+              // add required validators for both auditor and director
+              this.informationForm
+                .get('designation')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('status')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorAppointmentDate')
+                .setValidators(
+                  Validators.pattern('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+                );
+
               this.informationForm.updateValueAndValidity();
             }
 
-            if (this.currentRoute === 'director-information') {
+            if (this.currentRoute === 'directors-information') {
               // add additional validators required for director only
               this.informationForm
-                .get('directorNTN')
+                .get('directorCnicPassport')
+                .setValidators(Validators.required);
+              this.informationForm
+                .get('directorFatherHusbandName')
                 .setValidators(Validators.required);
 
               this.informationForm.updateValueAndValidity();
@@ -128,7 +127,11 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               // add validators required for shareholder
               this.informationForm
                 .get('directorNumberOfShares')
-                .setValidators(Validators.required);
+                .setValidators([
+                  Validators.required,
+                  Validators.pattern('^[0-9]*$'),
+                  Validators.maxLength(10),
+                ]);
 
               // remove not required validator for shareholder that are required for both director and auditor
               this.informationForm
@@ -159,11 +162,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       directorAddress: ['', [Validators.required, Validators.maxLength(512)]],
       directorCnicPassport: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9]*$'),
-          Validators.maxLength(50),
-        ],
+        [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(50)],
       ],
       directorFatherHusbandName: ['', [Validators.maxLength(100)]],
       directorName: ['', [Validators.required, Validators.maxLength(100)]],

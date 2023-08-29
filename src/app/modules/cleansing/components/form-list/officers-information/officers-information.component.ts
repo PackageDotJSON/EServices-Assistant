@@ -71,7 +71,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]*$'),
+          Validators.pattern('^[a-zA-Z0-9]*$'),
           Validators.maxLength(75),
         ],
       ],
@@ -90,7 +90,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]*$'),
+          Validators.pattern('^[a-zA-Z0-9]*$'),
           Validators.maxLength(75),
         ],
       ],
@@ -107,15 +107,11 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       lglAdvName: ['', [Validators.required, Validators.maxLength(100)]],
       lglAdvNIC: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(75),
-        ],
+        [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(75)],
       ],
       lglAdvAddress: ['', [Validators.required, Validators.maxLength(512)]],
       lglAdvCountry: ['', [Validators.required, Validators.maxLength(50)]],
-      lglAdvFatherName: ['', [Validators.required, Validators.maxLength(100)]],
+      lglAdvFatherName: ['', [Validators.maxLength(100)]],
       lglAdvAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
       userId: [''],
@@ -126,15 +122,11 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       mngName: ['', [Validators.required, Validators.maxLength(100)]],
       mngNIC: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(75),
-        ],
+        [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(75)],
       ],
       mngAddress: ['', [Validators.required, Validators.maxLength(512)]],
       mngCountry: ['', [Validators.required, Validators.maxLength(50)]],
-      mngFatherName: ['', [Validators.required, Validators.maxLength(100)]],
+      mngFatherName: ['', [Validators.maxLength(100)]],
       mngAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
       userId: [''],
@@ -147,7 +139,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]*$'),
+          Validators.pattern('^[a-zA-Z0-9]*$'),
           Validators.maxLength(75),
         ],
       ],

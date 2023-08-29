@@ -86,7 +86,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC: <mark>required</mark></small>
+              <small>CNIC/Passport No.: (without dashes)<mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -101,15 +101,15 @@
                 class="custom-error-message"
               >
                 <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('required')">
-                  CEO's CNIC is required.
+                  CEO's CNIC/Passport No. is required.
                 </small>
 
                 <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('pattern')">
-                  CEO's CNIC cannot contain alphabets or special characters.
+                  CEO's CNIC/Passport No. cannot contain special characters.
                 </small>
 
                 <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('maxlength')">
-                  CEO's CNIC cannot be more than 75 characters.
+                  CEO's CNIC/Passport No. cannot be more than 75 characters.
                 </small>
               </div>
             </div>
@@ -295,7 +295,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC: <mark>required</mark></small>
+              <small>CNIC/Passport No. (without dashes): <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -310,17 +310,19 @@
                 class="custom-error-message"
               >
                 <small *ngIf="chiefInfoForm.get('cacNIC').hasError('required')">
-                  Chief Accountant's CNIC is required.
+                  Chief Accountant's CNIC/Passport No. is required.
                 </small>
 
                 <small *ngIf="chiefInfoForm.get('cacNIC').hasError('pattern')">
-                  Chief Accountant's CNIC cannot contain alphabets or special characters.
+                  Chief Accountant's CNIC/Passport No. cannot contain special
+                  characters.
                 </small>
 
                 <small
                   *ngIf="chiefInfoForm.get('cacNIC').hasError('maxlength')"
                 >
-                  Chief Accountant's CNIC cannot be more than 75 characters.
+                  Chief Accountant's CNIC/Passport No. cannot be more than 75
+                  characters.
                 </small>
               </div>
             </div>
@@ -513,7 +515,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC: <mark>required</mark></small>
+              <small>CNIC/Passport No. (without dashes):</small>
               <input
                 class="form-control"
                 type="text"
@@ -528,21 +530,17 @@
                 class="custom-error-message"
               >
                 <small
-                  *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('required')"
-                >
-                  Legal Advisor's CNIC is required.
-                </small>
-
-                <small
                   *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('pattern')"
                 >
-                  Legal Advisor's CNIC cannot contain alphabets or special characters.
+                  Legal Advisor's CNIC/Passport No. cannot contain special
+                  characters.
                 </small>
 
                 <small
                   *ngIf="advisorInfoForm.get('lglAdvNIC').hasError('maxlength')"
                 >
-                  Legal Advisor's CNIC cannot be more than 75 characters.
+                  Legal Advisor's CNIC/Passport No. cannot be more than 75
+                  characters.
                 </small>
               </div>
             </div>
@@ -552,7 +550,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Father's Name: <mark>required</mark></small>
+              <small>Father's Name:</small>
               <input
                 class="form-control"
                 type="text"
@@ -566,14 +564,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="
-                    advisorInfoForm.get('lglAdvFatherName').hasError('required')
-                  "
-                >
-                  Legal Advisor's Father Name is required.
-                </small>
-
                 <small
                   *ngIf="
                     advisorInfoForm
@@ -748,7 +738,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC: <mark>required</mark></small>
+              <small>CNIC/Passport No. (without dashes):</small>
               <input
                 class="form-control"
                 type="text"
@@ -762,18 +752,16 @@
                 "
                 class="custom-error-message"
               >
-                <small *ngIf="agentInfoForm.get('mngNIC').hasError('required')">
-                  Managing Agent's CNIC is required.
-                </small>
-
                 <small *ngIf="agentInfoForm.get('mngNIC').hasError('pattern')">
-                  Managing Agent's CNIC cannot contain alphabets or special characters.
+                  Managing Agent's CNIC/Passport No. cannot contain special
+                  characters.
                 </small>
 
                 <small
                   *ngIf="agentInfoForm.get('mngNIC').hasError('maxlength')"
                 >
-                  Managing Agent's CNIC cannot be more than 75 characters.
+                  Managing Agent's CNIC/Passport No. cannot be more than 75
+                  characters.
                 </small>
               </div>
             </div>
@@ -783,7 +771,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Father's Name: <mark>required</mark></small>
+              <small>Father's Name:</small>
               <input
                 class="form-control"
                 type="text"
@@ -797,14 +785,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="
-                    agentInfoForm.get('mngFatherName').hasError('required')
-                  "
-                >
-                  Managing Agent's Father Name is required.
-                </small>
-
                 <small
                   *ngIf="
                     agentInfoForm.get('mngFatherName').hasError('maxlength')
@@ -935,7 +915,10 @@
         role="tabpanel"
         aria-labelledby="secretary-details-list"
       >
-        <form [formGroup]="secretaryInfoForm" (ngSubmit)="updateSecretaryDetails()">
+        <form
+          [formGroup]="secretaryInfoForm"
+          (ngSubmit)="updateSecretaryDetails()"
+        >
           <div class="row">
             <div class="col">
               <small>Name: <mark>required</mark></small>
@@ -969,7 +952,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC: <mark>required</mark></small>
+              <small>CNIC/Passport No. (without dashes): <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -986,19 +969,21 @@
                 <small
                   *ngIf="secretaryInfoForm.get('secrNIC').hasError('required')"
                 >
-                  Secretary's CNIC is required.
+                  Secretary's CNIC/Passport No. is required.
                 </small>
 
                 <small
                   *ngIf="secretaryInfoForm.get('secrNIC').hasError('pattern')"
                 >
-                  Secretary's CNIC cannot contain alphabets or special characters.
+                  Secretary's CNIC/Passport No. cannot contain special
+                  characters.
                 </small>
 
                 <small
                   *ngIf="secretaryInfoForm.get('secrNIC').hasError('maxlength')"
                 >
-                  Secretary's CNIC cannot be more than 75 characters.
+                  Secretary's CNIC/Passport No. cannot be more than 75
+                  characters.
                 </small>
               </div>
             </div>

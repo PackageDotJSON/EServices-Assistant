@@ -64,7 +64,7 @@ export class AuditorInformationComponent implements OnInit {
       directorCnicPassport: '',
       directorFatherHusbandName: '',
       directorName: '',
-      directorNationality: '',
+      directorNationality: 'Pakistan',
       designation: 'Auditor',
     };
   }

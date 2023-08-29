@@ -64,13 +64,12 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       incDate: ['', [Validators.required, Validators.maxLength(20)]],
       compSector: ['', [Validators.required, Validators.maxLength(100)]],
       compKind: ['', [Validators.required, Validators.maxLength(150)]],
-      compDistt: ['', [Validators.required, Validators.maxLength(75)]],
+      compDistt: ['', [Validators.maxLength(75)]],
       compCro: ['', [Validators.required, Validators.maxLength(50)]],
       compAddress: ['', [Validators.required, Validators.maxLength(512)]],
       compEmail: [
         '',
         [
-          Validators.required,
           Validators.pattern(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
           ),
@@ -84,7 +83,6 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       compPhoneNo: [
         '',
         [
-          Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.maxLength(50),
         ],

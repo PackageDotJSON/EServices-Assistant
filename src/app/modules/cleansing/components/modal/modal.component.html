@@ -72,7 +72,7 @@
             <div class="col">
               <small
                 >Father's/Husband's Name:
-                <mark *ngIf="currentRoute !== 'shareholding-information'"
+                <mark *ngIf="currentRoute === 'directors-information'"
                   >required</mark
                 ></small
               >
@@ -117,8 +117,8 @@
           <div class="row">
             <div class="col">
               <small
-                >CUIN/CNIC/Passport/Registration No:
-                <mark>required</mark></small
+                >CUIN/CNIC/Passport/Registration No: (without dashes)
+                <mark *ngIf="currentRoute === 'directors-information'">required</mark></small
               >
               <input
                 class="form-control"
