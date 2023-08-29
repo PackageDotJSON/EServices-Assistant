@@ -66,3 +66,11 @@
     [index]="index"
   ></app-modal>
 </ng-container>
+
+<ng-container *ngIf="response$ | async as response">
+  <app-toast
+    [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
+    [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
+    [toastMessage]="response.message"
+  ></app-toast>
+</ng-container>

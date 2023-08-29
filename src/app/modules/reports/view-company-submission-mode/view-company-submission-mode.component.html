@@ -82,7 +82,7 @@
     <br /><br /><br />
 
     <div *ngIf="checkIncorporation || checkCompany">
-      <small *ngIf="companyName.length > 50" class="custom-error-message"
+      <small *ngIf="companyName?.length > 50" class="custom-error-message"
         >The text field cannot contain more than 50 characters.</small
       >
       <small *ngIf="incorporationNumber > 9999999" class="custom-error-message">
@@ -94,7 +94,7 @@
         type="button"
         name="button"
         (click)="processList(); showCard()"
-        [disabled]="incorporationNumber > 9999999 || companyName.length > 50"
+        [disabled]="incorporationNumber > 9999999 || companyName?.length > 50"
       >
         Search Company
       </button>
