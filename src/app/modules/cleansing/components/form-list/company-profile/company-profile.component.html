@@ -541,7 +541,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Status of Public Company: <mark>(required)</mark></small>
+      <small>Status of Public Company:</small>
       <ng-container
         *ngIf="
           companyProfileForm.get('compKind').value === 'Public Limited Company';
@@ -557,7 +557,7 @@
       <ng-template #disableDropDown>
         <input
           class="form-control"
-          [value]="companyProfileForm.get('listed').value === 'N' && 'Unlisted'"
+          [value]="'Not Applicable'"
           readonly
         />
       </ng-template>
@@ -568,10 +568,6 @@
         "
         class="custom-error-message"
       >
-        <small *ngIf="companyProfileForm.get('listed').hasError('required')">
-          Is Company Listed required.
-        </small>
-
         <small *ngIf="companyProfileForm.get('listed').hasError('maxlength')">
           Is Company Listed cannot be more than 1 character.
         </small>

@@ -99,7 +99,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       oldCmpnyNm: ['', [Validators.maxLength(100)]],
       compCity: ['', [Validators.required, Validators.maxLength(75)]],
       compProvince: ['', [Validators.required, Validators.maxLength(75)]],
-      listed: ['', [Validators.required, Validators.maxLength(1)]],
+      listed: ['', [Validators.maxLength(1)]],
       compSubMode: ['', [Validators.maxLength(25)]],
       stateOwned: ['', [Validators.required, Validators.maxLength(1)]],
       compCaseFlag: ['', [Validators.maxLength(80)]],
