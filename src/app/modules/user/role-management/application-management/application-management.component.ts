@@ -192,7 +192,7 @@ export class ApplicationManagementComponent implements OnInit, OnDestroy {
       { roles: 'Applied CTC Report' },
       { roles: 'Process Report By Status' },
       { roles: 'View Company Records' },
-      { roles: 'View Company Submission Mode' },
+      { roles: 'View Company Profile' },
       { roles: 'CTC Revenue Report' },
       { roles: 'Bank Usage Report' },
       { roles: 'Data Sharing Monitoring Report' },

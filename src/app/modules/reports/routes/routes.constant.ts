@@ -44,11 +44,11 @@ export const ROUTES: Routes = [
         component: DataSharingMonitoringReportComponent,
       },
       {
-        path: 'viewcompanysubmissionmode',
+        path: 'viewcompanyprofile',
         component: ViewCompanySubmissionModeComponent,
       },
       {
-        path: 'viewcompanysubmissionmode/:id',
+        path: 'viewcompanyprofile/:id',
         loadChildren: () =>
           import('../../cleansing/cleansing.module').then(
             (m) => m.CleansingModule

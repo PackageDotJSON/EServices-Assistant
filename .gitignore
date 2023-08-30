@@ -12,6 +12,7 @@
 
 # ignore env
 .env
+backup env.txt
 
 # profiling files
 chrome-profiler-events*.json

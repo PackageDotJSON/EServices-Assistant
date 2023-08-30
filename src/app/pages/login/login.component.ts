@@ -66,6 +66,7 @@ export class LoginComponent implements OnDestroy {
             this.isLoading = false;
             sessionStorage.setItem('cookie', form.value.usermail);
             const jsonName = JSON.parse(responseData.body);
+            sessionStorage.setItem('location', jsonName.location)
             sessionStorage.setItem('user', jsonName);
             if (JSON.stringify(responseData).includes('Full Authorization')) {
               this.unAuthorized = false;

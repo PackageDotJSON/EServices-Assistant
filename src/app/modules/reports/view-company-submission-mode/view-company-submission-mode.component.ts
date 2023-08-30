@@ -27,6 +27,7 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
   authFailedError = false;
   enabledByDefault = true;
   isWaiting = false;
+  userLocation: string;
 
   subscription = new Subscription();
 
@@ -35,7 +36,9 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
     private useraccess: UserAccess,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.userLocation = sessionStorage.getItem('location');
+  }
 
   companySelect(): void {
     this.companyData = [];
@@ -177,7 +180,7 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
 
   navigateToCompanyPage(companyCuin: number, companyName: string) {
     this.router.navigate(
-      [`../viewcompanysubmissionmode/${companyCuin}/company-profile`],
+      [`../viewcompanyprofile/${companyCuin}/company-profile`],
       {
         state: { companyName },
         relativeTo: this.activatedRoute,

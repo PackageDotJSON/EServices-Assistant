@@ -84,7 +84,8 @@ router.post("/login", async (req, res) => {
                            "name",
                            "samaccount",
                            DECRYPT_CHAR("password", '${passwordKey}') as "password",
-                           "userrights"
+                           "userrights",
+                           "location"
                     FROM USER_CREDENTIALS
                     WHERE UPPER("email") = ?`;
 
@@ -124,6 +125,7 @@ router.post("/login", async (req, res) => {
                 const responsePayload = {
                   access: "Full Authorization",
                   name: results[0].name,
+                  location: results[0].location
                 };
                 res.send(responsePayload);
               } else if (results[0].userrights === "partial") {
@@ -137,6 +139,7 @@ router.post("/login", async (req, res) => {
                 const responsePayload = {
                   access: "Partial Authorization",
                   name: results[0].name,
+                  location: results[0].location
                 };
                 res.send(responsePayload);
               } else if (results[0].userrights === "minimum") {
@@ -150,12 +153,14 @@ router.post("/login", async (req, res) => {
                 const responsePayload = {
                   access: "Minimum Authorization",
                   name: results[0].name,
+                  location: results[0].location
                 };
                 res.send(responsePayload);
               } else {
                 const responsePayload = {
                   access: "Rights have not been granted yet",
                   name: results[0].name,
+                  location: results[0].location
                 };
                 res.send(responsePayload);
               }
@@ -163,6 +168,7 @@ router.post("/login", async (req, res) => {
               const responsePayload = {
                 access: "UnAuthorized",
                 name: results[0].name,
+                location: results[0].location
               };
               res.send(responsePayload);
             }
@@ -170,6 +176,7 @@ router.post("/login", async (req, res) => {
             const responsePayload = {
               access: "UnAuthorized",
               name: results[0].name,
+              location: results[0].location
             };
             res.send(responsePayload);
           }

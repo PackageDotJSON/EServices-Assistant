@@ -1,6 +1,6 @@
 <div class="container">
   <div class="ribbon">
-    <div class="ribbon-content"><p>Data Cleansing</p></div>
+    <div class="ribbon-content"><p>View Company Profile</p></div>
   </div>
   <br /><br /><br /><br /><br /><br />
   <div
@@ -149,6 +149,7 @@
           <td>
             <button
               class="btn btn-outline-success"
+              [disabled]="companyData[0][i][3] !== userLocation"
               (click)="
                 navigateToCompanyPage(
                   companyData[0][i][0],
@@ -207,6 +208,7 @@
           <td>
             <button
               class="btn btn-outline-success"
+              [disabled]="companyData[0][i][3] !== userLocation"
               (click)="
                 navigateToCompanyPage(
                   companyData[0][i][0],
