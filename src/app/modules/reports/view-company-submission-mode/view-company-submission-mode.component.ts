@@ -28,6 +28,7 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
   enabledByDefault = true;
   isWaiting = false;
   userLocation: string;
+  isHeadOffice = false;
 
   subscription = new Subscription();
 
@@ -38,6 +39,9 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
     private activatedRoute: ActivatedRoute
   ) {
     this.userLocation = sessionStorage.getItem('location');
+    this.userLocation === 'Head Office'
+      ? (this.isHeadOffice = true)
+      : (this.isHeadOffice = false);
   }
 
   companySelect(): void {

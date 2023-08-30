@@ -121,12 +121,12 @@
           <th scope="col">CRO</th>
           <th scope="col">
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-danger"
               type="button"
               name="button"
               (click)="hideCard()"
             >
-              <i class="bi bi-x"></i>
+              Close &nbsp;<i class="bi bi-x"></i>
             </button>
           </th>
         </tr>
@@ -142,14 +142,14 @@
                 ? "Offline"
                 : companyData[0][i][2] === "O"
                 ? "Online"
-                : "Null"
+                : "Offline"
             }}
           </td>
           <td>{{ companyData[0][i][3] }}</td>
           <td>
             <button
               class="btn btn-outline-success"
-              [disabled]="companyData[0][i][3] !== userLocation"
+              [hidden]="!isHeadOffice && companyData[0][i][3] !== userLocation"
               (click)="
                 navigateToCompanyPage(
                   companyData[0][i][0],
@@ -178,14 +178,14 @@
           <th scope="col">Company Name</th>
           <th scope="col">Company Sub Mode</th>
           <th scope="col">CRO</th>
-          <th scope="col">
+          <th scope="col" style="text-align: center">
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-danger"
               type="button"
               name="button"
               (click)="hideCard()"
             >
-              <i class="bi bi-x"></i>
+              Close &nbsp;<i class="bi bi-x"></i>
             </button>
           </th>
         </tr>
@@ -201,14 +201,14 @@
                 ? "Offline"
                 : companyData[0][i][2] === "O"
                 ? "Online"
-                : "Null"
+                : "Offline"
             }}
           </td>
           <td>{{ companyData[0][i][3] }}</td>
           <td>
             <button
               class="btn btn-outline-success"
-              [disabled]="companyData[0][i][3] !== userLocation"
+              [hidden]="!isHeadOffice && companyData[0][i][3] !== userLocation"
               (click)="
                 navigateToCompanyPage(
                   companyData[0][i][0],
@@ -235,14 +235,14 @@
           <th scope="col">Company Name</th>
           <th scope="col">Company Sub Mode</th>
           <th scope="col">CRO</th>
-          <th scope="col">
+          <th scope="col" style="text-align: center">
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-danger"
               type="button"
               name="button"
               (click)="hideCard()"
             >
-              <i class="bi bi-x"></i>
+              Close &nbsp;<i class="bi bi-x"></i>
             </button>
           </th>
         </tr>
@@ -267,14 +267,14 @@
           <th scope="col">Company Name</th>
           <th scope="col">Company Sub Mode</th>
           <th scope="col">CRO</th>
-          <th scope="col">
+          <th scope="col" style="text-align: center">
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-danger"
               type="button"
               name="button"
               (click)="hideCard()"
             >
-              <i class="bi bi-x"></i>
+              Close &nbsp;<i class="bi bi-x"></i>
             </button>
           </th>
         </tr>
