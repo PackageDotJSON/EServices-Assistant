@@ -11,11 +11,9 @@
     <thead>
       <tr>
         <th scope="col">Name</th>
-        <th scope="col">Father/Husband Name</th>
         <th scope="col">CUIN/CNIC/Passport/Registration No</th>
-        <th scope="col">NTN</th>
+        <th scope="col">Status</th>
         <th scope="col">Nationality</th>
-        <th scope="col">Designation</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
       </tr>
@@ -24,11 +22,9 @@
     <tbody *ngIf="directorDetails as dDetails; else isLoading">
       <tr *ngFor="let director of dDetails.directorInfo; let i = index">
         <td>{{ director.directorName }}</td>
-        <td>{{ director.directorFatherHusbandName }}</td>
         <td>{{ director.directorCnicPassport }}</td>
-        <td>{{ director.directorNTN }}</td>
+        <td>{{ director.status }}</td>
         <td>{{ director.directorNationality }}</td>
-        <td>{{ director.designation }}</td>
         <td>
           <button
             class="btn btn-outline-secondary"

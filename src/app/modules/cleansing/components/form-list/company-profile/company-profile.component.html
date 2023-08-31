@@ -366,7 +366,7 @@
     </div>
 
     <div class="col">
-      <small>Holding Company Name:</small>
+      <small>Holding Company Code:</small>
       <input
         type="text"
         class="form-control"
@@ -386,7 +386,15 @@
             companyProfileForm.get('holdingCompCode').hasError('maxlength')
           "
         >
-          Holding Company Name cannot be more than 100 characters.
+          Holding Company Code cannot be more than 15 characters.
+        </small>
+
+        <small
+          *ngIf="
+            companyProfileForm.get('holdingCompCode').hasError('pattern')
+          "
+        >
+          Holding Company Code cannot contain alphabets or special characters.
         </small>
       </div>
     </div>

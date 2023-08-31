@@ -89,7 +89,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
         [Validators.pattern('^[0-9]*$'), Validators.maxLength(50)],
       ],
       compStatus: ['', [Validators.required, Validators.maxLength(40)]],
-      holdingCompCode: ['', [Validators.maxLength(100)]],
+      holdingCompCode: ['', [Validators.pattern('^[0-9]*$'), Validators.maxLength(15)]],
       compMainObj: ['', [Validators.required, Validators.maxLength(3074)]],
       agmDt: ['', [Validators.maxLength(20)]],
       frmADate: ['', [Validators.maxLength(20)]],
@@ -124,8 +124,10 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
             });
             this.companyProfileForm.patchValue({
               listed:
-                (this.companyProfileForm.get('listed').value === null) || (this.companyProfileForm.get('listed').value === '') &&
-                'Not Applicable',
+                this.companyProfileForm.get('listed').value === null ||
+                this.companyProfileForm.get('listed').value === ''
+                  ? 'Not Applicable'
+                  : this.companyProfileForm.get('listed').value,
             });
           })
         )
@@ -162,7 +164,10 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       userId: getUserId(),
       listed:
         this.companyProfileForm.get('listed').value === 'Not Applicable' && '',
-      compDistt: this.companyProfileForm.get('compDistt').value === null && '',
+      compDistt:
+        this.companyProfileForm.get('compDistt').value === null
+          ? ''
+          : this.companyProfileForm.get('compDistt').value,
     });
 
     this.companyResponse$ = this.dataCleansingService

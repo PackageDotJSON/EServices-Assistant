@@ -11,11 +11,9 @@
     <thead>
       <tr>
         <th scope="col">Name</th>
-        <th scope="col">Father/Husband Name</th>
         <th scope="col">CUIN/CNIC/Passport/Registration No</th>
-        <th scope="col">NTN</th>
+        <th scope="col">Status</th>
         <th scope="col">Nationality</th>
-        <th scope="col">Designation</th>
         <th scope="col">Edit</th>
         <!-- <th scope="col">Delete</th> -->
       </tr>
@@ -24,11 +22,9 @@
     <tbody *ngIf="auditorDetails as aDetails; else isLoading">
       <tr *ngFor="let auditor of aDetails.directorInfo; let i = index">
         <td>{{ auditor.directorName }}</td>
-        <td>{{ auditor.directorFatherHusbandName }}</td>
         <td>{{ auditor.directorCnicPassport }}</td>
-        <td>{{ auditor.directorNTN }}</td>
+        <td>{{ auditor.status }}</td>
         <td>{{ auditor.directorNationality }}</td>
-        <td>{{ auditor.designation }}</td>
         <td>
           <button
             class="btn btn-outline-secondary"

@@ -115,7 +115,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               // add additional validators required for director only
               this.informationForm
                 .get('directorCnicPassport')
-                .setValidators(Validators.required);
+                .setValidators([Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]);
               this.informationForm
                 .get('directorFatherHusbandName')
                 .setValidators(Validators.required);
