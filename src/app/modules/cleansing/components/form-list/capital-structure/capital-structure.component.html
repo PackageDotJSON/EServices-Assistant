@@ -10,6 +10,7 @@
 
       <div
         *ngIf="
+          capitalStructureForm.get('compPerShareValue').invalid ||
           capitalStructureForm.get('compPerShareValue').dirty ||
           capitalStructureForm.get('compPerShareValue').touched
         "
@@ -54,6 +55,7 @@
 
       <div
         *ngIf="
+          capitalStructureForm.get('compAthrzCap').invalid ||
           capitalStructureForm.get('compAthrzCap').dirty ||
           capitalStructureForm.get('compAthrzCap').touched
         "
@@ -89,6 +91,7 @@
 
       <div
         *ngIf="
+          capitalStructureForm.get('compAthrzCapShrs').invalid ||
           capitalStructureForm.get('compAthrzCapShrs').dirty ||
           capitalStructureForm.get('compAthrzCapShrs').touched
         "
@@ -135,6 +138,7 @@
 
       <div
         *ngIf="
+          capitalStructureForm.get('compAthrzPerValue').invalid ||
           capitalStructureForm.get('compAthrzPerValue').dirty ||
           capitalStructureForm.get('compAthrzPerValue').touched
         "
@@ -179,6 +183,7 @@
 
       <div
         *ngIf="
+          capitalStructureForm.get('compPadupCap').invalid ||
           capitalStructureForm.get('compPadupCap').dirty ||
           capitalStructureForm.get('compPadupCap').touched
         "
@@ -214,6 +219,7 @@
 
       <div
         *ngIf="
+          capitalStructureForm.get('compPadupCapShrs').invalid ||
           capitalStructureForm.get('compPadupCapShrs').dirty ||
           capitalStructureForm.get('compPadupCapShrs').touched
         "

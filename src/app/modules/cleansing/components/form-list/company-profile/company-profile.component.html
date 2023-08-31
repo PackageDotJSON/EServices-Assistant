@@ -6,6 +6,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compName').invalid ||
           companyProfileForm.get('compName').dirty ||
           companyProfileForm.get('compName').touched
         "
@@ -32,6 +33,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compIncNo').invalid ||
           companyProfileForm.get('compIncNo').dirty ||
           companyProfileForm.get('compIncNo').touched
         "
@@ -61,6 +63,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('incDate').invalid ||
           companyProfileForm.get('incDate').dirty ||
           companyProfileForm.get('incDate').touched
         "
@@ -95,6 +98,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compSector').invalid ||
           companyProfileForm.get('compSector').dirty ||
           companyProfileForm.get('compSector').touched
         "
@@ -121,9 +125,9 @@
           {{ company }}
         </option>
       </select>
-
       <div
         *ngIf="
+          companyProfileForm.get('compKind').invalid ||
           companyProfileForm.get('compKind').dirty ||
           companyProfileForm.get('compKind').touched
         "
@@ -149,6 +153,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compDistt').invalid ||
           companyProfileForm.get('compDistt').dirty ||
           companyProfileForm.get('compDistt').touched
         "
@@ -168,6 +173,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compCro').invalid ||
           companyProfileForm.get('compCro').dirty ||
           companyProfileForm.get('compCro').touched
         "
@@ -198,6 +204,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compAddress').invalid ||
           companyProfileForm.get('compAddress').dirty ||
           companyProfileForm.get('compAddress').touched
         "
@@ -228,6 +235,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compMainObj').invalid ||
           companyProfileForm.get('compMainObj').dirty ||
           companyProfileForm.get('compMainObj').touched
         "
@@ -257,6 +265,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compFaxNo').invalid ||
           companyProfileForm.get('compFaxNo').dirty ||
           companyProfileForm.get('compFaxNo').touched
         "
@@ -280,6 +289,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compPhoneNo').invalid ||
           companyProfileForm.get('compPhoneNo').dirty ||
           companyProfileForm.get('compPhoneNo').touched
         "
@@ -305,6 +315,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compPhoneNo2').invalid ||
           companyProfileForm.get('compPhoneNo2').dirty ||
           companyProfileForm.get('compPhoneNo2').touched
         "
@@ -334,6 +345,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compStatus').invalid ||
           companyProfileForm.get('compStatus').dirty ||
           companyProfileForm.get('compStatus').touched
         "
@@ -363,6 +375,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('holdingCompCode').invalid ||
           companyProfileForm.get('holdingCompCode').dirty ||
           companyProfileForm.get('holdingCompCode').touched
         "
@@ -384,6 +397,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compEmail').invalid ||
           companyProfileForm.get('compEmail').dirty ||
           companyProfileForm.get('compEmail').touched
         "
@@ -412,6 +426,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('agmDt').invalid ||
           companyProfileForm.get('agmDt').dirty ||
           companyProfileForm.get('agmDt').touched
         "
@@ -438,6 +453,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('frmADate').invalid ||
           companyProfileForm.get('frmADate').dirty ||
           companyProfileForm.get('frmADate').touched
         "
@@ -476,6 +492,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compCity').invalid ||
           companyProfileForm.get('compCity').dirty ||
           companyProfileForm.get('compCity').touched
         "
@@ -498,18 +515,12 @@
           FEDERAL CAPITAL TERRITORY
         </option>
         <option value="BALOCHISTAN">BALOCHISTAN</option>
-        <option value="FEDERALLY ADMINISTRATED TRIBAL AREAS (F.A.T.A)">
-          FEDERALLY ADMINISTRATED TRIBAL AREAS (F.A.T.A)
-        </option>
         <option value="GILGIT">GILGIT</option>
         <option value="ISLAMABAD CAPITAL TERRITORY (I.C.T.)">
           ISLAMABAD CAPITAL TERRITORY (I.C.T.)
         </option>
-        <option value="NORTH-WEST FRONTIER PROVINCE (N.W.F.P.)">
-          NORTH-WEST FRONTIER PROVINCE (N.W.F.P.)
-        </option>
-        <option value="PROVINCIALLY ADMINISTRATED TRIBAL AREAS (P.A.T.A)">
-          PROVINCIALLY ADMINISTRATED TRIBAL AREAS (P.A.T.A)
+        <option value="Khyber Pakhtunkhwa">
+          KHYBER PAKHTUNKHWA
         </option>
         <option value="PUNJAB">PUNJAB</option>
         <option value="SINDH">SINDH</option>
@@ -517,6 +528,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compProvince').invalid ||
           companyProfileForm.get('compProvince').dirty ||
           companyProfileForm.get('compProvince').touched
         "
@@ -555,14 +567,11 @@
       </ng-container>
 
       <ng-template #disableDropDown>
-        <input
-          class="form-control"
-          [value]="'Not Applicable'"
-          readonly
-        />
+        <input class="form-control" formControlName="listed" readonly />
       </ng-template>
       <div
         *ngIf="
+          companyProfileForm.get('listed').invalid ||
           companyProfileForm.get('listed').dirty ||
           companyProfileForm.get('listed').touched
         "
@@ -612,6 +621,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('stateOwned').invalid ||
           companyProfileForm.get('stateOwned').dirty ||
           companyProfileForm.get('stateOwned').touched
         "
@@ -645,6 +655,7 @@
 
       <div
         *ngIf="
+          companyProfileForm.get('compCaseFlag').invalid ||
           companyProfileForm.get('compCaseFlag').dirty ||
           companyProfileForm.get('compCaseFlag').touched
         "

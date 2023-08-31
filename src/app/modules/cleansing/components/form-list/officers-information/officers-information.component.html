@@ -70,6 +70,7 @@
 
               <div
                 *ngIf="
+                  ceoInfoForm.get('ceoName').invalid ||
                   ceoInfoForm.get('ceoName').dirty ||
                   ceoInfoForm.get('ceoName').touched
                 "
@@ -86,7 +87,9 @@
             </div>
 
             <div class="col">
-              <small>CNIC/Passport No.: (without dashes)<mark>required</mark></small>
+              <small
+                >CNIC/Passport No.: (without dashes)<mark>required</mark></small
+              >
               <input
                 class="form-control"
                 type="text"
@@ -95,6 +98,7 @@
 
               <div
                 *ngIf="
+                  ceoInfoForm.get('ceoNIC').invalid ||
                   ceoInfoForm.get('ceoNIC').dirty ||
                   ceoInfoForm.get('ceoNIC').touched
                 "
@@ -128,6 +132,7 @@
 
               <div
                 *ngIf="
+                  ceoInfoForm.get('ceoFatherName').invalid ||
                   ceoInfoForm.get('ceoFatherName').dirty ||
                   ceoInfoForm.get('ceoFatherName').touched
                 "
@@ -157,6 +162,7 @@
 
               <div
                 *ngIf="
+                  ceoInfoForm.get('ceoCountry').invalid ||
                   ceoInfoForm.get('ceoCountry').dirty ||
                   ceoInfoForm.get('ceoCountry').touched
                 "
@@ -191,6 +197,7 @@
 
               <div
                 *ngIf="
+                  ceoInfoForm.get('ceoAppDate').invalid ||
                   ceoInfoForm.get('ceoAppDate').dirty ||
                   ceoInfoForm.get('ceoAppDate').touched
                 "
@@ -224,6 +231,7 @@
 
               <div
                 *ngIf="
+                  ceoInfoForm.get('ceoAddress').invalid ||
                   ceoInfoForm.get('ceoAddress').dirty ||
                   ceoInfoForm.get('ceoAddress').touched
                 "
@@ -275,6 +283,7 @@
 
               <div
                 *ngIf="
+                  chiefInfoForm.get('cacName').invalid ||
                   chiefInfoForm.get('cacName').dirty ||
                   chiefInfoForm.get('cacName').touched
                 "
@@ -295,7 +304,10 @@
             </div>
 
             <div class="col">
-              <small>CNIC/Passport No. (without dashes): <mark>required</mark></small>
+              <small
+                >CNIC/Passport No. (without dashes):
+                <mark>required</mark></small
+              >
               <input
                 class="form-control"
                 type="text"
@@ -304,6 +316,7 @@
 
               <div
                 *ngIf="
+                  chiefInfoForm.get('cacNIC').invalid ||
                   chiefInfoForm.get('cacNIC').dirty ||
                   chiefInfoForm.get('cacNIC').touched
                 "
@@ -341,6 +354,7 @@
 
               <div
                 *ngIf="
+                  chiefInfoForm.get('cacFatherName').invalid ||
                   chiefInfoForm.get('cacFatherName').dirty ||
                   chiefInfoForm.get('cacFatherName').touched
                 "
@@ -375,6 +389,7 @@
 
               <div
                 *ngIf="
+                  chiefInfoForm.get('cacCountry').invalid ||
                   chiefInfoForm.get('cacCountry').dirty ||
                   chiefInfoForm.get('cacCountry').touched
                 "
@@ -409,6 +424,7 @@
 
               <div
                 *ngIf="
+                  chiefInfoForm.get('cacAppDate').invalid ||
                   chiefInfoForm.get('cacAppDate').dirty ||
                   chiefInfoForm.get('cacAppDate').touched
                 "
@@ -443,6 +459,7 @@
 
               <div
                 *ngIf="
+                  chiefInfoForm.get('cacAddress').invalid ||
                   chiefInfoForm.get('cacAddress').dirty ||
                   chiefInfoForm.get('cacAddress').touched
                 "
@@ -493,6 +510,7 @@
 
               <div
                 *ngIf="
+                  advisorInfoForm.get('lglAdvName').invalid ||
                   advisorInfoForm.get('lglAdvName').dirty ||
                   advisorInfoForm.get('lglAdvName').touched
                 "
@@ -524,6 +542,7 @@
 
               <div
                 *ngIf="
+                  advisorInfoForm.get('lglAdvNIC').invalid ||
                   advisorInfoForm.get('lglAdvNIC').dirty ||
                   advisorInfoForm.get('lglAdvNIC').touched
                 "
@@ -559,6 +578,7 @@
 
               <div
                 *ngIf="
+                  advisorInfoForm.get('lglAdvFatherName').invalid ||
                   advisorInfoForm.get('lglAdvFatherName').dirty ||
                   advisorInfoForm.get('lglAdvFatherName').touched
                 "
@@ -587,6 +607,7 @@
 
               <div
                 *ngIf="
+                  advisorInfoForm.get('lglAdvCountry').invalid ||
                   advisorInfoForm.get('lglAdvCountry').dirty ||
                   advisorInfoForm.get('lglAdvCountry').touched
                 "
@@ -625,6 +646,7 @@
 
               <div
                 *ngIf="
+                  advisorInfoForm.get('lglAdvAppDate').invalid ||
                   advisorInfoForm.get('lglAdvAppDate').dirty ||
                   advisorInfoForm.get('lglAdvAppDate').touched
                 "
@@ -663,6 +685,7 @@
 
               <div
                 *ngIf="
+                  advisorInfoForm.get('lglAdvAddress').invalid ||
                   advisorInfoForm.get('lglAdvAddress').dirty ||
                   advisorInfoForm.get('lglAdvAddress').touched
                 "
@@ -718,6 +741,7 @@
 
               <div
                 *ngIf="
+                  agentInfoForm.get('mngName').invalid ||
                   agentInfoForm.get('mngName').dirty ||
                   agentInfoForm.get('mngName').touched
                 "
@@ -747,6 +771,7 @@
 
               <div
                 *ngIf="
+                  agentInfoForm.get('mngNIC').invalid ||
                   agentInfoForm.get('mngNIC').dirty ||
                   agentInfoForm.get('mngNIC').touched
                 "
@@ -780,6 +805,7 @@
 
               <div
                 *ngIf="
+                  agentInfoForm.get('mngFatherName').invalid ||
                   agentInfoForm.get('mngFatherName').dirty ||
                   agentInfoForm.get('mngFatherName').touched
                 "
@@ -806,6 +832,7 @@
 
               <div
                 *ngIf="
+                  agentInfoForm.get('mngCountry').invalid ||
                   agentInfoForm.get('mngCountry').dirty ||
                   agentInfoForm.get('mngCountry').touched
                 "
@@ -841,6 +868,7 @@
 
               <div
                 *ngIf="
+                  agentInfoForm.get('mngAppDate').invalid ||
                   agentInfoForm.get('mngAppDate').dirty ||
                   agentInfoForm.get('mngAppDate').touched
                 "
@@ -875,6 +903,7 @@
 
               <div
                 *ngIf="
+                  agentInfoForm.get('mngAddress').invalid ||
                   agentInfoForm.get('mngAddress').dirty ||
                   agentInfoForm.get('mngAddress').touched
                 "
@@ -930,6 +959,7 @@
 
               <div
                 *ngIf="
+                  secretaryInfoForm.get('secrName').invalid ||
                   secretaryInfoForm.get('secrName').dirty ||
                   secretaryInfoForm.get('secrName').touched
                 "
@@ -952,7 +982,10 @@
             </div>
 
             <div class="col">
-              <small>CNIC/Passport No. (without dashes): <mark>required</mark></small>
+              <small
+                >CNIC/Passport No. (without dashes):
+                <mark>required</mark></small
+              >
               <input
                 class="form-control"
                 type="text"
@@ -961,6 +994,7 @@
 
               <div
                 *ngIf="
+                  secretaryInfoForm.get('secrNIC').invalid ||
                   secretaryInfoForm.get('secrNIC').dirty ||
                   secretaryInfoForm.get('secrNIC').touched
                 "
@@ -1002,6 +1036,7 @@
 
               <div
                 *ngIf="
+                  secretaryInfoForm.get('secrFatherName').invalid ||
                   secretaryInfoForm.get('secrFatherName').dirty ||
                   secretaryInfoForm.get('secrFatherName').touched
                 "
@@ -1037,6 +1072,7 @@
 
               <div
                 *ngIf="
+                  secretaryInfoForm.get('secrCountry').invalid ||
                   secretaryInfoForm.get('secrCountry').dirty ||
                   secretaryInfoForm.get('secrCountry').touched
                 "
@@ -1075,6 +1111,7 @@
 
               <div
                 *ngIf="
+                  secretaryInfoForm.get('secrAppDate').invalid ||
                   secretaryInfoForm.get('secrAppDate').dirty ||
                   secretaryInfoForm.get('secrAppDate').touched
                 "
@@ -1113,6 +1150,7 @@
 
               <div
                 *ngIf="
+                  secretaryInfoForm.get('secrAddress').invalid ||
                   secretaryInfoForm.get('secrAddress').dirty ||
                   secretaryInfoForm.get('secrAddress').touched
                 "

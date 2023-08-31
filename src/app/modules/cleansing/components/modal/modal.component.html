@@ -47,6 +47,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorName').invalid ||
                   informationForm.get('directorName').dirty ||
                   informationForm.get('directorName').touched
                 "
@@ -84,6 +85,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorFatherHusbandName').invalid ||
                   informationForm.get('directorFatherHusbandName').dirty ||
                   informationForm.get('directorFatherHusbandName').touched
                 "
@@ -118,7 +120,9 @@
             <div class="col">
               <small
                 >CUIN/CNIC/Passport/Registration No: (without dashes)
-                <mark *ngIf="currentRoute === 'directors-information'">required</mark></small
+                <mark *ngIf="currentRoute === 'directors-information'"
+                  >required</mark
+                ></small
               >
               <input
                 class="form-control"
@@ -128,6 +132,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorCnicPassport').invalid ||
                   informationForm.get('directorCnicPassport').dirty ||
                   informationForm.get('directorCnicPassport').touched
                 "
@@ -180,6 +185,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorNationality').invalid ||
                   informationForm.get('directorNationality').dirty ||
                   informationForm.get('directorNationality').touched
                 "
@@ -222,6 +228,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('designation').invalid ||
                   informationForm.get('designation').dirty ||
                   informationForm.get('designation').touched
                 "
@@ -261,6 +268,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('status').invalid ||
                   informationForm.get('status').dirty ||
                   informationForm.get('status').touched
                 "
@@ -294,6 +302,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorNTN').invalid ||
                   informationForm.get('directorNTN').dirty ||
                   informationForm.get('directorNTN').touched
                 "
@@ -325,6 +334,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorAppointmentDate').invalid ||
                   informationForm.get('directorAppointmentDate').dirty ||
                   informationForm.get('directorAppointmentDate').touched
                 "
@@ -378,6 +388,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorshipNature').invalid ||
                   informationForm.get('directorshipNature').dirty ||
                   informationForm.get('directorshipNature').touched
                 "
@@ -405,6 +416,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('entityNominatingDirector').invalid ||
                   informationForm.get('entityNominatingDirector').dirty ||
                   informationForm.get('entityNominatingDirector').touched
                 "
@@ -436,6 +448,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('otherOccupation').invalid ||
                   informationForm.get('otherOccupation').dirty ||
                   informationForm.get('otherOccupation').touched
                 "
@@ -465,6 +478,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorNumberOfShares').invalid ||
                   informationForm.get('directorNumberOfShares').dirty ||
                   informationForm.get('directorNumberOfShares').touched
                 "
@@ -654,6 +668,7 @@
 
               <div
                 *ngIf="
+                  informationForm.get('directorAddress').invalid ||
                   informationForm.get('directorAddress').dirty ||
                   informationForm.get('directorAddress').touched
                 "

@@ -82,10 +82,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       ],
       compPhoneNo: [
         '',
-        [
-          Validators.pattern('^[0-9]*$'),
-          Validators.maxLength(50),
-        ],
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(50)],
       ],
       compPhoneNo2: [
         '',
@@ -99,7 +96,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       oldCmpnyNm: ['', [Validators.maxLength(100)]],
       compCity: ['', [Validators.required, Validators.maxLength(75)]],
       compProvince: ['', [Validators.required, Validators.maxLength(75)]],
-      listed: ['', [Validators.maxLength(1)]],
+      listed: ['', [Validators.maxLength(15)]],
       compSubMode: ['', [Validators.maxLength(25)]],
       stateOwned: ['', [Validators.required, Validators.maxLength(1)]],
       compCaseFlag: ['', [Validators.maxLength(80)]],
@@ -124,6 +121,11 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
               incDate: convertedDate[0],
               agmDt: convertedDate[1],
               frmADate: convertedDate[2],
+            });
+            this.companyProfileForm.patchValue({
+              listed:
+                (this.companyProfileForm.get('listed').value === null) || (this.companyProfileForm.get('listed').value === '') &&
+                'Not Applicable',
             });
           })
         )
@@ -158,6 +160,9 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       agmDt: convertedDate[1],
       frmADate: convertedDate[2],
       userId: getUserId(),
+      listed:
+        this.companyProfileForm.get('listed').value === 'Not Applicable' && '',
+      compDistt: this.companyProfileForm.get('compDistt').value === null && '',
     });
 
     this.companyResponse$ = this.dataCleansingService
