@@ -5,6 +5,7 @@ import {
   COMPANY_TYPES,
   DISTRICTS,
   INDUSTRY_TYPES,
+  PROVINCES,
 } from '../../../settings/cleansing.settings';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { tap } from 'rxjs/operators';
@@ -17,6 +18,7 @@ import {
   formatDateToYYYYMMDD,
   getUserId,
 } from 'src/app/utility/utility-functions';
+import { optionExistsValidator } from '../../../validators/custom-validator';
 
 @Component({
   selector: 'app-company-profile',
@@ -30,6 +32,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   readonly districtList = DISTRICTS;
   readonly industryList = INDUSTRY_TYPES;
   readonly companyList = COMPANY_TYPES;
+  readonly provinceList = PROVINCES;
   companyResponse$: Observable<IResponse>;
   isRequestSent = false;
   subscription = new Subscription();
@@ -62,9 +65,19 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       compName: ['', [Validators.required, Validators.maxLength(100)]],
       compIncNo: ['', [Validators.required, Validators.maxLength(40)]],
       incDate: ['', [Validators.required, Validators.maxLength(20)]],
-      compSector: ['', [Validators.required, Validators.maxLength(100)]],
+      compSector: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          optionExistsValidator(this.industryList),
+        ],
+      ],
       compKind: ['', [Validators.required, Validators.maxLength(150)]],
-      compDistt: ['', [Validators.maxLength(75)]],
+      compDistt: [
+        '',
+        [Validators.maxLength(75), optionExistsValidator(this.districtList)],
+      ],
       compCro: ['', [Validators.required, Validators.maxLength(50)]],
       compAddress: ['', [Validators.required, Validators.maxLength(512)]],
       compEmail: [
@@ -89,13 +102,30 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
         [Validators.pattern('^[0-9]*$'), Validators.maxLength(50)],
       ],
       compStatus: ['', [Validators.required, Validators.maxLength(40)]],
-      holdingCompCode: ['', [Validators.pattern('^[0-9]*$'), Validators.maxLength(15)]],
+      holdingCompCode: [
+        '',
+        [Validators.pattern('^[0-9]*$'), Validators.maxLength(15)],
+      ],
       compMainObj: ['', [Validators.required, Validators.maxLength(3074)]],
       agmDt: ['', [Validators.maxLength(20)]],
       frmADate: ['', [Validators.maxLength(20)]],
       oldCmpnyNm: ['', [Validators.maxLength(100)]],
-      compCity: ['', [Validators.required, Validators.maxLength(75)]],
-      compProvince: ['', [Validators.required, Validators.maxLength(75)]],
+      compCity: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(75),
+          optionExistsValidator(this.cityList),
+        ],
+      ],
+      compProvince: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(75),
+          optionExistsValidator(this.provinceList),
+        ],
+      ],
       listed: ['', [Validators.maxLength(15)]],
       compSubMode: ['', [Validators.maxLength(25)]],
       stateOwned: ['', [Validators.required, Validators.maxLength(1)]],
@@ -163,7 +193,9 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       frmADate: convertedDate[2],
       userId: getUserId(),
       listed:
-        this.companyProfileForm.get('listed').value === 'Not Applicable' && '',
+        this.companyProfileForm.get('listed').value === 'Not Applicable'
+          ? ''
+          : this.companyProfileForm.get('listed').value,
       compDistt:
         this.companyProfileForm.get('compDistt').value === null
           ? ''

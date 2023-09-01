@@ -18,6 +18,7 @@ import {
   getUserId,
 } from 'src/app/utility/utility-functions';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
+import { optionExistsValidator } from '../../../validators/custom-validator';
 
 @Component({
   selector: 'app-officers-information',
@@ -76,7 +77,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         ],
       ],
       ceoAddress: ['', [Validators.required, Validators.maxLength(512)]],
-      ceoCountry: ['', [Validators.required, Validators.maxLength(50)]],
+      ceoCountry: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          optionExistsValidator(this.countriesList),
+        ],
+      ],
       ceoFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       ceoAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
@@ -95,7 +103,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         ],
       ],
       cacAddress: ['', [Validators.required, Validators.maxLength(512)]],
-      cacCountry: ['', [Validators.required, Validators.maxLength(50)]],
+      cacCountry: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          optionExistsValidator(this.countriesList),
+        ],
+      ],
       cacFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       cacAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
@@ -110,7 +125,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(75)],
       ],
       lglAdvAddress: ['', [Validators.required, Validators.maxLength(512)]],
-      lglAdvCountry: ['', [Validators.required, Validators.maxLength(50)]],
+      lglAdvCountry: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          optionExistsValidator(this.countriesList),
+        ],
+      ],
       lglAdvFatherName: ['', [Validators.maxLength(100)]],
       lglAdvAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
@@ -125,7 +147,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(75)],
       ],
       mngAddress: ['', [Validators.required, Validators.maxLength(512)]],
-      mngCountry: ['', [Validators.required, Validators.maxLength(50)]],
+      mngCountry: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          optionExistsValidator(this.countriesList),
+        ],
+      ],
       mngFatherName: ['', [Validators.maxLength(100)]],
       mngAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
@@ -144,7 +173,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         ],
       ],
       secrAddress: ['', [Validators.required, Validators.maxLength(512)]],
-      secrCountry: ['', [Validators.required, Validators.maxLength(50)]],
+      secrCountry: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          optionExistsValidator(this.countriesList),
+        ],
+      ],
       secrFatherName: ['', [Validators.required, Validators.maxLength(100)]],
       secrAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],

@@ -210,6 +210,16 @@
                 >
                   Nationality cannot be more than 50 characters.
                 </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorNationality')
+                      .hasError('optionNotExists')
+                  "
+                >
+                  Select nationality from the dropdown.
+                </small>
               </div>
             </div>
           </div>
@@ -255,15 +265,9 @@
             <div class="col">
               <small>Status: <mark>required</mark></small>
               <select class="form-control" formControlName="status">
-                <option value="Removed">REMOVED</option>
-                <option value="Resigned">RESIGNED</option>
-                <option value="Died">DIED</option>
-                <option value="Disqualified">DISQUALIFIED</option>
-                <option value="Appointed">APPOINTED</option>
-                <option value="Re-Appointment">RE-APPOINTED</option>
-                <option value="Re-Elected">RE-ELECTED</option>
-                <option value="Elected">ELECTED</option>
-                <option value="Retired">RETIRED</option>
+                <option *ngFor="let status of statusList" [value]="status">
+                  {{ status | uppercase }}
+                </option>
               </select>
 
               <div
@@ -284,6 +288,14 @@
                   *ngIf="informationForm.get('status').hasError('maxlength')"
                 >
                   Status cannot be more than 25 characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm.get('status').hasError('optionNotExists')
+                  "
+                >
+                  Select status from the dropdown.
                 </small>
               </div>
             </div>
@@ -379,11 +391,9 @@
             <div class="col">
               <small>Nature Of Directorship:</small>
               <select class="form-control" formControlName="directorshipNature">
-                <option value="null">None</option>
-                <option value="Nominee">Nominee</option>
-                <option value="Independent">Independent</option>
-                <option value="Other">Other</option>
-                <option value="Alternate Director">Alternate Director</option>
+                <option *ngFor="let nature of natureList" [value]="nature">
+                  {{ nature }}
+                </option>
               </select>
 
               <div
@@ -402,6 +412,16 @@
                   "
                 >
                   Nature of Directorship cannot be more than 30 characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    informationForm
+                      .get('directorshipNature')
+                      .hasError('optionNotExists')
+                  "
+                >
+                  Select nature of directorship from the dropdown.
                 </small>
               </div>
             </div>

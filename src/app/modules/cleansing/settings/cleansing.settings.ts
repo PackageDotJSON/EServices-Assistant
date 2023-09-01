@@ -253,6 +253,8 @@ export const COMPANY_TYPES = [
 ];
 
 export const DISTRICTS = [
+  null,
+  '',
   'ABBOTTABAD',
   'ASTORE',
   'ATTOCK',
@@ -954,4 +956,34 @@ export const COUNTRIES = [
   'Yugoslavia',
   'Zambia',
   'Zimbabwe',
+];
+
+export const PROVINCES = [
+  'Balochistan',
+  'Gilgit Baltistan',
+  'Islamabad Capital Territory (I.C.T.)',
+  'Khyber Pakhtunkhwa',
+  'Punjab',
+  'Sindh',
+];
+
+export const STATUS = [
+  'Removed',
+  'Resigned',
+  'Died',
+  'Disqualified',
+  'Appointed',
+  'Re-Appointment',
+  'Re-Elected',
+  'Elected',
+  'Retired',
+];
+
+export const NATURE = [
+  null,
+  '',
+  'Nominee',
+  'Independent',
+  'Other',
+  'Alternate Director',
 ];

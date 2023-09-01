@@ -18,7 +18,7 @@ import {
   IDirectorDetails,
   ISingleDirector,
 } from '../../models/director-details.model';
-import { CITIES, COUNTRIES } from '../../settings/cleansing.settings';
+import { CITIES, COUNTRIES, NATURE, STATUS } from '../../settings/cleansing.settings';
 import { DataCleansingService } from '../../services/data-cleansing.service';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import {
@@ -26,6 +26,7 @@ import {
   formatDateToYYYYMMDD,
   getUserId,
 } from 'src/app/utility/utility-functions';
+import { optionExistsValidator } from '../../validators/custom-validator';
 
 @Component({
   selector: 'app-modal',
@@ -44,6 +45,8 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   cuin: string;
   readonly countryList = COUNTRIES;
   readonly cityList = CITIES;
+  readonly statusList = STATUS;
+  readonly natureList = NATURE;
   response$: Observable<IResponse>;
   isRequestSent = false;
   invalidForm = false;
@@ -101,7 +104,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
                 .setValidators(Validators.required);
               this.informationForm
                 .get('status')
-                .setValidators(Validators.required);
+                .setValidators([Validators.required, optionExistsValidator(this.statusList)]);
               this.informationForm
                 .get('directorAppointmentDate')
                 .setValidators(
@@ -168,7 +171,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
       directorName: ['', [Validators.required, Validators.maxLength(100)]],
       directorNationality: [
         '',
-        [Validators.required, Validators.maxLength(50)],
+        [Validators.required, Validators.maxLength(50), optionExistsValidator(this.countryList)],
       ],
 
       // optional parameters
@@ -182,7 +185,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         null,
         [Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
       ],
-      directorshipNature: ['', [Validators.maxLength(30)]],
+      directorshipNature: ['', [Validators.maxLength(30), optionExistsValidator(this.natureList)]],
       entityNominatingDirector: ['', [Validators.maxLength(25)]],
       otherOccupation: ['', [Validators.maxLength(512)]],
       status: ['', [Validators.maxLength(25)]],

@@ -69,6 +69,7 @@ export class ViewCompanySubmissionModeComponent implements OnDestroy {
   }
 
   processListByCompany(): void {
+    this.companyName = this.companyName.trim();
     this.isWaiting = true;
     const params = new HttpParams().set('id', this.companyName);
     this.companyData = [];

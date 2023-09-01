@@ -179,6 +179,14 @@
                 >
                   CEO's country cannot be more than 50 characters.
                 </small>
+
+                <small
+                  *ngIf="
+                    ceoInfoForm.get('ceoCountry').hasError('optionNotExists')
+                  "
+                >
+                  Select country from the dropdown.
+                </small>
               </div>
             </div>
           </div>
@@ -406,6 +414,14 @@
                 >
                   Chief Accountant's country cannot be more than 50 characters.
                 </small>
+
+                <small
+                  *ngIf="
+                    chiefInfoForm.get('cacCountry').hasError('optionNotExists')
+                  "
+                >
+                  Select country from the dropdown.
+                </small>
               </div>
             </div>
           </div>
@@ -628,6 +644,16 @@
                 >
                   Legal Advisor's country cannot be more than 50 characters.
                 </small>
+
+                <small
+                  *ngIf="
+                    advisorInfoForm
+                      .get('lglAdvCountry')
+                      .hasError('optionNotExists')
+                  "
+                >
+                  Select country from the dropdown.
+                </small>
               </div>
             </div>
           </div>
@@ -849,6 +875,14 @@
                 >
                   Managing Agent's Father country cannot be more than 50
                   characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    agentInfoForm.get('mngCountry').hasError('optionNotExists')
+                  "
+                >
+                  Select country from the dropdown.
                 </small>
               </div>
             </div>
@@ -1092,6 +1126,16 @@
                   "
                 >
                   Secretary's country cannot be more than 50 characters.
+                </small>
+
+                <small
+                  *ngIf="
+                    secretaryInfoForm
+                      .get('secrCountry')
+                      .hasError('optionNotExists')
+                  "
+                >
+                  Select country from the dropdown.
                 </small>
               </div>
             </div>

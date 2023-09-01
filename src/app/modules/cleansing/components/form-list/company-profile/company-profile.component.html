@@ -107,13 +107,21 @@
         <small
           *ngIf="companyProfileForm.get('compSector').hasError('required')"
         >
-          Industry is required.
+          Sector is required.
         </small>
 
         <small
           *ngIf="companyProfileForm.get('compSector').hasError('maxlength')"
         >
-          Industry cannot be more than 100 characters.
+          Sector cannot be more than 100 characters.
+        </small>
+
+        <small
+          *ngIf="
+            companyProfileForm.get('compSector').hasError('optionNotExists')
+          "
+        >
+          Select sector from the dropdown.
         </small>
       </div>
     </div>
@@ -163,6 +171,14 @@
           *ngIf="companyProfileForm.get('compDistt').hasError('maxlength')"
         >
           Company District cannot be more than 75 characters.
+        </small>
+
+        <small
+          *ngIf="
+            companyProfileForm.get('compDistt').hasError('optionNotExists')
+          "
+        >
+          Select district from the dropdown.
         </small>
       </div>
     </div>
@@ -390,9 +406,7 @@
         </small>
 
         <small
-          *ngIf="
-            companyProfileForm.get('holdingCompCode').hasError('pattern')
-          "
+          *ngIf="companyProfileForm.get('holdingCompCode').hasError('pattern')"
         >
           Holding Company Code cannot contain alphabets or special characters.
         </small>
@@ -513,25 +527,21 @@
         <small *ngIf="companyProfileForm.get('compCity').hasError('maxlength')">
           Company City cannot be more than 75 characters.
         </small>
+
+        <small
+          *ngIf="companyProfileForm.get('compCity').hasError('optionNotExists')"
+        >
+          Select city from the dropdown.
+        </small>
       </div>
     </div>
 
     <div class="col">
       <small>Company Province: <mark>(required)</mark></small>
       <select class="form-control" formControlName="compProvince">
-        <option value="FEDERAL CAPITAL TERRITORY">
-          FEDERAL CAPITAL TERRITORY
+        <option *ngFor="let province of provinceList" [value]="province">
+          {{ province }}
         </option>
-        <option value="BALOCHISTAN">BALOCHISTAN</option>
-        <option value="GILGIT">GILGIT</option>
-        <option value="ISLAMABAD CAPITAL TERRITORY (I.C.T.)">
-          ISLAMABAD CAPITAL TERRITORY (I.C.T.)
-        </option>
-        <option value="Khyber Pakhtunkhwa">
-          KHYBER PAKHTUNKHWA
-        </option>
-        <option value="PUNJAB">PUNJAB</option>
-        <option value="SINDH">SINDH</option>
       </select>
 
       <div
@@ -552,6 +562,14 @@
           *ngIf="companyProfileForm.get('compProvince').hasError('maxlength')"
         >
           Company Province cannot be more than 75 characters.
+        </small>
+
+        <small
+          *ngIf="
+            companyProfileForm.get('compProvince').hasError('optionNotExists')
+          "
+        >
+          Select province from the dropdown.
         </small>
       </div>
     </div>
