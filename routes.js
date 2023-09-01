@@ -112,7 +112,7 @@ router.post("/login", async (req, res) => {
           if (waitingForResult === 1) {
             if (results[0].password === passCode) {
               const token = jwt.sign({ id: email }, secret, {
-                expiresIn: "1h",
+                expiresIn: "24h",
               });
               if (results[0].userrights === "full") {
                 count++;

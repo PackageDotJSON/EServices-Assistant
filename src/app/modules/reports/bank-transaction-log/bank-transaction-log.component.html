@@ -144,7 +144,7 @@
               {{ bData.COMPANY_INC_NO }}
             </td>
             <td>
-              {{ bData.VIEW_COMPANY_WHEN | date: "medium" }}
+              {{ bData.VIEW_COMPANY_WHEN | date : "medium" }}
             </td>
           </tr>
         </tbody>
@@ -170,7 +170,7 @@
               {{ sData.COMPANY_INC_NO }}
             </td>
             <td>
-              {{ sData.VIEW_COMPANY_WHEN | date: "medium" }}
+              {{ sData.VIEW_COMPANY_WHEN | date : "medium" }}
             </td>
           </tr>
         </tbody>
@@ -212,9 +212,7 @@
       <app-toast
         [toastColor]="'bg-danger'"
         [toastOperation]="'Failure'"
-        [toastMessage]="
-          'The token has expired. In order to renew the token, please log in again.'
-        "
+        [toastMessage]="'The session has expired. Please log in again.'"
       ></app-toast>
     </ng-container>
 

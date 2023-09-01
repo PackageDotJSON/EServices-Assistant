@@ -41,6 +41,9 @@
           </button>
         </td> -->
       </tr>
+      <tr *ngIf="aDetails.directorInfo.length === 0">
+        No Auditor Found in System
+      </tr>
     </tbody>
 
     <ng-template #isLoading>

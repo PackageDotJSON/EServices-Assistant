@@ -43,6 +43,9 @@
           </button>
         </td>
       </tr>
+      <tr *ngIf="sDetails.directorInfo.length === 0">
+        No Shareholder Found in System
+      </tr>
     </tbody>
 
     <ng-template #isLoading>

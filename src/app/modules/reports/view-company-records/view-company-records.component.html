@@ -89,9 +89,9 @@
               z-index: 10;
               background-color: white;
             "
-            [ngClass]="{'custom-input-border': isTyping === true}"
+            [ngClass]="{ 'custom-input-border': isTyping === true }"
           >
-            <card style="line-height: 1.1;">
+            <card style="line-height: 1.1">
               <p
                 *ngFor="let company of companiesName"
                 style="
@@ -100,11 +100,15 @@
                   margin-left: 1rem;
                   margin-top: 1rem;
                 "
-                (click)="companyName = company; companiesName = ['']; isTyping = false;"
+                (click)="
+                  companyName = company; companiesName = ['']; isTyping = false
+                "
               >
                 {{ company }}
               </p>
-              <span style="line-height: 2.0;" *ngIf="companiesName.length === 0">Loading...</span>
+              <span style="line-height: 2" *ngIf="companiesName.length === 0"
+                >Loading...</span
+              >
             </card>
           </div>
         </div>
@@ -819,7 +823,7 @@
                       <td style="text-align: left; padding-left: 10%">
                         {{ data2.DOCUMENT_DESC }}
                       </td>
-                      <td>{{ data2.DATE_SUBMITTED | date: "longDate" }}</td>
+                      <td>{{ data2.DATE_SUBMITTED | date : "longDate" }}</td>
                       <td>
                         <a [attr.href]="data2.DOCUMENT_NAME" target="_blank"
                           ><button
@@ -954,9 +958,7 @@
       <app-toast
         [toastColor]="'bg-danger'"
         [toastOperation]="'Failure'"
-        [toastMessage]="
-          'The token has expired. In order to renew the token, please log in again.'
-        "
+        [toastMessage]="'The session has expired. Please log in again.'"
       ></app-toast>
     </ng-container>
 

@@ -41,6 +41,9 @@
           </button>
         </td>
       </tr>
+      <tr *ngIf="dDetails.directorInfo.length === 0">
+        No Director Found in System
+      </tr>
     </tbody>
 
     <ng-template #isLoading>

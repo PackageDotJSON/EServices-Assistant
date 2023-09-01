@@ -53,8 +53,8 @@
           <tr style="font-size: 13px" *ngFor="let pData of proceedsData">
             <td>{{ pData.PROCESS }}</td>
             <td>{{ pData.NAME }}</td>
-            <td>{{ pData.RECEIVED | date: "dd/MMM/yyyy, h:mm:ss a" }}</td>
-            <td>{{ pData.LAST_MODIFIED | date: "dd/MMM/yyyy, h:mm:ss a" }}</td>
+            <td>{{ pData.RECEIVED | date : "dd/MMM/yyyy, h:mm:ss a" }}</td>
+            <td>{{ pData.LAST_MODIFIED | date : "dd/MMM/yyyy, h:mm:ss a" }}</td>
           </tr>
         </tbody>
       </table>
@@ -82,9 +82,7 @@
       <app-toast
         [toastColor]="'bg-danger'"
         [toastOperation]="'Failure'"
-        [toastMessage]="
-          'The token has expired. In order to renew the token, please log in again.'
-        "
+        [toastMessage]="'The session has expired. Please log in again.'"
       ></app-toast>
     </ng-container>
 
