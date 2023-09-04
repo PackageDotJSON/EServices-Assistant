@@ -113,9 +113,9 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
                 this.capitalStructureForm.get('compPerShareValue').value *
                 this.capitalStructureForm.get('compAthrzCapShrs').value,
 
-              compPadupCap:
-                this.capitalStructureForm.get('compAthrzPerValue').value *
-                this.capitalStructureForm.get('compPadupCapShrs').value,
+              compPadupCapShrs:
+                this.capitalStructureForm.get('compPadupCap').value /
+                this.capitalStructureForm.get('compAthrzPerValue').value,
             });
           })
         )
@@ -138,9 +138,9 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
         this.capitalStructureForm.get('compPerShareValue').value *
         this.capitalStructureForm.get('compAthrzCapShrs').value,
 
-      compPadupCap:
-        this.capitalStructureForm.get('compAthrzPerValue').value *
-        this.capitalStructureForm.get('compPadupCapShrs').value,
+      compPadupCapShrs:
+        this.capitalStructureForm.get('compPadupCap').value /
+        this.capitalStructureForm.get('compAthrzPerValue').value,
     });
 
     this.capitalResponse$ = this.dataCleansingService

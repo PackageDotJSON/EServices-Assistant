@@ -968,6 +968,7 @@ export const PROVINCES = [
 ];
 
 export const STATUS = [
+  '',
   'Removed',
   'Resigned',
   'Died',

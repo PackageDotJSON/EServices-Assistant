@@ -109,10 +109,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
                 .setValidators(Validators.required);
               this.informationForm
                 .get('status')
-                .setValidators([
-                  Validators.required,
-                  optionExistsValidator(this.statusList),
-                ]);
+                .setValidators([optionExistsValidator(this.statusList)]);
               this.informationForm
                 .get('directorAppointmentDate')
                 .setValidators(
@@ -235,6 +232,11 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         this.informationForm.get('directorshipNature').value === null
           ? ''
           : this.informationForm.get('directorshipNature').value,
+      status:
+        this.informationForm.get('status').value === 'null' ||
+        this.informationForm.get('status').value === null
+          ? ''
+          : this.informationForm.get('status').value,
     });
   }
 

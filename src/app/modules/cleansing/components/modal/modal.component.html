@@ -263,7 +263,7 @@
             </div>
 
             <div class="col">
-              <small>Status: <mark>required</mark></small>
+              <small>Status:</small>
               <select class="form-control" formControlName="status">
                 <option *ngFor="let status of statusList" [value]="status">
                   {{ status | uppercase }}
@@ -278,12 +278,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="informationForm.get('status').hasError('required')"
-                >
-                  Status is required.
-                </small>
-
                 <small
                   *ngIf="informationForm.get('status').hasError('maxlength')"
                 >
