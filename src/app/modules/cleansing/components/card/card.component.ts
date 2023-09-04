@@ -15,7 +15,6 @@ import { tap } from 'rxjs/operators';
 export class CardComponent implements OnDestroy {
   cardHeader: string;
   subscription = new Subscription();
-
   iterator = 0;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
@@ -23,8 +22,31 @@ export class CardComponent implements OnDestroy {
       this.router.events
         .pipe(
           tap((event: Event) => {
-            event instanceof NavigationEnd &&
-              (this.cardHeader = ROUTES_DESCRIPTION[event.url.split('/')[4]]);
+            if (event instanceof NavigationEnd) {
+              this.cardHeader = ROUTES_DESCRIPTION[event.url.split('/')[4]];
+
+              if (this.cardHeader === ROUTES_DESCRIPTION['company-profile']) {
+                this.iterator = 0;
+              } else if (
+                this.cardHeader === ROUTES_DESCRIPTION['capital-structure']
+              ) {
+                this.iterator = 1;
+              } else if (
+                this.cardHeader === ROUTES_DESCRIPTION['officers-information']
+              ) {
+                this.iterator = 2;
+              } else if (
+                this.cardHeader === ROUTES_DESCRIPTION['directors-information']
+              ) {
+                this.iterator = 3;
+              } else if (
+                this.cardHeader === ROUTES_DESCRIPTION['auditor-information']
+              ) {
+                this.iterator = 4;
+              } else {
+                this.iterator = 5;
+              }
+            }
           })
         )
         .subscribe()
