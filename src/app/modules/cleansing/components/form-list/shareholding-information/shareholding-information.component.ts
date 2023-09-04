@@ -5,8 +5,8 @@ import {
 } from '../../../models/director-details.model';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
-import { tap } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable, Subscription, of } from 'rxjs';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 
 @Component({
@@ -71,10 +71,20 @@ export class ShareholdingInformationComponent {
 
   deleteShareholder(i) {
     this.isRequestSent = true;
-    this.shareholderDetails.directorInfo.splice(i, 1);
     this.response$ = this.dataCleansingService
       .updateShareholderDetails(this.shareholderDetails)
-      .pipe(tap((_) => (this.isRequestSent = false)));
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.shareholderDetails.directorInfo.splice(i, 1);
+            this.isRequestSent = false;
+          }
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
+        })
+      );
   }
 
   getModalState(state: boolean) {

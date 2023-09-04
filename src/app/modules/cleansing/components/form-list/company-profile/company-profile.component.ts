@@ -8,8 +8,8 @@ import {
   PROVINCES,
 } from '../../../settings/cleansing.settings';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
-import { tap } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable, Subscription, of } from 'rxjs';
 import { CompanyState } from '../../../state-management/company-state.service';
 import { ICompanyProfile } from '../../../models/company-profile.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
@@ -213,6 +213,10 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
               agmDt: originalDate[1],
               frmADate: originalDate[2],
             }));
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }

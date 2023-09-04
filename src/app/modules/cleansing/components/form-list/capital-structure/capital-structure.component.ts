@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
-import { Observable, Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subscription, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { ICapitalStructure } from '../../../models/capital-structure.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import { getUserId } from 'src/app/utility/utility-functions';
@@ -148,6 +148,10 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res: IResponse) => {
           res && (this.isRequestSent = false);
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }

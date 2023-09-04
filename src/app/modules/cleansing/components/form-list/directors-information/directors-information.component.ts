@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { CompanyState } from '../../../state-management/company-state.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import {
   IDirectorDetails,
   ISingleDirector,
@@ -71,10 +71,20 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
 
   deleteDirector(i) {
     this.isRequestSent = true;
-    this.directorDetails.directorInfo.splice(i, 1);
     this.response$ = this.dataCleansingService
       .updateDirectorDetails(this.directorDetails)
-      .pipe(tap((_) => (this.isRequestSent = false)));
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.directorDetails.directorInfo.splice(i, 1);
+            this.isRequestSent = false;
+          }
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
+        })
+      );
   }
 
   getModalState(state: boolean) {

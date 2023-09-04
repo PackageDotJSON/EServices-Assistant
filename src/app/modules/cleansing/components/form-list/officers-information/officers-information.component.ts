@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { COUNTRIES } from '../../../settings/cleansing.settings';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
-import { Observable, Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subscription, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import {
   IAdvisorDetails,
   IAgentDetails,
@@ -72,7 +72,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z0-9]*$'),
+          Validators.pattern('^[a-zA-Z0-9-]*$'),
           Validators.maxLength(75),
         ],
       ],
@@ -98,7 +98,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z0-9]*$'),
+          Validators.pattern('^[a-zA-Z0-9-]*$'),
           Validators.maxLength(75),
         ],
       ],
@@ -122,7 +122,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       lglAdvName: ['', [Validators.required, Validators.maxLength(100)]],
       lglAdvNIC: [
         '',
-        [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(75)],
+        [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
       lglAdvAddress: ['', [Validators.required, Validators.maxLength(512)]],
       lglAdvCountry: [
@@ -144,7 +144,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       mngName: ['', [Validators.required, Validators.maxLength(100)]],
       mngNIC: [
         '',
-        [Validators.pattern('^[a-zA-Z0-9]*$'), Validators.maxLength(75)],
+        [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
       mngAddress: ['', [Validators.required, Validators.maxLength(512)]],
       mngCountry: [
@@ -168,7 +168,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z0-9]*$'),
+          Validators.pattern('^[a-zA-Z0-9-]*$'),
           Validators.maxLength(75),
         ],
       ],
@@ -259,6 +259,10 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
           res &&
             ((this.isRequestSent = false),
             this.ceoInfoForm.patchValue({ ceoAppDate: originalDate }));
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }
@@ -334,6 +338,10 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
           res &&
             ((this.isRequestSent = false),
             this.chiefInfoForm.patchValue({ cacAppDate: originalDate }));
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }
@@ -409,6 +417,10 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
           res &&
             ((this.isRequestSent = false),
             this.advisorInfoForm.patchValue({ lglAdvAppDate: originalDate }));
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }
@@ -484,6 +496,10 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
           res &&
             ((this.isRequestSent = false),
             this.agentInfoForm.patchValue({ mngAppDate: originalDate }));
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }
@@ -559,6 +575,10 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
           res &&
             ((this.isRequestSent = false),
             this.secretaryInfoForm.patchValue({ secrAppDate: originalDate }));
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
         })
       );
   }

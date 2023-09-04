@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import {
   IDirectorDetails,
   ISingleDirector,
 } from '../../../models/director-details.model';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 
 @Component({
@@ -71,10 +71,20 @@ export class AuditorInformationComponent implements OnInit {
 
   deleteAuditor(i) {
     this.isRequestSent = true;
-    this.auditorDetails.directorInfo.splice(i, 1);
     this.response$ = this.dataCleansingService
       .updateAuditorDetails(this.auditorDetails)
-      .pipe(tap((_) => (this.isRequestSent = false)));
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.auditorDetails.directorInfo.splice(i, 1);
+            this.isRequestSent = false;
+          }
+        }),
+        catchError((err) => {
+          this.isRequestSent = false;
+          return of(err.error);
+        })
+      );
   }
 
   getModalState(state: boolean) {

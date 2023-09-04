@@ -980,7 +980,6 @@ export const STATUS = [
 ];
 
 export const NATURE = [
-  null,
   '',
   'Nominee',
   'Independent',

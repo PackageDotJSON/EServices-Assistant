@@ -99,7 +99,7 @@ router.post("/login", async (req, res) => {
       if (!err) {
         if (results.length === 0) {
           const responsePayload = {
-            access: "UnAuthorized"
+            access: "UnAuthorized",
           };
           res.send(responsePayload);
         } else {
@@ -125,7 +125,7 @@ router.post("/login", async (req, res) => {
                 const responsePayload = {
                   access: "Full Authorization",
                   name: results[0].name,
-                  location: results[0].location
+                  location: results[0].location,
                 };
                 res.send(responsePayload);
               } else if (results[0].userrights === "partial") {
@@ -139,7 +139,7 @@ router.post("/login", async (req, res) => {
                 const responsePayload = {
                   access: "Partial Authorization",
                   name: results[0].name,
-                  location: results[0].location
+                  location: results[0].location,
                 };
                 res.send(responsePayload);
               } else if (results[0].userrights === "minimum") {
@@ -153,14 +153,14 @@ router.post("/login", async (req, res) => {
                 const responsePayload = {
                   access: "Minimum Authorization",
                   name: results[0].name,
-                  location: results[0].location
+                  location: results[0].location,
                 };
                 res.send(responsePayload);
               } else {
                 const responsePayload = {
                   access: "Rights have not been granted yet",
                   name: results[0].name,
-                  location: results[0].location
+                  location: results[0].location,
                 };
                 res.send(responsePayload);
               }
@@ -168,7 +168,7 @@ router.post("/login", async (req, res) => {
               const responsePayload = {
                 access: "UnAuthorized",
                 name: results[0].name,
-                location: results[0].location
+                location: results[0].location,
               };
               res.send(responsePayload);
             }
@@ -176,7 +176,7 @@ router.post("/login", async (req, res) => {
             const responsePayload = {
               access: "UnAuthorized",
               name: results[0].name,
-              location: results[0].location
+              location: results[0].location,
             };
             res.send(responsePayload);
           }
@@ -3397,7 +3397,7 @@ router.get("/search-company-by-name", (req, res) => {
 
   jwt.verify(token, secret, function (err, decoded) {
     if (!err) {
-      const userKey = req.query.id.toUpperCase();
+      let userKey = req.query.id.toUpperCase();
 
       var connection = oracledb.getConnection(
         {
@@ -3413,6 +3413,10 @@ router.get("/search-company-by-name", (req, res) => {
               "Error occurred while trying to connect to the database: " +
                 err.message
             );
+          }
+
+          if (typeof userKey === "string") {
+            userKey = userKey.replace(/'/g, "''");
           }
 
           var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO
@@ -3652,8 +3656,8 @@ router.post(
     }
 
     const isFileNameValid = await validateIOSCOFileName(req.file.filename);
-    
-    if(isFileNameValid === false) {
+
+    if (isFileNameValid === false) {
       responseData = {
         statusCode: 406,
         message: "Invalid File Name. File Name already exists.",
@@ -3769,18 +3773,18 @@ const validateIOSCOFileName = async (fileName) => {
           "Error occurred while connecting to the database" + err.message
         );
       }
-  
+
       const validateFile = `SELECT ALERT_NAME FROM SECP.ALERT_TYPE WHERE ALERT_NAME = ?`;
-  
+
       conn.query(validateFile, [fileName], (err, results) => {
         if (!err) {
-          results.length === 0 ? resolve(true): resolve(false);
+          results.length === 0 ? resolve(true) : resolve(false);
         } else {
           console.log(
             "Error occurred while inserting iosco alerts data" + err.message
           );
         }
-  
+
         conn.close((err) => {
           if (!err) {
             console.log("Connection closed with the database");
@@ -3794,7 +3798,7 @@ const validateIOSCOFileName = async (fileName) => {
       });
     });
   });
-}
+};
 
 const validateIOSCOFile = async (filePath) => {
   return xlsxFile(filePath).then((rows) => {
