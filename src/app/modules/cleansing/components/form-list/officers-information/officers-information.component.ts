@@ -19,6 +19,7 @@ import {
 } from 'src/app/utility/utility-functions';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import { optionExistsValidator } from '../../../validators/custom-validator';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-officers-information',
@@ -41,7 +42,8 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private dataCleansingService: DataCleansingService,
-    private companyStateService: CompanyState
+    private companyStateService: CompanyState,
+    private logoutService: LogoutService
   ) {
     this.subscription.add(
       this.companyStateService
@@ -210,6 +212,12 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
                 compIncNo: this.cuin,
               });
             }
+          }),
+          catchError((err) => {
+            if ((err.error.message = 'Invalid Token')) {
+              this.logoutService.logOut();
+            }
+            return of(null);
           })
         )
         .subscribe()

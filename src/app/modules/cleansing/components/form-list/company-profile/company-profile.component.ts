@@ -19,6 +19,7 @@ import {
   getUserId,
 } from 'src/app/utility/utility-functions';
 import { optionExistsValidator } from '../../../validators/custom-validator';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -41,7 +42,8 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private dataCleansingService: DataCleansingService,
-    private companyStateService: CompanyState
+    private companyStateService: CompanyState,
+    private logoutService: LogoutService
   ) {
     this.subscription.add(
       this.companyStateService
@@ -158,7 +160,18 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
                 this.companyProfileForm.get('listed').value === ''
                   ? 'Not Applicable'
                   : this.companyProfileForm.get('listed').value,
+              compDistt:
+                this.companyProfileForm.get('compDistt').value === null ||
+                this.companyProfileForm.get('compDistt').value === 'null'
+                  ? ''
+                  : this.companyProfileForm.get('compDistt').value,
             });
+          }),
+          catchError((err) => {
+            if ((err.error.message = 'Invalid Token')) {
+              this.logoutService.logOut();
+            }
+            return of(null);
           })
         )
         .subscribe()

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ROUTES_URL } from 'src/app/enums/routes.enum';
-import { UserAccess } from '../../services/login-service/login.service';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-logout',
@@ -9,12 +7,7 @@ import { UserAccess } from '../../services/login-service/login.service';
   styleUrls: ['./logout.component.css'],
 })
 export class LogoutComponent {
-  constructor(private router: Router, private useraccess: UserAccess) {
-    this.useraccess.accessTypeFull = false;
-    this.useraccess.accessTypePartial = false;
-    this.useraccess.accessTypeMinimum = false;
-    window.sessionStorage.clear();
-    this.useraccess.displayHeaderFooter(false);
-    this.router.navigateByUrl(ROUTES_URL.LOGIN_URL);
+  constructor(private logoutService: LogoutService) {
+    this.logoutService.logOut();
   }
 }

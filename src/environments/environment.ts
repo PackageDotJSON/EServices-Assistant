@@ -7,6 +7,7 @@ export const environment = {
   baseUrl: 'http://localhost:3001',
   dataCleansingKey: 'secpTestAPI@',
   loadingTime: 0,
+  dataCleansingUrl: 'https://srjobs.secp.gov.pk:8443/CMAPI/api'
 };
 
 /*

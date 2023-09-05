@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { BASE_URL } from '../../../constants/base-url.constant';
 import { USER_PROFILE_API } from '../../../enums/apis.enum';
 import { UserService } from '../services/user.service';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -58,7 +59,8 @@ export class UserprofileComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     public useraccess: UserAccess,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private logoutService: LogoutService
   ) {}
 
   ngOnInit(): void {
@@ -91,12 +93,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
             ) {
               this.authFailedError = true;
               setTimeout(() => {
-                this.useraccess.accessTypeFull = false;
-                this.useraccess.accessTypePartial = false;
-                this.useraccess.accessTypeMinimum = false;
-                window.sessionStorage.clear();
-                this.router.navigateByUrl('/');
-                location.reload();
+                this.logoutService.logOut();
               }, 2000);
             } else {
               const postsArray: Admin[] = [];
@@ -249,12 +246,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
             ) {
               this.authFailedError = true;
               setTimeout(() => {
-                this.useraccess.accessTypeFull = false;
-                this.useraccess.accessTypePartial = false;
-                this.useraccess.accessTypeMinimum = false;
-                window.sessionStorage.clear();
-                this.router.navigateByUrl('/');
-                location.reload();
+                this.logoutService.logOut();
               }, 2000);
             } else if (responseData === 'Data updated successfully') {
               this.updateAlert = true;
@@ -300,12 +292,7 @@ export class UserprofileComponent implements OnInit, OnDestroy {
             ) {
               this.authFailedError = true;
               setTimeout(() => {
-                this.useraccess.accessTypeFull = false;
-                this.useraccess.accessTypePartial = false;
-                this.useraccess.accessTypeMinimum = false;
-                window.sessionStorage.clear();
-                this.router.navigateByUrl('/');
-                location.reload();
+                this.logoutService.logOut();
               }, 2000);
             } else {
               this.fetchImage();

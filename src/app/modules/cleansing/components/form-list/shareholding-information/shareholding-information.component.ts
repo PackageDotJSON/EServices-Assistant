@@ -8,6 +8,7 @@ import { CompanyState } from '../../../state-management/company-state.service';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, Subscription, of } from 'rxjs';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-shareholding-information',
@@ -26,7 +27,8 @@ export class ShareholdingInformationComponent {
 
   constructor(
     private dataCleansingService: DataCleansingService,
-    private companyStateService: CompanyState
+    private companyStateService: CompanyState,
+    private logoutService: LogoutService
   ) {
     this.subscription.add(
       this.companyStateService
@@ -51,6 +53,12 @@ export class ShareholdingInformationComponent {
         .pipe(
           tap((res: IDirectorDetails) => {
             this.shareholderDetails = res;
+          }),
+          catchError((err) => {
+            if ((err.error.message = 'Invalid Token')) {
+              this.logoutService.logOut();
+            }
+            return of(null);
           })
         )
         .subscribe()

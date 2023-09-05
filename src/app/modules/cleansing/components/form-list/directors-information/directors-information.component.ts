@@ -8,6 +8,7 @@ import {
   ISingleDirector,
 } from '../../../models/director-details.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-directors-information',
@@ -26,7 +27,8 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataCleansingService: DataCleansingService,
-    private companyStateService: CompanyState
+    private companyStateService: CompanyState,
+    private logoutService: LogoutService
   ) {
     this.subscription.add(
       this.companyStateService
@@ -51,6 +53,12 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
         .pipe(
           tap((res: IDirectorDetails) => {
             this.directorDetails = res;
+          }),
+          catchError((err) => {
+            if ((err.error.message = 'Invalid Token')) {
+              this.logoutService.logOut();
+            }
+            return of(null);
           })
         )
         .subscribe()

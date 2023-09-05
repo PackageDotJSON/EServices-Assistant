@@ -8,6 +8,7 @@ import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
 import { catchError, tap } from 'rxjs/operators';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-auditor-information',
@@ -26,7 +27,8 @@ export class AuditorInformationComponent implements OnInit {
 
   constructor(
     private dataCleansingService: DataCleansingService,
-    private companyStateService: CompanyState
+    private companyStateService: CompanyState,
+    private logoutService: LogoutService
   ) {
     this.subscription.add(
       this.companyStateService
@@ -51,6 +53,12 @@ export class AuditorInformationComponent implements OnInit {
         .pipe(
           tap((res: IDirectorDetails) => {
             this.auditorDetails = res;
+          }),
+          catchError((err) => {
+            if ((err.error.message = 'Invalid Token')) {
+              this.logoutService.logOut();
+            }
+            return of(null);
           })
         )
         .subscribe()

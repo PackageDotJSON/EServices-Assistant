@@ -16,8 +16,6 @@ export const CLEANSING_ROUTES = {
   SHAREHOLDING_INFORMATION: './shareholding-information',
 };
 
-export const DATA_CLEANSING_BASE_URL = 'http://srfsctc.secp.gov.pk:8080/CMAPI/api';
-
 export const QUERY_STRING_GENERATOR = {
   ONE: '/?id=',
   TWO: '&key=',

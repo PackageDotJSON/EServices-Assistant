@@ -70,6 +70,10 @@
   <app-toast
     [toastColor]="response.statusCode === '200' ? 'bg-success' : 'bg-danger'"
     [toastOperation]="response.statusCode === '200' ? 'Success' : 'Failure'"
-    [toastMessage]="response.message"
+    [toastMessage]="
+      response.message === 'Invalid Token'
+        ? 'Session Expired. Please Login Again.'
+        : response.message
+    "
   ></app-toast>
 </ng-container>

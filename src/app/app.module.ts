@@ -23,6 +23,7 @@ import { AuthGuard } from './services/guards/auth.guard';
 import { HeaderInterceptor } from './services/interceptor/http.interceptor';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ForgotPasswordService } from './services/forgot-password-service/forgot-password.service';
+import { LogoutService } from './services/logout-service/logout.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ForgotPasswordService } from './services/forgot-password-service/forgot
     HeaderService,
     ForgotPasswordService,
     AuthGuard,
+    LogoutService,
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   ],

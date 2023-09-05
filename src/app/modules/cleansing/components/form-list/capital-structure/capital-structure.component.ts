@@ -7,6 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { ICapitalStructure } from '../../../models/capital-structure.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import { getUserId } from 'src/app/utility/utility-functions';
+import { LogoutService } from '../../../../../services/logout-service/logout.service';
 
 @Component({
   selector: 'app-capital-structure',
@@ -24,7 +25,8 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private dataCleansingService: DataCleansingService,
-    private companyStateService: CompanyState
+    private companyStateService: CompanyState,
+    private logoutService: LogoutService
   ) {
     this.subscription.add(
       this.companyStateService
@@ -117,6 +119,12 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
                 this.capitalStructureForm.get('compPadupCap').value /
                 this.capitalStructureForm.get('compAthrzPerValue').value,
             });
+          }),
+          catchError((err) => {
+            if(err.error.message = "Invalid Token") {
+              this.logoutService.logOut();
+            }
+            return of(null);
           })
         )
         .subscribe()

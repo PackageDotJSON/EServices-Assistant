@@ -253,7 +253,6 @@ export const COMPANY_TYPES = [
 ];
 
 export const DISTRICTS = [
-  null,
   '',
   'ABBOTTABAD',
   'ASTORE',

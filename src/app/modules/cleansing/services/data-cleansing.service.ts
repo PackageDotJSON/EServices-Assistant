@@ -2,10 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  DATA_CLEANSING_BASE_URL,
   QUERY_STRING_GENERATOR,
 } from '../constants/cleansing.constant';
-import { DATA_CLEANSING_KEY } from 'src/app/constants/base-url.constant';
+import { DATA_CLEANSING_BASE_URL, DATA_CLEANSING_KEY } from 'src/app/constants/base-url.constant';
 import { DATA_CLEANSING_API } from 'src/app/enums/apis.enum';
 import { ICompanyProfile } from '../models/company-profile.model';
 import { IResponse } from '../../alerts/models/response.model';
