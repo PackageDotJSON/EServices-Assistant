@@ -79,12 +79,12 @@ export class AuditorInformationComponent implements OnInit {
 
   deleteAuditor(i) {
     this.isRequestSent = true;
+    this.auditorDetails.directorInfo.splice(i, 1);
     this.response$ = this.dataCleansingService
       .updateAuditorDetails(this.auditorDetails)
       .pipe(
         tap((res) => {
           if (res) {
-            this.auditorDetails.directorInfo.splice(i, 1);
             this.isRequestSent = false;
           }
         }),

@@ -24,6 +24,7 @@ export class ShareholdingInformationComponent {
   index: number;
   isRequestSent = false;
   response$: Observable<IResponse>;
+  lastShareholderError = false;
 
   constructor(
     private dataCleansingService: DataCleansingService,
@@ -78,13 +79,19 @@ export class ShareholdingInformationComponent {
   }
 
   deleteShareholder(i) {
+    if (this.shareholderDetails.directorInfo.length === 1) {
+      this.lastShareholderError = true;
+      return;
+    } else {
+      this.lastShareholderError = false;
+    }
     this.isRequestSent = true;
+    this.shareholderDetails.directorInfo.splice(i, 1);
     this.response$ = this.dataCleansingService
       .updateShareholderDetails(this.shareholderDetails)
       .pipe(
         tap((res) => {
           if (res) {
-            this.shareholderDetails.directorInfo.splice(i, 1);
             this.isRequestSent = false;
           }
         }),

@@ -24,6 +24,7 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
   index: number;
   response$: Observable<IResponse>;
   isRequestSent = false;
+  lastDirectorError = false;
 
   constructor(
     private dataCleansingService: DataCleansingService,
@@ -78,13 +79,19 @@ export class DirectorsInformationComponent implements OnInit, OnDestroy {
   }
 
   deleteDirector(i) {
+    if (this.directorDetails.directorInfo.length === 1) {
+      this.lastDirectorError = true;
+      return;
+    } else {
+      this.lastDirectorError = false;
+    }
     this.isRequestSent = true;
+    this.directorDetails.directorInfo.splice(i, 1);
     this.response$ = this.dataCleansingService
       .updateDirectorDetails(this.directorDetails)
       .pipe(
         tap((res) => {
           if (res) {
-            this.directorDetails.directorInfo.splice(i, 1);
             this.isRequestSent = false;
           }
         }),

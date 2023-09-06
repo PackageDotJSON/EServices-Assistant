@@ -48,6 +48,10 @@
       </tr>
     </tbody>
 
+    <div *ngIf="lastShareholderError" class="custom-error-message">
+      There has to be atleast one Shareholder.
+    </div>
+
     <ng-template #isLoading>
       <app-loading-spinner></app-loading-spinner>
     </ng-template>

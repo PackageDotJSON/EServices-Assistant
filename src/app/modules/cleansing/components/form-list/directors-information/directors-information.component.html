@@ -46,6 +46,10 @@
       </tr>
     </tbody>
 
+    <div *ngIf="lastDirectorError" class="custom-error-message">
+      There has to be atleast one Director.
+    </div>
+
     <ng-template #isLoading>
       <app-loading-spinner></app-loading-spinner>
     </ng-template>
