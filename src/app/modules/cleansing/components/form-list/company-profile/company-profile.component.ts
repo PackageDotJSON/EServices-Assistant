@@ -168,7 +168,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
             });
           }),
           catchError((err) => {
-            if ((err.error.message = 'Invalid Token')) {
+            if (err.error.message === 'Invalid Token') {
               this.logoutService.logOut();
             }
             return of(null);
@@ -219,13 +219,18 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       .updateCompanyProfile(this.companyProfileForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res &&
-            ((this.isRequestSent = false),
+          if (res) {
+            if (res.message === 'Invalid Token') {
+              this.logoutService.logOut();
+              return of(null);
+            }
+            this.isRequestSent = false;
             this.companyProfileForm.patchValue({
               incDate: originalDate[0],
               agmDt: originalDate[1],
               frmADate: originalDate[2],
-            }));
+            });
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;

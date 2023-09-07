@@ -32,6 +32,7 @@ import {
   getUserId,
 } from 'src/app/utility/utility-functions';
 import { optionExistsValidator } from '../../validators/custom-validator';
+import { LogoutService } from 'src/app/services/logout-service/logout.service';
 
 @Component({
   selector: 'app-modal',
@@ -60,7 +61,8 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private companyStateService: CompanyState,
-    private dataCleansingService: DataCleansingService
+    private dataCleansingService: DataCleansingService,
+    private logoutService: LogoutService
   ) {
     this.currentRoute = this.router.url.split('/')[4];
 
@@ -304,6 +306,10 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(
           tap((res) => {
             if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
               this.isRequestSent = false;
               this.informationForm.patchValue({
                 directorAppointmentDate: originalDate,
@@ -337,6 +343,10 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(
           tap((res) => {
             if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
               this.isRequestSent = false;
               this.informationForm.patchValue({
                 directorAppointmentDate: originalDate,
@@ -370,7 +380,13 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         .updateShareholderDetails(this.remainingData)
         .pipe(
           tap((res) => {
-            res && (this.isRequestSent = false);
+            if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
+              this.isRequestSent = false;
+            }
           }),
           catchError((err) => {
             this.isRequestSent = false;

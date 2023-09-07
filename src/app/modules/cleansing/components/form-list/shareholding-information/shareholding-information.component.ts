@@ -56,7 +56,7 @@ export class ShareholdingInformationComponent {
             this.shareholderDetails = res;
           }),
           catchError((err) => {
-            if ((err.error.message = 'Invalid Token')) {
+            if (err.error.message === 'Invalid Token') {
               this.logoutService.logOut();
             }
             return of(null);
@@ -92,6 +92,10 @@ export class ShareholdingInformationComponent {
       .pipe(
         tap((res) => {
           if (res) {
+            if (res.message === 'Invalid Token') {
+              this.logoutService.logOut();
+              return of(null);
+            }
             this.isRequestSent = false;
           }
         }),

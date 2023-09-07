@@ -3351,10 +3351,18 @@ router.get("/search-company-by-no", (req, res) => {
 
           // var fetchData = "select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION  CRO  from cr_company_master COMP INNER JOIN  CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE  where posted in('P', 'C') or posted is null";
 
-          var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO
+          // used by Hassan
+          // var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO
+          //                  from cr_company_master COMP
+          //                         INNER JOIN CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE
+          //                  where COMP.company_code = ${userKey}`;
+
+          // given by sir Mohsin
+          var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO, posted
                            from cr_company_master COMP
-                                  INNER JOIN CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE
-                           where COMP.company_code = ${userKey}`;
+                                  INNER JOIN CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE 
+                           where (COMP.posted = 'N' or COMP.posted= 'P' or COMP.posted is null) 
+                           and COMP.company_code =${userKey}`;
 
           conn.execute(fetchData, (err, results) => {
             if (!err) {
@@ -3419,10 +3427,18 @@ router.get("/search-company-by-name", (req, res) => {
             userKey = userKey.replace(/'/g, "''");
           }
 
-          var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO
-                           from cr_company_master COMP
-                                  INNER JOIN CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE
-                           where UPPER(COMP.name) LIKE '${userKey}%' fetch first 250 rows only`;
+          // used by Hassan
+          // var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO
+          //                  from cr_company_master COMP
+          //                         INNER JOIN CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE
+          //                  where UPPER(COMP.name) LIKE '${userKey}%' fetch first 250 rows only`;
+
+          // given by sir Mohsin
+          var fetchData = `select COMP.company_code, COMP.name, COMP.comp_sub_mode, 'CRO ' || COMP_CRO.DESCRIPTION CRO, posted
+          from cr_company_master COMP
+                INNER JOIN CR_CRO_SETUP COMP_CRO ON COMP.CRO_CODE = COMP_CRO.CRO_CODE 
+          where (COMP.posted = 'N' or COMP.posted= 'P' or COMP.posted is null) 
+          and UPPER(COMP.name) LIKE '${userKey}%' fetch first 250 rows only`;
 
           conn.execute(fetchData, (err, results) => {
             if (!err) {

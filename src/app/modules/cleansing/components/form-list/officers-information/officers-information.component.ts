@@ -214,7 +214,7 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
             }
           }),
           catchError((err) => {
-            if ((err.error.message = 'Invalid Token')) {
+            if (err.error.message === 'Invalid Token') {
               this.logoutService.logOut();
             }
             return of(null);
@@ -264,9 +264,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateCeoDetails(this.ceoInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res &&
-            ((this.isRequestSent = false),
-            this.ceoInfoForm.patchValue({ ceoAppDate: originalDate }));
+          if (res) {
+            if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
+              this.isRequestSent = false;
+              this.ceoInfoForm.patchValue({ ceoAppDate: originalDate });
+            }
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;
@@ -343,9 +350,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateChiefDetails(this.chiefInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res &&
-            ((this.isRequestSent = false),
-            this.chiefInfoForm.patchValue({ cacAppDate: originalDate }));
+          if (res) {
+            if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
+              this.isRequestSent = false;
+              this.chiefInfoForm.patchValue({ cacAppDate: originalDate });
+            }
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;
@@ -422,9 +436,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateAdvisorDetails(this.advisorInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res &&
-            ((this.isRequestSent = false),
-            this.advisorInfoForm.patchValue({ lglAdvAppDate: originalDate }));
+          if (res) {
+            if (res.message === 'Invalid Token') {
+              this.logoutService.logOut();
+              return of(null);
+            }
+            this.isRequestSent = false;
+            this.advisorInfoForm.patchValue({ lglAdvAppDate: originalDate });
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;
@@ -501,9 +520,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateAgentDetails(this.agentInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res &&
-            ((this.isRequestSent = false),
-            this.agentInfoForm.patchValue({ mngAppDate: originalDate }));
+          if (res) {
+            if (res.message === 'Invalid Token') {
+              this.logoutService.logOut();
+              return of(null);
+            }
+            this.isRequestSent = false;
+            this.agentInfoForm.patchValue({ mngAppDate: originalDate });
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;
@@ -580,9 +604,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       .updateSecretaryDetails(this.secretaryInfoForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res &&
-            ((this.isRequestSent = false),
-            this.secretaryInfoForm.patchValue({ secrAppDate: originalDate }));
+          if (res) {
+            if (res.message === 'Invalid Token') {
+              this.logoutService.logOut();
+              return of(null);
+            }
+            this.isRequestSent = false;
+            this.secretaryInfoForm.patchValue({ secrAppDate: originalDate });
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;

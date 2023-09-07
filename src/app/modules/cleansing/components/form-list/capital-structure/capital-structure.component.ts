@@ -121,7 +121,7 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
             });
           }),
           catchError((err) => {
-            if(err.error.message = "Invalid Token") {
+            if (err.error.message === 'Invalid Token') {
               this.logoutService.logOut();
             }
             return of(null);
@@ -155,7 +155,13 @@ export class CapitalStructureComponent implements OnInit, OnDestroy {
       .updateCapitalStructure(this.capitalStructureForm.value)
       .pipe(
         tap((res: IResponse) => {
-          res && (this.isRequestSent = false);
+          if (res) {
+            if (res.message === 'Invalid Token') {
+              this.logoutService.logOut();
+              return of(null);
+            }
+            this.isRequestSent = false;
+          }
         }),
         catchError((err) => {
           this.isRequestSent = false;
