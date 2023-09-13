@@ -43,3 +43,11 @@ export function formatDateToDDMMYYYY(inputDate: string[]): string[] {
 export function getUserId() {
   return sessionStorage.getItem('cookie').split('@')[0];
 }
+
+export function convertToTitleCase(input: string) {
+  const words = input.split(' ');
+  const capitalizedWords = words.map((word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+  return capitalizedWords.join(' ');
+}

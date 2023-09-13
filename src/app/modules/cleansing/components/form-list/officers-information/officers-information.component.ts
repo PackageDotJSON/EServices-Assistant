@@ -13,6 +13,7 @@ import {
   ISecretaryDetails,
 } from '../../../models/officer-details.model';
 import {
+  convertToTitleCase,
   formatDateToDDMMYYYY,
   formatDateToYYYYMMDD,
   getUserId,
@@ -72,22 +73,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       ceoName: ['', [Validators.required, Validators.maxLength(100)]],
       ceoNIC: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9-]*$'),
-          Validators.maxLength(75),
-        ],
+        [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
-      ceoAddress: ['', [Validators.required, Validators.maxLength(512)]],
+      ceoAddress: ['', [Validators.maxLength(512)]],
       ceoCountry: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          optionExistsValidator(this.countriesList),
-        ],
+        [Validators.maxLength(50), optionExistsValidator(this.countriesList)],
       ],
-      ceoFatherName: ['', [Validators.required, Validators.maxLength(100)]],
+      ceoFatherName: ['', [Validators.maxLength(100)]],
       ceoAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
       userId: [''],
@@ -98,22 +91,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       cacName: ['', [Validators.required, Validators.maxLength(100)]],
       cacNIC: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9-]*$'),
-          Validators.maxLength(75),
-        ],
+        [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
-      cacAddress: ['', [Validators.required, Validators.maxLength(512)]],
+      cacAddress: ['', [Validators.maxLength(512)]],
       cacCountry: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          optionExistsValidator(this.countriesList),
-        ],
+        [Validators.maxLength(50), optionExistsValidator(this.countriesList)],
       ],
-      cacFatherName: ['', [Validators.required, Validators.maxLength(100)]],
+      cacFatherName: ['', [Validators.maxLength(100)]],
       cacAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
       userId: [''],
@@ -126,14 +111,10 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
         '',
         [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
-      lglAdvAddress: ['', [Validators.required, Validators.maxLength(512)]],
+      lglAdvAddress: ['', [Validators.maxLength(512)]],
       lglAdvCountry: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          optionExistsValidator(this.countriesList),
-        ],
+        [Validators.maxLength(50), optionExistsValidator(this.countriesList)],
       ],
       lglAdvFatherName: ['', [Validators.maxLength(100)]],
       lglAdvAppDate: ['', [Validators.required, Validators.maxLength(20)]],
@@ -143,22 +124,18 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
 
     // Managing Agent Details
     this.agentInfoForm = this.formBuilder.group({
-      mngName: ['', [Validators.required, Validators.maxLength(100)]],
+      mngName: ['', [Validators.maxLength(100)]],
       mngNIC: [
         '',
         [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
-      mngAddress: ['', [Validators.required, Validators.maxLength(512)]],
+      mngAddress: ['', [Validators.maxLength(512)]],
       mngCountry: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          optionExistsValidator(this.countriesList),
-        ],
+        [Validators.maxLength(50), optionExistsValidator(this.countriesList)],
       ],
       mngFatherName: ['', [Validators.maxLength(100)]],
-      mngAppDate: ['', [Validators.required, Validators.maxLength(20)]],
+      mngAppDate: ['', [Validators.maxLength(20)]],
       compIncNo: [''],
       userId: [''],
     });
@@ -168,22 +145,14 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
       secrName: ['', [Validators.required, Validators.maxLength(100)]],
       secrNIC: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9-]*$'),
-          Validators.maxLength(75),
-        ],
+        [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(75)],
       ],
-      secrAddress: ['', [Validators.required, Validators.maxLength(512)]],
+      secrAddress: ['', [Validators.maxLength(512)]],
       secrCountry: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          optionExistsValidator(this.countriesList),
-        ],
+        [Validators.maxLength(50), optionExistsValidator(this.countriesList)],
       ],
-      secrFatherName: ['', [Validators.required, Validators.maxLength(100)]],
+      secrFatherName: ['', [Validators.maxLength(100)]],
       secrAppDate: ['', [Validators.required, Validators.maxLength(20)]],
       compIncNo: [''],
       userId: [''],
@@ -212,6 +181,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
                 compIncNo: this.cuin,
               });
             }
+
+            this.ceoInfoForm.patchValue({
+              ceoCountry:
+                this.ceoInfoForm.get('ceoCountry').value === null ||
+                this.ceoInfoForm.get('ceoCountry').value === 'null'
+                  ? ''
+                  : convertToTitleCase(
+                      this.ceoInfoForm.get('ceoCountry').value
+                    ),
+            });
           }),
           catchError((err) => {
             if (err.error.message === 'Invalid Token') {
@@ -304,6 +283,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
                 compIncNo: this.cuin,
               });
             }
+
+            this.chiefInfoForm.patchValue({
+              cacCountry:
+                this.chiefInfoForm.get('cacCountry').value === null ||
+                this.chiefInfoForm.get('cacCountry').value === 'null'
+                  ? ''
+                  : convertToTitleCase(
+                      this.chiefInfoForm.get('cacCountry').value
+                    ),
+            });
           })
         )
         .subscribe()
@@ -390,6 +379,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
                 compIncNo: this.cuin,
               });
             }
+
+            this.advisorInfoForm.patchValue({
+              lglAdvCountry:
+                this.advisorInfoForm.get('lglAdvCountry').value === null ||
+                this.advisorInfoForm.get('lglAdvCountry').value === 'null'
+                  ? ''
+                  : convertToTitleCase(
+                      this.advisorInfoForm.get('lglAdvCountry').value
+                    ),
+            });
           })
         )
         .subscribe()
@@ -474,6 +473,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
                 compIncNo: this.cuin,
               });
             }
+
+            this.agentInfoForm.patchValue({
+              mngCountry:
+                this.agentInfoForm.get('mngCountry').value === null ||
+                this.agentInfoForm.get('mngCountry').value === 'null'
+                  ? ''
+                  : convertToTitleCase(
+                      this.agentInfoForm.get('mngCountry').value
+                    ),
+            });
           })
         )
         .subscribe()
@@ -558,6 +567,16 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
                 compIncNo: this.cuin,
               });
             }
+
+            this.secretaryInfoForm.patchValue({
+              secrCountry:
+                this.secretaryInfoForm.get('secrCountry').value === null ||
+                this.secretaryInfoForm.get('secrCountry').value === 'null'
+                  ? ''
+                  : convertToTitleCase(
+                      this.secretaryInfoForm.get('secrCountry').value
+                    ),
+            });
           })
         )
         .subscribe()

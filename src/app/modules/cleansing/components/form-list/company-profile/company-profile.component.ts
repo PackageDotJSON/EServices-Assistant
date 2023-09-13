@@ -14,6 +14,7 @@ import { CompanyState } from '../../../state-management/company-state.service';
 import { ICompanyProfile } from '../../../models/company-profile.model';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import {
+  convertToTitleCase,
   formatDateToDDMMYYYY,
   formatDateToYYYYMMDD,
   getUserId,
@@ -93,17 +94,17 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       ],
       compFaxNo: [
         '',
-        [Validators.pattern('^[0-9]*$'), Validators.maxLength(20)],
+        [Validators.pattern('^[0-9-]*$'), Validators.maxLength(20)],
       ],
       compPhoneNo: [
         '',
-        [Validators.pattern('^[0-9]*$'), Validators.maxLength(50)],
+        [Validators.pattern('^[0-9-]*$'), Validators.maxLength(50)],
       ],
       compPhoneNo2: [
         '',
-        [Validators.pattern('^[0-9]*$'), Validators.maxLength(50)],
+        [Validators.pattern('^[0-9-]*$'), Validators.maxLength(50)],
       ],
-      compStatus: ['', [Validators.required, Validators.maxLength(40)]],
+      compStatus: ['', [Validators.maxLength(40)]],
       holdingCompCode: [
         '',
         [Validators.pattern('^[0-9]*$'), Validators.maxLength(15)],
@@ -114,11 +115,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       oldCmpnyNm: ['', [Validators.maxLength(100)]],
       compCity: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(75),
-          optionExistsValidator(this.cityList),
-        ],
+        [Validators.maxLength(75), optionExistsValidator(this.cityList)],
       ],
       compProvince: [
         '',
@@ -130,7 +127,7 @@ export class CompanyProfileComponent implements OnInit, OnDestroy {
       ],
       listed: ['', [Validators.maxLength(15)]],
       compSubMode: ['', [Validators.maxLength(25)]],
-      stateOwned: ['', [Validators.required, Validators.maxLength(1)]],
+      stateOwned: ['', [Validators.maxLength(1)]],
       compCaseFlag: ['', [Validators.maxLength(80)]],
       userId: [],
     });

@@ -356,7 +356,7 @@
 
   <div class="row">
     <div class="col">
-      <small>Company Status: <mark>(required)</mark></small>
+      <small>Company Status:</small>
       <input class="form-control" formControlName="compStatus" readonly />
 
       <div
@@ -367,12 +367,6 @@
         "
         class="custom-error-message"
       >
-        <small
-          *ngIf="companyProfileForm.get('compStatus').hasError('required')"
-        >
-          Company Status is required.
-        </small>
-
         <small
           *ngIf="companyProfileForm.get('compStatus').hasError('maxlength')"
         >
@@ -507,7 +501,7 @@
     </div> -->
 
     <div class="col">
-      <small>Company City: <mark>(required)</mark></small>
+      <small>Company City:</small>
       <select class="form-control" formControlName="compCity">
         <option *ngFor="let city of cityList" [value]="city">{{ city }}</option>
       </select>
@@ -520,10 +514,6 @@
         "
         class="custom-error-message"
       >
-        <small *ngIf="companyProfileForm.get('compCity').hasError('required')">
-          Company City is required.
-        </small>
-
         <small *ngIf="companyProfileForm.get('compCity').hasError('maxlength')">
           Company City cannot be more than 75 characters.
         </small>
@@ -639,7 +629,7 @@
     </div> -->
 
     <div class="col">
-      <small>Is State Owned Company: <mark>(required)</mark></small>
+      <small>Is State Owned Company:</small>
       <select class="form-control" formControlName="stateOwned">
         <option value="Y">YES</option>
         <option value="N">NO</option>
@@ -654,12 +644,6 @@
         class="custom-error-message"
       >
         <small
-          *ngIf="companyProfileForm.get('stateOwned').hasError('required')"
-        >
-          Is State Owned Company required.
-        </small>
-
-        <small
           *ngIf="companyProfileForm.get('stateOwned').hasError('maxlength')"
         >
           Is State Owned Company cannot be more than 1 character.
@@ -671,12 +655,12 @@
       <small>Legal Enquiry Status:</small>
       <select class="form-control" formControlName="compCaseFlag">
         <option value="null">NONE</option>
-        <option value="COURT CASES">COURT CASES</option>
-        <option value="DISPUTE CASES">DISPUTE CASES</option>
-        <option value="FIA INQUIRY">FIA INQUIRY</option>
-        <option value="FRAUDULENT ACTIVITIES">FRAUDULENT ACTIVITIES</option>
-        <option value="NAB INQUIRY">NAB INQUIRY</option>
-        <option value="SECURITY CLEARANCE">SECURITY CLEARANCE</option>
+        <option value="Court Cases">COURT CASES</option>
+        <option value="Dispute Cases">DISPUTE CASES</option>
+        <option value="FIA Inquiry">FIA INQUIRY</option>
+        <option value="Fraudulent Activities">FRAUDULENT ACTIVITIES</option>
+        <option value="NAB Inquiry">NAB INQUIRY</option>
+        <option value="Security Clearance">SECURITY CLEARANCE</option>
       </select>
 
       <div

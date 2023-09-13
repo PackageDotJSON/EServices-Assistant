@@ -79,7 +79,7 @@ export const INDUSTRY_TYPES = [
   'JUTE',
   '--JUTE',
   'LEATHER AND TANNERIES',
-  '--LEATHER GOODS and PRODUCTS',
+  '--LEATHER GOODS AND PRODUCTS',
   '--TANNERIES',
   '--LEATHER AND TANNERIES - ALLIED (OTHER)',
   'LODGING',
@@ -391,6 +391,7 @@ export const DISTRICTS = [
 ];
 
 export const CITIES = [
+  '',
   'Abbottabad',
   'Abdul Hakeem',
   'Abdul Khail',
@@ -717,6 +718,7 @@ export const CITIES = [
 ];
 
 export const COUNTRIES = [
+  '',
   'Afghanistan',
   'Albania',
   'Algeria',

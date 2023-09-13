@@ -87,9 +87,7 @@
             </div>
 
             <div class="col">
-              <small
-                >CNIC/Passport No.: (without dashes)<mark>required</mark></small
-              >
+              <small>CNIC/Passport No.:</small>
               <input
                 class="form-control"
                 type="text"
@@ -104,10 +102,6 @@
                 "
                 class="custom-error-message"
               >
-                <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('required')">
-                  CEO's CNIC/Passport No. is required.
-                </small>
-
                 <small *ngIf="ceoInfoForm.get('ceoNIC').hasError('pattern')">
                   CEO's CNIC/Passport No. cannot contain special characters.
                 </small>
@@ -123,7 +117,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Father's Name: <mark>required</mark></small>
+              <small>Father's Name:</small>
               <input
                 class="form-control"
                 type="text"
@@ -139,12 +133,6 @@
                 class="custom-error-message"
               >
                 <small
-                  *ngIf="ceoInfoForm.get('ceoFatherName').hasError('required')"
-                >
-                  CEO's father name is required.
-                </small>
-
-                <small
                   *ngIf="ceoInfoForm.get('ceoFatherName').hasError('maxlength')"
                 >
                   CEO's father name cannot be more than 100 characters.
@@ -153,7 +141,7 @@
             </div>
 
             <div class="col">
-              <small>Country: <mark>required</mark></small>
+              <small>Country:</small>
               <select class="form-control" formControlName="ceoCountry">
                 <option *ngFor="let country of countriesList" [value]="country">
                   {{ country }}
@@ -168,12 +156,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="ceoInfoForm.get('ceoCountry').hasError('required')"
-                >
-                  CEO's country is required.
-                </small>
-
                 <small
                   *ngIf="ceoInfoForm.get('ceoCountry').hasError('maxlength')"
                 >
@@ -230,7 +212,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Address: <mark>required</mark></small>
+              <small>Address:</small>
               <textarea
                 class="form-control"
                 type="text"
@@ -245,12 +227,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="ceoInfoForm.get('ceoAddress').hasError('required')"
-                >
-                  CEO's address is required.
-                </small>
-
                 <small
                   *ngIf="ceoInfoForm.get('ceoAddress').hasError('maxlength')"
                 >
@@ -312,10 +288,7 @@
             </div>
 
             <div class="col">
-              <small
-                >CNIC/Passport No. (without dashes):
-                <mark>required</mark></small
-              >
+              <small>CNIC/Passport No.</small>
               <input
                 class="form-control"
                 type="text"
@@ -330,10 +303,6 @@
                 "
                 class="custom-error-message"
               >
-                <small *ngIf="chiefInfoForm.get('cacNIC').hasError('required')">
-                  Chief Accountant's CNIC/Passport No. is required.
-                </small>
-
                 <small *ngIf="chiefInfoForm.get('cacNIC').hasError('pattern')">
                   Chief Accountant's CNIC/Passport No. cannot contain special
                   characters.
@@ -353,7 +322,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Father's Name: <mark>required</mark></small>
+              <small>Father's Name:</small>
               <input
                 class="form-control"
                 type="text"
@@ -370,14 +339,6 @@
               >
                 <small
                   *ngIf="
-                    chiefInfoForm.get('cacFatherName').hasError('required')
-                  "
-                >
-                  Chief Accountant's Father Name is required.
-                </small>
-
-                <small
-                  *ngIf="
                     chiefInfoForm.get('cacFatherName').hasError('maxlength')
                   "
                 >
@@ -388,7 +349,7 @@
             </div>
 
             <div class="col">
-              <small>Country: <mark>required</mark></small>
+              <small>Country:</small>
               <select class="form-control" formControlName="cacCountry">
                 <option *ngFor="let country of countriesList" [value]="country">
                   {{ country }}
@@ -403,12 +364,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="chiefInfoForm.get('cacCountry').hasError('required')"
-                >
-                  Chief Accountant's country is required.
-                </small>
-
                 <small
                   *ngIf="chiefInfoForm.get('cacCountry').hasError('maxlength')"
                 >
@@ -466,7 +421,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Address: <mark>required</mark></small>
+              <small>Address:</small>
               <textarea
                 class="form-control"
                 type="text"
@@ -481,12 +436,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="chiefInfoForm.get('cacAddress').hasError('required')"
-                >
-                  Chief Accountant's address is required.
-                </small>
-
                 <small
                   *ngIf="chiefInfoForm.get('cacAddress').hasError('maxlength')"
                 >
@@ -549,7 +498,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC/Passport No. (without dashes):</small>
+              <small>CNIC/Passport No.</small>
               <input
                 class="form-control"
                 type="text"
@@ -614,7 +563,7 @@
             </div>
 
             <div class="col">
-              <small>Country: <mark>required</mark></small>
+              <small>Country:</small>
               <select class="form-control" formControlName="lglAdvCountry">
                 <option *ngFor="let country of countriesList" [value]="country">
                   {{ country }}
@@ -629,14 +578,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="
-                    advisorInfoForm.get('lglAdvCountry').hasError('required')
-                  "
-                >
-                  Legal Advisor's country is required.
-                </small>
-
                 <small
                   *ngIf="
                     advisorInfoForm.get('lglAdvCountry').hasError('maxlength')
@@ -702,7 +643,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Address: <mark>required</mark></small>
+              <small>Address:</small>
               <textarea
                 class="form-control"
                 type="text"
@@ -717,14 +658,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="
-                    advisorInfoForm.get('lglAdvAddress').hasError('required')
-                  "
-                >
-                  Legal Advisor's address is required.
-                </small>
-
                 <small
                   *ngIf="
                     advisorInfoForm.get('lglAdvAddress').hasError('maxlength')
@@ -758,7 +691,7 @@
         <form [formGroup]="agentInfoForm" (ngSubmit)="updateAgentDetails()">
           <div class="row">
             <div class="col">
-              <small>Name: <mark>required</mark></small>
+              <small>Name:</small>
               <input
                 class="form-control"
                 type="text"
@@ -774,12 +707,6 @@
                 class="custom-error-message"
               >
                 <small
-                  *ngIf="agentInfoForm.get('mngName').hasError('required')"
-                >
-                  Managing Agent's name is required.
-                </small>
-
-                <small
                   *ngIf="agentInfoForm.get('mngName').hasError('maxlength')"
                 >
                   Managing Agent's name cannot be more than 100 characters.
@@ -788,7 +715,7 @@
             </div>
 
             <div class="col">
-              <small>CNIC/Passport No. (without dashes):</small>
+              <small>CNIC/Passport No.:</small>
               <input
                 class="form-control"
                 type="text"
@@ -849,7 +776,7 @@
             </div>
 
             <div class="col">
-              <small>Country: <mark>required</mark></small>
+              <small>Country:</small>
               <select class="form-control" formControlName="mngCountry">
                 <option *ngFor="let country of countriesList" [value]="country">
                   {{ country }}
@@ -864,12 +791,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="agentInfoForm.get('mngCountry').hasError('required')"
-                >
-                  Managing Agent's country is required.
-                </small>
-
                 <small
                   *ngIf="agentInfoForm.get('mngCountry').hasError('maxlength')"
                 >
@@ -892,7 +813,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Appointment Date: <mark>required</mark></small>
+              <small>Appointment Date:</small>
               <input
                 class="form-control"
                 type="date"
@@ -909,12 +830,6 @@
                 class="custom-error-message"
               >
                 <small
-                  *ngIf="agentInfoForm.get('mngAppDate').hasError('required')"
-                >
-                  Managing Agent's appointment date is required.
-                </small>
-
-                <small
                   *ngIf="agentInfoForm.get('mngAppDate').hasError('maxlength')"
                 >
                   Managing Agent's Father appointment date cannot be more than
@@ -928,7 +843,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Address: <mark>required</mark></small>
+              <small>Address:</small>
               <textarea
                 class="form-control"
                 type="text"
@@ -943,12 +858,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="agentInfoForm.get('mngAddress').hasError('required')"
-                >
-                  Managing Agent's address is required.
-                </small>
-
                 <small
                   *ngIf="agentInfoForm.get('mngAddress').hasError('maxlength')"
                 >
@@ -1016,10 +925,7 @@
             </div>
 
             <div class="col">
-              <small
-                >CNIC/Passport No. (without dashes):
-                <mark>required</mark></small
-              >
+              <small>CNIC/Passport No.</small>
               <input
                 class="form-control"
                 type="text"
@@ -1034,12 +940,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="secretaryInfoForm.get('secrNIC').hasError('required')"
-                >
-                  Secretary's CNIC/Passport No. is required.
-                </small>
-
                 <small
                   *ngIf="secretaryInfoForm.get('secrNIC').hasError('pattern')"
                 >
@@ -1061,7 +961,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Father's Name: <mark>required</mark></small>
+              <small>Father's Name:</small>
               <input
                 class="form-control"
                 type="text"
@@ -1078,14 +978,6 @@
               >
                 <small
                   *ngIf="
-                    secretaryInfoForm.get('secrFatherName').hasError('required')
-                  "
-                >
-                  Secretary's Father Name is required.
-                </small>
-
-                <small
-                  *ngIf="
                     secretaryInfoForm
                       .get('secrFatherName')
                       .hasError('maxlength')
@@ -1097,7 +989,7 @@
             </div>
 
             <div class="col">
-              <small>Country: <mark>required</mark></small>
+              <small>Country:</small>
               <select class="form-control" formControlName="secrCountry">
                 <option *ngFor="let country of countriesList" [value]="country">
                   {{ country }}
@@ -1112,14 +1004,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="
-                    secretaryInfoForm.get('secrCountry').hasError('required')
-                  "
-                >
-                  Secretary's country is required.
-                </small>
-
                 <small
                   *ngIf="
                     secretaryInfoForm.get('secrCountry').hasError('maxlength')
@@ -1185,7 +1069,7 @@
 
           <div class="row">
             <div class="col">
-              <small>Address: <mark>required</mark></small>
+              <small>Address:</small>
               <textarea
                 class="form-control"
                 type="text"
@@ -1200,14 +1084,6 @@
                 "
                 class="custom-error-message"
               >
-                <small
-                  *ngIf="
-                    secretaryInfoForm.get('secrAddress').hasError('required')
-                  "
-                >
-                  Secretary's address is required.
-                </small>
-
                 <small
                   *ngIf="
                     secretaryInfoForm.get('secrAddress').hasError('maxlength')

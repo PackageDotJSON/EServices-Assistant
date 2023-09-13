@@ -27,6 +27,7 @@ import {
 import { DataCleansingService } from '../../services/data-cleansing.service';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 import {
+  convertToTitleCase,
   formatDateToDDMMYYYY,
   formatDateToYYYYMMDD,
   getUserId,
@@ -104,8 +105,15 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm
                 .get('directorClassOfShares')
                 .clearValidators();
+              this.informationForm.get('directorAddress').clearValidators();
 
               // add required validators for both auditor and director
+              this.informationForm
+                .get('directorName')
+                .setValidators([
+                  Validators.required,
+                  Validators.maxLength(100),
+                ]);
               this.informationForm
                 .get('designation')
                 .setValidators(Validators.required);
@@ -126,12 +134,15 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm
                 .get('directorCnicPassport')
                 .setValidators([
-                  Validators.required,
                   Validators.pattern('^[a-zA-Z0-9-]*$'),
+                  Validators.maxLength(50),
                 ]);
               this.informationForm
-                .get('directorFatherHusbandName')
-                .setValidators(Validators.required);
+                .get('directorAddress')
+                .setValidators([
+                  Validators.required,
+                  Validators.maxLength(512),
+                ]);
 
               this.informationForm.updateValueAndValidity();
             }
@@ -141,7 +152,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm
                 .get('directorNumberOfShares')
                 .setValidators([
-                  Validators.required,
                   Validators.pattern('^[0-9]*$'),
                   Validators.maxLength(10),
                 ]);
@@ -154,11 +164,10 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm.get('directorNTN').clearValidators();
               this.informationForm.get('otherOccupation').clearValidators();
               this.informationForm.get('status').clearValidators();
+              this.informationForm.get('directorAddress').clearValidators();
+              this.informationForm.get('directorName').clearValidators();
               this.informationForm
-                .get('directorFatherHusbandName')
-                .clearValidators();
-              this.informationForm
-                .get('directorFatherHusbandName')
+                .get('directorName')
                 .setValidators(Validators.maxLength(100));
 
               this.informationForm.updateValueAndValidity();
@@ -172,20 +181,16 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
   createInformationForm() {
     this.informationForm = this.formBuilder.group({
       // required parameter in all the three forms
-      directorAddress: ['', [Validators.required, Validators.maxLength(512)]],
+      directorAddress: ['', [Validators.maxLength(512)]],
       directorCnicPassport: [
         '',
         [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(50)],
       ],
       directorFatherHusbandName: ['', [Validators.maxLength(100)]],
-      directorName: ['', [Validators.required, Validators.maxLength(100)]],
+      directorName: ['', [Validators.maxLength(100)]],
       directorNationality: [
         '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          optionExistsValidator(this.countryList),
-        ],
+        [Validators.maxLength(50), optionExistsValidator(this.countryList)],
       ],
 
       // optional parameters
@@ -239,6 +244,13 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         this.informationForm.get('status').value === null
           ? ''
           : this.informationForm.get('status').value,
+      directorNationality:
+        this.informationForm.get('directorNationality').value === null ||
+        this.informationForm.get('directorNationality').value === 'null'
+          ? ''
+          : convertToTitleCase(
+              this.informationForm.get('directorNationality').value
+            ),
     });
   }
 
