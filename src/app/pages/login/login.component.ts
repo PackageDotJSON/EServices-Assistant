@@ -35,6 +35,8 @@ export class LoginComponent implements OnDestroy {
   serverError = false;
   isLoading = false;
   readonly forgotPasswordUrl = ROUTES_URL.FORGOT_PASSWORD_URL;
+  isMailInvalid = false;
+  isPasscodeInvalid = false;
 
   subscription = new Subscription();
 
@@ -48,6 +50,18 @@ export class LoginComponent implements OnDestroy {
   }
 
   onSubmit(form: NgForm): void {
+    const { usermail, passcode } = form.value;
+    if (usermail.length > 50 || usermail.length < 15) {
+      this.isMailInvalid = true;
+      this.isPasscodeInvalid = false;
+      return;
+    } else if (passcode.length > 40 || passcode.length < 5) {
+      this.isPasscodeInvalid = true;
+      this.isMailInvalid = false;
+      return;
+    } else {
+      this.isMailInvalid = this.isPasscodeInvalid = false;
+    }
     this.isLoading = true;
     this.unAuthorized = false;
     this.subscription.add(
@@ -66,7 +80,7 @@ export class LoginComponent implements OnDestroy {
             this.isLoading = false;
             sessionStorage.setItem('cookie', form.value.usermail);
             const jsonName = JSON.parse(responseData.body);
-            sessionStorage.setItem('location', jsonName.location)
+            sessionStorage.setItem('location', jsonName.location);
             sessionStorage.setItem('user', jsonName);
             if (JSON.stringify(responseData).includes('Full Authorization')) {
               this.unAuthorized = false;

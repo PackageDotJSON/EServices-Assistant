@@ -77,6 +77,15 @@
                     >Forgot Password</small
                   >
                 </div>
+                <ng-container *ngIf="isMailInvalid">
+                  <br />
+                  <small class="custom-error-message">Email is invalid</small>
+                </ng-container>
+
+                <ng-container *ngIf="isPasscodeInvalid">
+                  <br />
+                  <small class="custom-error-message">Password is invalid</small>
+                </ng-container>
                 <br />
                 <button
                   class="btn btn-outline-success"
