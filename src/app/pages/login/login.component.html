@@ -79,12 +79,16 @@
                 </div>
                 <ng-container *ngIf="isMailInvalid">
                   <br />
-                  <small class="custom-error-message">Email is invalid</small>
+                  <small class="custom-error-message"
+                    >Email is invalid and should end with 'secp.gov.pk'</small
+                  >
                 </ng-container>
 
                 <ng-container *ngIf="isPasscodeInvalid">
                   <br />
-                  <small class="custom-error-message">Password is invalid</small>
+                  <small class="custom-error-message"
+                    >Password is invalid</small
+                  >
                 </ng-container>
                 <br />
                 <button

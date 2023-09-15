@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { COUNTRIES } from '../../../settings/cleansing.settings';
 import { DataCleansingService } from '../../../services/data-cleansing.service';
 import { CompanyState } from '../../../state-management/company-state.service';
@@ -637,6 +642,137 @@ export class OfficersInformationComponent implements OnInit, OnDestroy {
           return of(err.error);
         })
       );
+  }
+
+  deleteOfficer(option: string) {
+    this.isRequestSent = true;
+    const userId = this.ceoInfoForm.get('userId').value;
+    const compIncNo = this.ceoInfoForm.get('compIncNo').value;
+
+    if (option === 'CEO') {
+      this.ceoInfoForm.reset();
+      this.ceoInfoForm.patchValue({
+        userId,
+        compIncNo,
+      });
+      this.officerResponse$ = this.dataCleansingService
+        .updateCeoDetails(this.ceoInfoForm.value)
+        .pipe(
+          tap((res: IResponse) => {
+            if (res) {
+              if (res) {
+                if (res.message === 'Invalid Token') {
+                  this.logoutService.logOut();
+                  return of(null);
+                }
+                this.isRequestSent = false;
+              }
+            }
+          }),
+          catchError((err) => {
+            this.isRequestSent = false;
+            return of(err.error);
+          })
+        );
+    } else if (option === 'Chief Information') {
+      this.chiefInfoForm.reset();
+      this.chiefInfoForm.patchValue({
+        userId,
+        compIncNo,
+      });
+
+      this.officerResponse$ = this.dataCleansingService
+        .updateChiefDetails(this.chiefInfoForm.value)
+        .pipe(
+          tap((res: IResponse) => {
+            if (res) {
+              if (res) {
+                if (res.message === 'Invalid Token') {
+                  this.logoutService.logOut();
+                  return of(null);
+                }
+                this.isRequestSent = false;
+              }
+            }
+          }),
+          catchError((err) => {
+            this.isRequestSent = false;
+            return of(err.error);
+          })
+        );
+    } else if (option === 'Legal Advisor') {
+      this.advisorInfoForm.reset();
+      this.advisorInfoForm.patchValue({
+        userId,
+        compIncNo,
+      });
+
+      this.officerResponse$ = this.dataCleansingService
+        .updateAdvisorDetails(this.advisorInfoForm.value)
+        .pipe(
+          tap((res: IResponse) => {
+            if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
+              this.isRequestSent = false;
+            }
+          }),
+          catchError((err) => {
+            this.isRequestSent = false;
+            return of(err.error);
+          })
+        );
+    } else if (option === 'Management Agent') {
+      this.agentInfoForm.reset();
+      this.agentInfoForm.patchValue({
+        userId,
+        compIncNo,
+      });
+
+      this.officerResponse$ = this.dataCleansingService
+        .updateAgentDetails(this.agentInfoForm.value)
+        .pipe(
+          tap((res: IResponse) => {
+            if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
+              this.isRequestSent = false;
+            }
+          }),
+          catchError((err) => {
+            this.isRequestSent = false;
+            return of(err.error);
+          })
+        );
+    } else if (option === 'Secretary') {
+      this.secretaryInfoForm.reset();
+      this.secretaryInfoForm.patchValue({
+        userId,
+        compIncNo,
+      });
+
+      this.officerResponse$ = this.dataCleansingService
+        .updateSecretaryDetails(this.secretaryInfoForm.value)
+        .pipe(
+          tap((res: IResponse) => {
+            if (res) {
+              if (res.message === 'Invalid Token') {
+                this.logoutService.logOut();
+                return of(null);
+              }
+              this.isRequestSent = false;
+            }
+          }),
+          catchError((err) => {
+            this.isRequestSent = false;
+            return of(err.error);
+          })
+        );
+    }
   }
 
   ngOnDestroy(): void {

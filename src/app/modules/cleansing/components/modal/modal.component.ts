@@ -152,6 +152,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm
                 .get('directorNumberOfShares')
                 .setValidators([
+                  Validators.required,
                   Validators.pattern('^[0-9]*$'),
                   Validators.maxLength(10),
                 ]);
@@ -165,10 +166,6 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
               this.informationForm.get('otherOccupation').clearValidators();
               this.informationForm.get('status').clearValidators();
               this.informationForm.get('directorAddress').clearValidators();
-              this.informationForm.get('directorName').clearValidators();
-              this.informationForm
-                .get('directorName')
-                .setValidators(Validators.maxLength(100));
 
               this.informationForm.updateValueAndValidity();
             }
@@ -187,7 +184,7 @@ export class ModalComponent implements OnInit, AfterViewInit, OnDestroy {
         [Validators.pattern('^[a-zA-Z0-9-]*$'), Validators.maxLength(50)],
       ],
       directorFatherHusbandName: ['', [Validators.maxLength(100)]],
-      directorName: ['', [Validators.maxLength(100)]],
+      directorName: ['', [Validators.required, Validators.maxLength(100)]],
       directorNationality: [
         '',
         [Validators.maxLength(50), optionExistsValidator(this.countryList)],

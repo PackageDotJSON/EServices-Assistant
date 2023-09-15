@@ -38,12 +38,7 @@
         <div class="modal-body">
           <div class="row">
             <div class="col">
-              <small
-                >Name:
-                <mark *ngIf="currentRoute !== 'shareholding-information'"
-                  >required</mark
-                ></small
-              >
+              <small>Name: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"
@@ -448,7 +443,7 @@
 
           <div class="row" *ngIf="currentRoute === 'shareholding-information'">
             <div class="col">
-              <small>Number of Shares:</small>
+              <small>Number of Shares: <mark>required</mark></small>
               <input
                 class="form-control"
                 type="text"

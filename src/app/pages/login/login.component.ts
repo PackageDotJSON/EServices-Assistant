@@ -51,6 +51,8 @@ export class LoginComponent implements OnDestroy {
 
   onSubmit(form: NgForm): void {
     const { usermail, passcode } = form.value;
+    const regex = /^[a-zA-Z0-9._%+-]+@secp\.gov\.pk$/;
+
     if (usermail.length > 50 || usermail.length < 15) {
       this.isMailInvalid = true;
       this.isPasscodeInvalid = false;
@@ -58,6 +60,10 @@ export class LoginComponent implements OnDestroy {
     } else if (passcode.length > 40 || passcode.length < 5) {
       this.isPasscodeInvalid = true;
       this.isMailInvalid = false;
+      return;
+    } else if (!regex.test(usermail)) {
+      this.isMailInvalid = true;
+      this.isPasscodeInvalid = false;
       return;
     } else {
       this.isMailInvalid = this.isPasscodeInvalid = false;
