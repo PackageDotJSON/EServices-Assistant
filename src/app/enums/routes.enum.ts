@@ -4,6 +4,7 @@ export const enum ROUTES_URL {
   HOME_URL = '/home',
   HELP_URL = '/help',
   REPORTS_URL = '/reports',
+  VENDORS_URL = '/vendors',
   APPLICATION_MANAGEMENT_URL = '/user/applicationmanagement',
   ESERVICES_MANAGEMENT_URL = '/user/eservicesmanagement',
   IOSCO_ALERTS_URL = '/iosco-alerts',

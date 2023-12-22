@@ -196,6 +196,7 @@ export class ApplicationManagementComponent implements OnInit, OnDestroy {
       { roles: 'CTC Revenue Report' },
       { roles: 'Bank Usage Report' },
       { roles: 'Data Sharing Monitoring Report' },
+      { roles: 'NADRA And PMD Billing Report'}
     ];
     const params = new HttpParams().set('id', userMail);
     this.subscription.add(

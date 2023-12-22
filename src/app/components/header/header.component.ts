@@ -74,8 +74,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
           } else {
             this.routes = responseData;
             for (const index of responseData.keys()) {
-              this.routes[index].routes =
-                ROUTES_URL.REPORTS_URL + this.routes[index].routes;
+              if (this.routes[index].routes.includes('nadra')) {
+                this.routes[index].routes =
+                  ROUTES_URL.VENDORS_URL + this.routes[index].routes;
+              } else {
+                this.routes[index].routes =
+                  ROUTES_URL.REPORTS_URL + this.routes[index].routes;
+              }
             }
             this.isLoading = false;
           }

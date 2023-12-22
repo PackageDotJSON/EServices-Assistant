@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">User Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">DoB</th>
+        <th scope="col">Address</th>
+        <th scope="col">Created When</th>
+        <th scope="col">Nadra Return Code</th>
+        <th scope="col">Nadra Return Message</th>
+        <th scope="col">Card Expiry Date</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="nadraReport$ | async as nadraReport">
+      <tr *ngFor="let nReport of nadraReport.data.results">
+        <td>{{ nReport.USER_ID_FK }}</td>
+        <td>{{ nReport.NAME }}</td>
+        <td>{{ nReport.DOB }}</td>
+        <td>{{ nReport.PERMANENT_ADDRESS }}</td>
+        <td>{{ nReport.CREATED_WHEN }}</td>
+        <td>{{ nReport.NADRA_RETURN_CODE }}</td>
+        <td>{{ nReport.NADRA_RETURN_MSG }}</td>
+        <td>{{ nReport.CARD_EXPIRY_DATE }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

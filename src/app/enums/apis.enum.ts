@@ -157,3 +157,10 @@ export const enum DATA_CLEANSING_API {
   GET_SHAREHOLDER_DETAILS = '/getshrholdr',
   UPDATE_SHAREHOLDER_DETAILS = '/updtshrholdr',
 }
+
+// Third-party Vendors API
+
+export const enum VENDORS_API {
+  GET_NADRA_REPORT = '/get-nadra-report',
+  GET_PMD_REPORT = '/get-pmd-report'
+}

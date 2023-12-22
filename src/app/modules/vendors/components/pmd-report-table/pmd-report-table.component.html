@@ -1,0 +1,32 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">CNIC</th>
+        <th scope="col">Mobile No</th>
+        <th scope="col">Transaction No</th>
+        <th scope="col">API Response</th>
+        <th scope="col">API Call Status</th>
+        <th scope="col">Created When</th>
+        <th scope="col">Response Message</th>
+        <th scope="col">Calling Module</th>
+        <th scope="col">Challan No</th>
+        <th scope="col">Billable</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="pmdReport$ | async as pmdReport">
+      <tr *ngFor="let pReport of pmdReport.data.results">
+        <td>{{ pReport.CNIC }}</td>
+        <td>{{ pReport.MOBILE_NO }}</td>
+        <td>{{ pReport.TRANSACTION_NO }}</td>
+        <td>{{ pReport.API_RESPONSE }}</td>
+        <td>{{ pReport.API_CALL_STATUS }}</td>
+        <td>{{ pReport.CREATED_WHEN }}</td>
+        <td>{{ pReport.RESPONSE_MESSAGE }}</td>
+        <td>{{ pReport.CALLING_MODULE }}</td>
+        <td>{{ pReport.CHALLAN_NUMBER }}</td>
+        <td>{{ pReport.BILLABLE }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

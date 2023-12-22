@@ -39,6 +39,14 @@ export const ROUTES: Routes = [
           import('../modules/alerts/alerts.module').then((m) => m.AlertsModule),
       },
       {
+        path: 'vendors',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('../modules/vendors/vendors.module').then(
+            (m) => m.VendorsModule
+          ),
+      },
+      {
         path: 'home',
         canActivate: [AuthGuard],
         component: LandingPageComponent,

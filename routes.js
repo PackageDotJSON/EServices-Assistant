@@ -3530,6 +3530,145 @@ router.get("/get-companies-list", (req, res) => {
   });
 });
 
+router.get("/get-nadra-report", (req, res) => {
+  const token = req.get("key");
+
+  if (!token) {
+    res.json("No Token Provided");
+    return;
+  }
+
+  jwt.verify(token, secret, function (err, decded) {
+    if (!err) {
+      const startDate = req.query.startDate;
+      const endDate = req.query.endDate;
+
+      const getNadraCount = `SELECT COUNT(*) as "Count" FROM USER_NADRA_RESPONSE  
+                             WHERE (DATE(CREATED_WHEN) >=  TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')) 
+                             AND NADRA_RETURN_CODE IN(100, 110, 142)
+                             FOR FETCH ONLY WITH UR;`;
+
+      const getNadraData = `SELECT USER_ID_FK, NAME, DOB, PERMENANT_ADDRESS, CREATED_WHEN, NADRA_RETURN_CODE, NADRA_RETURN_MSG, CARD_EXPIRY_DATE FROM USER_NADRA_RESPONSE  
+                             WHERE (DATE(CREATED_WHEN) >=  TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')) 
+                             AND NADRA_RETURN_CODE IN(100, 110, 142)
+                             FOR FETCH ONLY WITH UR;`;
+
+      db2.open(secp, (err, conn) => {
+        if (!err) {
+          console.log("Connected Successfully");
+        } else {
+          console.log(
+            "Error occurred while connecting to the database" + err.message
+          );
+        }
+
+        conn.query(getNadraCount, (err, counts) => {
+          if (!err) {
+            conn.query(getNadraData, (err, results) => {
+              if (!err) {
+                responseData = {
+                  data: {
+                    counts,
+                    results,
+                  },
+                  statusCode: 200,
+                  message: "Success",
+                  error: false,
+                };
+                res.send(responseData);
+              } else {
+                console.log(
+                  "Error occurred while fetching nadra data" + err.message
+                );
+              }
+            });
+          } else {
+            console.log(
+              "Error occurred while fetching nadra count" + err.message
+            );
+          }
+
+          conn.close((err) => {
+            if (!err) {
+              console.log("Connection closed with the database");
+            } else {
+              console.log(
+                "Error occurred while trying to close the connection with the database" +
+                  err.message
+              );
+            }
+          });
+        });
+      });
+    } else {
+      res.json("Authorization Failed. Token Expired. Please Login Again.");
+    }
+  });
+});
+
+router.get("/get-pmd-report", (req, res) => {
+  const token = req.get("key");
+
+  if (!token) {
+    res.json("No Token Provided");
+    return;
+  }
+
+  jwt.verify(token, secret, function (err, decded) {
+    if (!err) {
+      const startDate = req.query.startDate;
+      const endDate = req.query.endDate;
+
+      const getPmdReport = `SELECT * FROM PMD_LOG
+                            WHERE DATE(CREATED_WHEN) >= TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')
+                            AND RESPONSE_MESSAGE IN ('Yes','No',  'Invalid Number')
+                            --AND RESPONSE_MESSAGE IN ('Yes','No')
+                            FOR FETCH ONLY WITH UR;`;
+
+      db2.open(secp, (err, conn) => {
+        if (!err) {
+          console.log("Connected Successfully");
+        } else {
+          console.log(
+            "Error occurred while connecting to the database" + err.message
+          );
+        }
+
+        conn.query(getPmdReport, (err, results) => {
+          if (!err) {
+            responseData = {
+              data: {
+                results,
+              },
+              statusCode: 200,
+              message: "Success",
+              error: false,
+            };
+            res.send(responseData);
+          } else {
+            console.log(
+              "Error occurred while fetching nadra count" + err.message
+            );
+          }
+
+          conn.close((err) => {
+            if (!err) {
+              console.log("Connection closed with the database");
+            } else {
+              console.log(
+                "Error occurred while trying to close the connection with the database" +
+                  err.message
+              );
+            }
+          });
+        });
+      });
+    } else {
+      res.json("Authorization Failed. Token Expired. Please Login Again.");
+    }
+  });
+});
+
 router.post("/export-to-excel", (req, res) => {
   calculateIP(req.ip, "/export-to-excel");
 

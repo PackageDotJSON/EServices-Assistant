@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="ribbon">
+    <div class="ribbon-content"><p>NADRA and PMD Billing Report</p></div>
+  </div>
+
+  <br /><br /><br /><br /><br />
+  <div class="form-group">
+    <div class="input-group" style="width: 55%; margin: auto">
+      <i class="input-group-addon" style="font-size: 1.3rem; color: white">
+        &nbsp; <i class="bi bi-search"></i> &nbsp;
+      </i>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="startDateKey"
+        placeholder="Start Date"
+        min="2021-01-01"
+      />
+      &nbsp;
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="endDateKey"
+        placeholder="End Date"
+        min="2021-01-31"
+      />
+      &nbsp;
+    </div>
+  </div>
+  <br />
+  <div class="custom-row">
+    <button class="btn btn-success" (click)="selectedItem = 'NADRA Report'">
+      NADRA Report</button
+    >&nbsp;
+    <button
+      class="btn btn-success"
+      (click)="selectedItem = 'PMD Billing Report'"
+    >
+      PMD Billing Report
+    </button>
+  </div>
+
+  <ng-container *ngIf="selectedItem === 'NADRA Report'; else pmdReport">
+    <app-nadra-report-table
+      [startDateKey]="startDateKey"
+      [endDateKey]="endDateKey"
+    ></app-nadra-report-table>
+  </ng-container>
+
+  <ng-template #pmdReport>
+    <app-pmd-report-table
+      [startDateKey]="startDateKey"
+      [endDateKey]="endDateKey"
+    ></app-pmd-report-table>
+  </ng-template>
+</div>
