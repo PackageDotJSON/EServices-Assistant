@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive" *ngIf="nadraReport$ | async as nadraReport; else isLoading">
   <table class="table">
     <thead>
       <tr>
@@ -12,12 +12,12 @@
         <th scope="col">Card Expiry Date</th>
       </tr>
     </thead>
-    <tbody *ngIf="nadraReport$ | async as nadraReport">
+    <tbody>
       <tr *ngFor="let nReport of nadraReport.data.results">
         <td>{{ nReport.USER_ID_FK }}</td>
         <td>{{ nReport.NAME }}</td>
         <td>{{ nReport.DOB }}</td>
-        <td>{{ nReport.PERMANENT_ADDRESS }}</td>
+        <td>{{ nReport.PERMENANT_ADDRESS }}</td>
         <td>{{ nReport.CREATED_WHEN }}</td>
         <td>{{ nReport.NADRA_RETURN_CODE }}</td>
         <td>{{ nReport.NADRA_RETURN_MSG }}</td>
@@ -26,3 +26,8 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #isLoading>
+  <br /><br />
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>

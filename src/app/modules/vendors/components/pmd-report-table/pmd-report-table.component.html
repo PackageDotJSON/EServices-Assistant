@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive" *ngIf="pmdReport$ | async as pmdReport; else isLoading">
   <table class="table">
     <thead>
       <tr>
@@ -14,7 +14,7 @@
         <th scope="col">Billable</th>
       </tr>
     </thead>
-    <tbody *ngIf="pmdReport$ | async as pmdReport">
+    <tbody>
       <tr *ngFor="let pReport of pmdReport.data.results">
         <td>{{ pReport.CNIC }}</td>
         <td>{{ pReport.MOBILE_NO }}</td>
@@ -30,3 +30,8 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #isLoading>
+  <br /><br />
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>

@@ -3540,18 +3540,34 @@ router.get("/get-nadra-report", (req, res) => {
 
   jwt.verify(token, secret, function (err, decded) {
     if (!err) {
-      const startDate = req.query.startDate;
-      const endDate = req.query.endDate;
+      const startDate = req.query?.startDate;
+      const endDate = req.query?.endDate;
+      const userCnic = req.query?.userCnic;
 
-      const getNadraCount = `SELECT COUNT(*) as "Count" FROM USER_NADRA_RESPONSE  
-                             WHERE (DATE(CREATED_WHEN) >=  TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')) 
-                             AND NADRA_RETURN_CODE IN(100, 110, 142)
-                             FOR FETCH ONLY WITH UR;`;
+      let getNadraCount;
+      let getNadraData;
 
-      const getNadraData = `SELECT USER_ID_FK, NAME, DOB, PERMENANT_ADDRESS, CREATED_WHEN, NADRA_RETURN_CODE, NADRA_RETURN_MSG, CARD_EXPIRY_DATE FROM USER_NADRA_RESPONSE  
-                             WHERE (DATE(CREATED_WHEN) >=  TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')) 
-                             AND NADRA_RETURN_CODE IN(100, 110, 142)
-                             FOR FETCH ONLY WITH UR;`;
+      if (userCnic) {
+        getNadraCount = `SELECT COUNT(*) as "Count" FROM USER_NADRA_RESPONSE  
+        WHERE USER_ID_FK = '${userCnic}' 
+        AND NADRA_RETURN_CODE IN(100, 110, 142)
+        FOR FETCH ONLY WITH UR;`;
+
+        getNadraData = `SELECT USER_ID_FK, NAME, DOB, PERMENANT_ADDRESS, CREATED_WHEN, NADRA_RETURN_CODE, NADRA_RETURN_MSG, CARD_EXPIRY_DATE FROM USER_NADRA_RESPONSE  
+        WHERE USER_ID_FK = '${userCnic}' 
+        AND NADRA_RETURN_CODE IN(100, 110, 142)
+        FOR FETCH ONLY WITH UR;`;
+      } else {
+        getNadraCount = `SELECT COUNT(*) as "Count" FROM USER_NADRA_RESPONSE  
+        WHERE (DATE(CREATED_WHEN) >=  TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')) 
+        AND NADRA_RETURN_CODE IN(100, 110, 142)
+        FOR FETCH ONLY WITH UR;`;
+
+        getNadraData = `SELECT USER_ID_FK, NAME, DOB, PERMENANT_ADDRESS, CREATED_WHEN, NADRA_RETURN_CODE, NADRA_RETURN_MSG, CARD_EXPIRY_DATE FROM USER_NADRA_RESPONSE  
+        WHERE (DATE(CREATED_WHEN) >=  TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')) 
+        AND NADRA_RETURN_CODE IN(100, 110, 142)
+        FOR FETCH ONLY WITH UR;`;
+      }
 
       db2.open(secp, (err, conn) => {
         if (!err) {
@@ -3616,14 +3632,24 @@ router.get("/get-pmd-report", (req, res) => {
 
   jwt.verify(token, secret, function (err, decded) {
     if (!err) {
-      const startDate = req.query.startDate;
-      const endDate = req.query.endDate;
+      const startDate = req.query?.startDate;
+      const endDate = req.query?.endDate;
+      const userCnic = req.query?.userCnic;
 
-      const getPmdReport = `SELECT * FROM PMD_LOG
-                            WHERE DATE(CREATED_WHEN) >= TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')
-                            AND RESPONSE_MESSAGE IN ('Yes','No',  'Invalid Number')
-                            --AND RESPONSE_MESSAGE IN ('Yes','No')
-                            FOR FETCH ONLY WITH UR;`;
+      let getPmdReport;
+      if (userCnic) {
+        getPmdReport = `SELECT * FROM PMD_LOG
+        WHERE CNIC = '${userCnic}'
+        AND RESPONSE_MESSAGE IN ('Yes','No',  'Invalid Number')
+        --AND RESPONSE_MESSAGE IN ('Yes','No')
+        FOR FETCH ONLY WITH UR;`;
+      } else {
+        getPmdReport = `SELECT * FROM PMD_LOG
+        WHERE DATE(CREATED_WHEN) >= TO_DATE('${startDate}', 'YYYY-MM-DD') AND DATE(CREATED_WHEN) <= TO_DATE('${endDate}', 'YYYY-MM-DD')
+        AND RESPONSE_MESSAGE IN ('Yes','No',  'Invalid Number')
+        --AND RESPONSE_MESSAGE IN ('Yes','No')
+        FOR FETCH ONLY WITH UR;`;
+      }
 
       db2.open(secp, (err, conn) => {
         if (!err) {

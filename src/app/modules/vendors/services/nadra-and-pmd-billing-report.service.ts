@@ -9,19 +9,37 @@ import { IResponse } from '../../alerts/models/response.model';
 export class NadraAndPmdBillingReportService {
   constructor(private http: HttpClient) {}
 
-  getNadraReport(startDate: string, endDate: string): Observable<IResponse> {
-    const params = new HttpParams()
-      .set('startDate', startDate)
-      .set('endDate', endDate);
+  getNadraReport(
+    startDate?: string,
+    endDate?: string,
+    userCnic?: string
+  ): Observable<IResponse> {
+    let params;
+    if (userCnic) {
+      params = new HttpParams().set('userCnic', userCnic);
+    } else {
+      params = new HttpParams()
+        .set('startDate', startDate)
+        .set('endDate', endDate);
+    }
     return this.http.get(BASE_URL + VENDORS_API.GET_NADRA_REPORT, {
       params,
     }) as Observable<IResponse>;
   }
 
-  getPmdReport(startDate: string, endDate: string): Observable<IResponse> {
-    const params = new HttpParams()
-      .set('startDate', startDate)
-      .set('endDate', endDate);
+  getPmdReport(
+    startDate?: string,
+    endDate?: string,
+    userCnic?: string
+  ): Observable<IResponse> {
+    let params;
+    if (userCnic) {
+      params = new HttpParams().set('userCnic', userCnic);
+    } else {
+      params = new HttpParams()
+        .set('startDate', startDate)
+        .set('endDate', endDate);
+    }
     return this.http.get(BASE_URL + VENDORS_API.GET_PMD_REPORT, {
       params,
     }) as Observable<IResponse>;

@@ -5,26 +5,62 @@
 
   <br /><br /><br /><br /><br />
   <div class="form-group">
+    <div class="custom-radio">
+      <input
+        class="form-check-input"
+        [checked]="true"
+        type="radio"
+        name="flexRadioDefault"
+        id="flexRadioDefault1"
+        (click)="selectedType = 'Date'"
+      />
+      <label class="form-check-label" for="flexRadioDefault1">
+        Search By Date
+      </label>
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <input
+        class="form-check-input"
+        type="radio"
+        name="flexRadioDefault"
+        id="flexRadioDefault2"
+        (click)="selectedType = 'CNIC'"
+      />
+      <label class="form-check-label" for="flexRadioDefault2">
+        Search By CNIC
+      </label>
+    </div>
+    <br />
     <div class="input-group" style="width: 55%; margin: auto">
       <i class="input-group-addon" style="font-size: 1.3rem; color: white">
         &nbsp; <i class="bi bi-search"></i> &nbsp;
       </i>
-      <input
-        type="date"
-        class="form-control"
-        [(ngModel)]="startDateKey"
-        placeholder="Start Date"
-        min="2021-01-01"
-      />
-      &nbsp;
-      <input
-        type="date"
-        class="form-control"
-        [(ngModel)]="endDateKey"
-        placeholder="End Date"
-        min="2021-01-31"
-      />
-      &nbsp;
+      <ng-container *ngIf="selectedType === 'Date'">
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="startDateKey"
+          placeholder="Start Date"
+          min="2021-01-01"
+        />
+        &nbsp;
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="endDateKey"
+          placeholder="End Date"
+          min="2021-01-31"
+        />
+        &nbsp;
+      </ng-container>
+
+      <ng-container *ngIf="selectedType === 'CNIC'">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="userCnic"
+          placeholder="CNIC"
+        />
+      </ng-container>
     </div>
   </div>
   <br />
@@ -40,17 +76,21 @@
     </button>
   </div>
 
-  <ng-container *ngIf="selectedItem === 'NADRA Report'; else pmdReport">
+  <ng-container *ngIf="selectedItem === 'NADRA Report'">
     <app-nadra-report-table
       [startDateKey]="startDateKey"
       [endDateKey]="endDateKey"
+      [userCnic]="userCnic"
+      [searchType]="selectedType"
     ></app-nadra-report-table>
   </ng-container>
 
-  <ng-template #pmdReport>
+  <ng-container *ngIf="selectedItem === 'PMD Billing Report'">
     <app-pmd-report-table
       [startDateKey]="startDateKey"
       [endDateKey]="endDateKey"
+      [userCnic]="userCnic"
+      [searchType]="selectedType"
     ></app-pmd-report-table>
-  </ng-template>
+  </ng-container>
 </div>

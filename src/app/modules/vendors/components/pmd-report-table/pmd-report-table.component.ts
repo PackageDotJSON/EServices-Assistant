@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NadraAndPmdBillingReportService } from '../../services/nadra-and-pmd-billing-report.service';
-import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/modules/alerts/models/response.model';
 
@@ -12,6 +11,8 @@ import { IResponse } from 'src/app/modules/alerts/models/response.model';
 export class PmdReportTableComponent implements OnInit {
   @Input() startDateKey: Date;
   @Input() endDateKey: Date;
+  @Input() userCnic: string;
+  @Input() searchType: string;
   pmdReport$: Observable<IResponse>;
 
   constructor(
@@ -23,9 +24,18 @@ export class PmdReportTableComponent implements OnInit {
   }
 
   getPmdReport() {
-    this.pmdReport$ = this.nadraAndPmdBillingService.getPmdReport(
-      this.startDateKey.toString(),
-      this.endDateKey.toString()
-    );
+    if (this.searchType === 'CNIC') {
+      this.pmdReport$ = this.nadraAndPmdBillingService.getPmdReport(
+        undefined,
+        undefined,
+        this.userCnic
+      );
+    } else {
+      this.pmdReport$ = this.nadraAndPmdBillingService.getPmdReport(
+        this.startDateKey.toString(),
+        this.endDateKey.toString(),
+        undefined
+      );
+    }
   }
 }
