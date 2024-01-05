@@ -11,4 +11,8 @@ export class NadraReportComponent {
   selectedItem: string;
   userCnic: string;
   selectedType = 'Date';
+
+  selectedItemChange() {
+    this.selectedItem = '';
+  }
 }

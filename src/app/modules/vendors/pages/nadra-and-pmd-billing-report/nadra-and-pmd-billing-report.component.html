@@ -39,6 +39,7 @@
           type="date"
           class="form-control"
           [(ngModel)]="startDateKey"
+          (change)="selectedItemChange()"
           placeholder="Start Date"
           min="2021-01-01"
         />
@@ -47,6 +48,7 @@
           type="date"
           class="form-control"
           [(ngModel)]="endDateKey"
+          (change)="selectedItemChange()"
           placeholder="End Date"
           min="2021-01-31"
         />
@@ -58,6 +60,7 @@
           type="text"
           class="form-control"
           [(ngModel)]="userCnic"
+          (change)="selectedItemChange()"
           placeholder="CNIC"
         />
       </ng-container>
