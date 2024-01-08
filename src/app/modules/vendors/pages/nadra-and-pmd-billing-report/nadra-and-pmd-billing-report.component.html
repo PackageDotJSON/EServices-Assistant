@@ -62,25 +62,32 @@
           [(ngModel)]="userCnic"
           (change)="selectedItemChange()"
           placeholder="CNIC"
-          maxlength="15"
         />
       </ng-container>
     </div>
   </div>
   <br />
   <div class="custom-row">
-    <button class="btn btn-success" (click)="selectedItem = 'NADRA Report'">
+    <div *ngIf="showCnicError">
+      <small class="custom-error-message"
+        >CNIC should be atleast 13 and max 15 digits long</small
+      >
+    </div>
+    <button
+      class="btn btn-success"
+      (click)="isValidCnic(); selectedItem = 'NADRA Report'"
+    >
       NADRA Report</button
     >&nbsp;
     <button
       class="btn btn-success"
-      (click)="selectedItem = 'PMD Billing Report'"
+      (click)="isValidCnic(); selectedItem = 'PMD Billing Report'"
     >
       PMD Billing Report
     </button>
   </div>
 
-  <ng-container *ngIf="selectedItem === 'NADRA Report'">
+  <ng-container *ngIf="selectedItem === 'NADRA Report' && !showCnicError">
     <app-nadra-report-table
       [startDateKey]="startDateKey"
       [endDateKey]="endDateKey"
@@ -89,7 +96,7 @@
     ></app-nadra-report-table>
   </ng-container>
 
-  <ng-container *ngIf="selectedItem === 'PMD Billing Report'">
+  <ng-container *ngIf="selectedItem === 'PMD Billing Report' && !showCnicError">
     <app-pmd-report-table
       [startDateKey]="startDateKey"
       [endDateKey]="endDateKey"
