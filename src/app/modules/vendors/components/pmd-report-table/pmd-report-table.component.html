@@ -1,4 +1,7 @@
-<div class="table-responsive" *ngIf="pmdReport$ | async as pmdReport; else isLoading">
+<div
+  class="table-responsive"
+  *ngIf="pmdReport$ | async as pmdReport; else isLoading"
+>
   <table class="table table-striped table-hover table-bordered">
     <thead>
       <tr>
@@ -26,6 +29,10 @@
         <td>{{ pReport.CALLING_MODULE }}</td>
         <td>{{ pReport.CHALLAN_NUMBER }}</td>
         <td>{{ pReport.BILLABLE }}</td>
+      </tr>
+
+      <tr *ngIf="pmdReport.data.results.length === 0">
+        <p>No Data Found</p>
       </tr>
     </tbody>
   </table>
