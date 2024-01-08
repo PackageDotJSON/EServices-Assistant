@@ -62,22 +62,20 @@
           [(ngModel)]="userCnic"
           (change)="selectedItemChange()"
           placeholder="CNIC"
+          maxlength="15"
         />
       </ng-container>
     </div>
   </div>
   <br />
   <div class="custom-row">
-    <div *ngIf="showCnicError">
-      <small class="custom-error-message"
-        >Invalid CNIC. Kindly enter a 13 digit CNIC.</small
-      >
-      <br /><br />
-    </div>
-    <button class="btn btn-success" (click)="isValidCnic('NADRA Report')">
+    <button class="btn btn-success" (click)="selectedItem = 'NADRA Report'">
       NADRA Report</button
     >&nbsp;
-    <button class="btn btn-success" (click)="isValidCnic('PMD Billing Report')">
+    <button
+      class="btn btn-success"
+      (click)="selectedItem = 'PMD Billing Report'"
+    >
       PMD Billing Report
     </button>
   </div>
